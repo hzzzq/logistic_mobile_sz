@@ -1,0 +1,225 @@
+<template>
+	<view class="u-page">
+		<view class="u-demo-block">
+			<text class="u-demo-block__title">消杀记录提交</text>
+			<view class="u-demo-block__content">
+				<!-- 表单 -->
+				<u--form labelPosition="left" :model="model1" ref="form1">
+					<!-- 标题 -->
+					<u-form-item label="单位编码" prop="reportInfo.branchCode" borderBottom labelWidth="80" ref="item1">
+						<u--input border="surround" disabled v-model="model1.reportInfo.branchCode" placeholder="单位名称不可为空">
+						</u--input>
+					</u-form-item>
+					<u-form-item label="消杀人员" prop="reportInfo.operator" borderBottom labelWidth="80" ref="item1">
+						<u--input border="surround" v-model="model1.reportInfo.operator" placeholder="记录人员名字不可为空">
+						</u--input>
+					</u-form-item>
+					<u-form-item label="消杀日期" prop="reportInfo.disinfectTime" borderBottom labelWidth="80" ref="item1" @click="dateShow = !dateShow">
+						<u--input border="surround" disabled v-model="model1.reportInfo.disinfectTime" placeholder="消杀日期">
+						</u--input>
+					</u-form-item>
+					<!-- 概况 -->
+					<!-- <u-form-item label="消杀概况" prop="reportInfo.description" labelWidth="80" borderBottom ref="item3" >
+						<u--textarea placeholder="请描述消杀概况" v-model="model1.reportInfo.description" count>
+						</u--textarea>
+					</u-form-item> -->
+					<!-- 图片相关 -->
+					<u-form-item ref="item4">
+						<view class="u-demo-block">
+							<text class="u-demo-block__title">图片文件</text>
+							<view class="u-demo-block__content">
+								<view class="u-page__upload-item">
+									<u-upload :fileList="pictureList" @afterRead="afterRead" @delete="deletePic"
+										capture accept="image" multiple :maxCount="3"
+										:previewFullImage="true"></u-upload>
+								</view>
+							</view>
+						</view>
+					</u-form-item>
+				</u--form>
+				<!-- 底层按钮 -->
+				<u-button type="primary" text="提交" customStyle="margin-top: 80rpx; width:320rpx;height:80rpx" @click="submit" size="large" color="#28c6c4"></u-button>
+				<u-button type="error" text="重置" customStyle="margin-top: 20rpx;width:320rpx;height:80rpx" @click="reset" size="large" color="#ca7b5a"></u-button>
+			</view>
+		</view>
+		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel" mode="date"></u-datetime-picker>
+	</view>
+</template>
+
+<script>
+	var that
+	import disinfect from '@/http/api/disinfect.js'
+	export default {
+		data() {
+			return {
+				// 表单绑定对象
+				model1: {
+					reportInfo: {
+						branchCode:'',
+						operator:'',
+						picture:'',
+						disinfectTime:''
+					},
+				},
+				dateShow:false,
+				// 表单校验规则
+				rules: {
+					'reportInfo.branchCode': {
+						type: 'string',
+						required: true,
+						message: '单位编码不可为空，请重试',
+						trigger: ['change']
+					},
+					'reportInfo.operator':{
+						type:'string',
+						required:true,
+						message:'记录人员名字不可为空',
+						trigger:['change']
+					},
+					'reportInfo.disinfectTime':{
+						type:'string',
+						required:true,
+						message:'消杀日期不可为空',
+						trigger:['change']
+					}
+					// 'reportInfo.description':{
+					// 	type:'string',
+					// 	required:true,
+					// 	message:'消杀概况信息不可为空',
+					// 	trigger:['change']
+					// }
+				},
+				//图片列表
+				pictureList: [],
+				date: Number(new Date()),
+			}
+		},
+		onReady() {
+			// 如果需要兼容微信小程序，并且校验规则中含有方法等，只能通过setRules方法设置规则
+			this.$refs.form1.setRules(this.rules)
+		},
+		created() {
+			const tempCode = uni.getStorageSync('menuCode')
+			if(tempCode){
+				this.model1.reportInfo.branchCode = tempCode
+			}else{
+				this.model1.reportInfo.branchCode = this.$Route.query.branchCode
+				uni.setStorageSync('menuCode', this.model1.reportInfo.branchCode)
+			}
+		},
+		mounted() {
+			that = this;
+		},
+		methods: {
+			// 删除图片
+			deletePic(event) {
+				this[`pictureList`].splice(event.index, 1)
+				that.model1.reportInfo.picture.splice(event.index,1)
+			},
+			// 新增图片  图片读取后的操作
+			async afterRead(event) {
+				// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
+				let lists = [].concat(event.file) //lists为当前图片数组
+				let fileListLen = this[`pictureList`].length //双向绑定图片数组的长度
+				lists.map((item) => {
+					this[`pictureList`].push({
+						...item,
+						status: 'uploading',
+						message: '上传中'
+					})
+				})
+				for (let i = 0; i < lists.length; i++) {
+					const result = await this.uploadFilePromise(lists[i].url)
+					let item = this[`pictureList`][fileListLen]
+					this[`pictureList`].splice(fileListLen, 1, Object.assign(item, {
+						status: 'success',
+						message: '上传成功',
+						url: result
+					}))
+					fileListLen++
+				}
+			},
+			//上传方法
+			uploadFilePromise(url) {
+				return new Promise((resolve, reject) => {
+					let a = uni.uploadFile({
+						url: 'http://101.33.249.154:8089/user/uploadImgs/img', // 仅为示例，非真实的接口地址
+						filePath: url,
+						name: 'uploadImgs',
+						header:{"token": uni.getStorageSync('token')},
+						success: (res) => {
+							let temp = JSON.parse(res.data)
+							if(that.model1.reportInfo.picture.length == 0){
+								that.model1.reportInfo.picture+=temp.data[0]
+							}else{
+								that.model1.reportInfo.picture+=(';'+temp.data[0])
+							}
+							console.log(that.model1.reportInfo.picture)
+							resolve()
+						},
+						fail(error) {
+							uni.$u.toast('图片上传失败，请重试')
+						}
+					});
+				})
+			},
+			//表单提交
+			submit() {
+				// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
+				this.$refs.form1.validate().then(res => {
+					disinfect.addDisinfect(that.model1.reportInfo).then((res)=>{
+						if(res.data.code!=200){
+							uni.$u.toast('数据上传失败，请重试')
+						}else{
+							that.reset();
+							that.model1.picture ='';
+							that.pictureList = []
+							uni.$u.toast('提交成功')
+						}
+					})
+				}).catch(errors => {
+					uni.$u.toast('校验失败')
+				})
+			},
+			//重置
+			reset() {
+				const validateList = ['reportInfo.branchCode', 'reportInfo.operator', "reportInfo.disinfectTime"
+				]
+				this.$refs.form1.resetFields()
+				this.$refs.form1.clearValidate()
+				setTimeout(() => {
+					this.$refs.form1.clearValidate(validateList)
+					// 或者使用 this.$refs.form1.clearValidate()
+				}, 10)
+			},
+			dateConfirm(e){
+				const timeFormat = uni.$u.timeFormat
+				let time = timeFormat(e.value, 'yyyy-mm-dd')
+				this.model1.reportInfo.disinfectTime = time
+				this.dateShow = false
+			},
+			// 选择器取消方法
+			cancel() {
+				this.dateShow = false
+			},
+		},
+	}
+</script>
+
+<style lang="scss" scoped>
+	.u-page {
+		padding: 30rpx 30rpx 80rpx 30rpx;
+	}
+
+	.u-demo-block__title {
+		font-size: 14px;
+		color: #8f9ca2;
+		margin-bottom: 8px;
+		display: flex;
+		flex-direction: row;
+	}
+
+	page {
+		background-color: #ffffff;
+	}
+</style>

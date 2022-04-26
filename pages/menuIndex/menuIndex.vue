@@ -1,0 +1,252 @@
+<template>
+	<view class="container">
+		<!-- 轮播图 -->
+		<view>
+			<u-swiper :list="swiper_list" @change="change" @click="click" height="400rpx"></u-swiper>
+		</view>
+		<!-- 操作栏 -->
+		<view>
+			<view class="u-demo-block" id="block_container">
+				<text class="block_title" id="title_text">功能模块</text>
+				<view>
+					<!-- 宫格展示 -->
+					<u-grid :border="false" col="3">
+						<u-grid-item v-for="(listItem,listIndex) in function_list" :key="listIndex" customStyle="padding-top: 10px; padding-bottom: 10px" @click="navTo(listItem.path)">
+							<!-- 宫格图标 -->
+							<u-icon :customStyle="{paddingTop:20+'rpx'}" :name="listItem.name" :size="28" :color="listItem.color"></u-icon>
+							<!-- 宫格文本 -->
+							<text class="grid-text" id="detail_title_text">{{listItem.title}}</text>
+						</u-grid-item>
+					</u-grid>
+				</view>
+			</view>
+		</view>
+	</view>
+
+</template>
+
+<script>
+	var that
+	import user from '@/http/api/user.js'
+	export default {
+		data() {
+			return {
+				userInfo: {},
+				swiper_list: [
+					'https://images.weserv.nl/?url=img2022.cnblogs.com/blog/1614106/202204/1614106-20220412190633624-609451251.png',
+					'https://images.weserv.nl/?url=img2022.cnblogs.com/blog/1614106/202204/1614106-20220412190643827-1389417433.png',
+					'https://images.weserv.nl/?url=img2022.cnblogs.com/blog/1614106/202204/1614106-20220412190651327-1007330676.png',
+					'https://images.weserv.nl/?url=img2022.cnblogs.com/blog/1614106/202204/1614106-20220411163458819-1432720006.png'
+				],
+				function_list: [],
+				branchCode: "",
+				menuList:[]
+			};
+		},
+		methods: {
+			// 跳转
+			navTo(path) {
+				this.$Router.push({ name: path, params: { branchCode: that.branchCode }}) 
+			},
+			//轮播图改变时的回调方法
+			change(e) {
+				// console.log('change', e);
+			},
+			//轮播图点击事件
+			click(e) {
+				console.log('click', e);
+			},
+			getFunction() {
+				// 功能列表
+				let list = [{
+						name: 'account',
+						title: '人员管理',
+						color: '#7fbdae',
+						path: 'account_list'
+					},
+					{
+						name: 'volume',
+						title: '体温核酸管理',
+						color: '#85b597',
+						path: 'nuclein_manager'
+					},
+					{
+						name: 'file-text',
+						title: '早餐台账',
+						color: '#cc7a55',
+						path: 'breakfast'
+					},
+					{
+						name: 'file-text',
+						title: '中餐台账',
+						color: '#85b597',
+						path: 'lunch'
+					},
+					{
+						name: 'file-text',
+						title: '晚餐台账',
+						color: '#ab818c',
+						path: 'supper'
+					},
+					{
+						name: 'home',
+						title: '消杀台账',
+						color: '#85b597',
+						path: 'disinfect_record'
+					},
+					{
+						name: 'volume',
+						title: '年检报告',
+						color: '#85b597',
+						path: 'year_report'
+					},
+					{
+						name: 'file-text',
+						title: '泔水上传',
+						color: '#ab818c',
+						path: 'swillRecord'
+					},
+					{
+						name: 'file-text',
+						title: '超市台账',
+						color: '#ab818c',
+						path: 'shopRecord'
+					},
+					{
+						name: 'volume',
+						title: '校车维保',
+						color: '#85b597',
+						path: 'repairRecord'
+					},
+				];
+				that.menuList.forEach(item=>{
+					// 人员核酸
+					if(item.branchCode.slice(-2)=="01"){
+						that.function_list.push(list[0],list[1])
+					}
+					// 早中晚餐
+					if(item.branchCode.slice(-2)=="02"){
+						that.function_list.push(list[2],list[3],list[4])
+					}
+					// 消杀
+					if(item.branchCode.slice(-2)=="03"){
+						that.function_list.push(list[5])
+					}
+					// 年检
+					if(item.branchCode.slice(-2)=="04"){
+						that.function_list.push(list[6])
+					}
+					// 泔水
+					if(item.branchCode.slice(-2)=="05"){
+						that.function_list.push(list[7])
+					}
+					// 超市台账
+					if(item.branchCode.slice(-2)=="06"){
+						that.function_list.push(list[8])
+					}
+					// 校车维保
+					if(item.branchCode.slice(-2)=="07"){
+						that.function_list.push(list[9])
+					}
+				})
+			}
+		},
+		mounted() {
+			that = this;
+			that.getFunction();
+		},
+		created() {
+			const tempCode = uni.getStorageSync('menuCode')
+			const tempMenu = uni.getStorageSync('menuInfo')
+			if(tempCode){
+				this.branchCode = tempCode
+			}else{
+				this.branchCode = this.$Route.query.branchCode
+				uni.setStorageSync('menuCode', this.branchCode)
+			}
+			if(tempMenu){
+				this.menuList = tempMenu
+			}else{
+				this.menuList = this.$Route.query.menu
+				uni.setStorageSync('menuInfo',this.menuList)
+			}
+		},
+		beforeDestroy() {
+			uni.removeStorage({
+				key:'menuCode'
+			})
+			uni.removeStorageSync('menuInfo')
+		}
+	};
+</script>
+
+<style lang="scss" scoped>
+	.container {
+		width: 100%;
+		min-height: 100%;
+		background-color: #f1f4fb;
+		position: relative;
+		padding-bottom: 64rpx;
+	}
+
+	.banner {
+		width: 100%;
+		height: 360rpx;
+
+		image {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	.tip {
+		color: #999;
+		padding: 24rpx 28rpx 12rpx 28rpx;
+	}
+
+	.list {
+		padding: 28rpx;
+
+		.list_item {
+			display: flex;
+			align-items: center;
+			align-content: center;
+			justify-content: space-between;
+			width: 100%;
+			padding: 0 18rpx;
+			background-color: #ffffff;
+			height: 118rpx;
+			border-radius: 18rpx;
+			margin-bottom: 28rpx;
+			box-shadow: 0 0 60rpx 0 rgba(43, 86, 112, 0.1);
+
+			.iconfont {
+				padding-right: 12rpx;
+				font-size: 42rpx;
+			}
+
+			.title {
+				font-size: 38rpx;
+				// font-weight: 700;
+			}
+
+			.more {
+				color: #999;
+			}
+		}
+	}
+
+	#block_container {
+		padding: 20rpx 20rpx;
+	}
+
+	#title_text {
+		font-weight: bold;
+	}
+
+	#detail_title_text {
+		font-weight: bold;
+		font-size: 28rpx;
+		padding-top: 10rpx;
+	}
+</style>

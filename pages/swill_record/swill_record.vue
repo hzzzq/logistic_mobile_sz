@@ -1,0 +1,102 @@
+<template>
+	<view style="width: 100%;height: 260rpx;background-color: #FFFFFF;padding: 12px 16px;">
+		<view style="padding: 6px 9px;">
+			<view><text class="label">当前时间：</text><text class="content">{{todayDate}}</text></view>
+		</view>
+		<view class="flex flexVc" style="margin-top: 10rpx;">
+			<text style="font-size: 32rpx;color:#8f9ca2;margin-left: 20rpx;">泔水重量：</text>
+			<input type="number" v-model="swillInfo.weight" placeholder="输入数量" class="input"/><text style="font-size: 28rpx;margin-left: 10rpx;">千克</text>
+		</view>
+		<view class="btn" @click="update()" style="float: right; margin-right:20rpx;">
+			提交
+		</view>
+	</view>
+</template>
+
+<script>
+	import meal from '@/http/api/meal.js'
+	var that 
+	export default {
+		data() {
+			return {
+				date: Number(new Date()),
+				todayDate:'',
+				swillInfo:{
+					branchCode: "",
+					operator: "",
+					recordTime: "",
+					weight: 0
+				}
+			}
+		},
+		mounted() {
+			that = this
+			this.getTodayDate()
+		},
+		created() {
+			const tempCode = uni.getStorageSync('menuCode')
+			if(tempCode){
+				this.swillInfo.branchCode = tempCode
+			}else{
+				this.swillInfo.branchCode = this.$Route.query.branchCode
+				uni.setStorageSync('menuCode', this.branchCode)
+			}
+			const tempInfo = uni.getStorageSync('userInfo')
+			this.swillInfo.operator = tempInfo.adminName
+		},
+		methods: {
+			//获取今日日期
+			getTodayDate(){
+				const timeFormat = uni.$u.timeFormat
+				let time = timeFormat(that.date,'yyyy-mm-dd')
+				that.todayDate = time
+				that.swillInfo.recordTime = time
+			},
+			update(){
+				console.log(that.swillInfo)
+				meal.updateSwill(that.swillInfo).then(res=>{
+					if(res.data.code!=200){
+						uni.$u.toast('数据请求错误，请重试')
+					}else{
+						uni.$u.toast("上传成功")
+						that.$router.go(0)
+					}
+				})
+			}
+		}
+	}
+</script>
+
+<style>
+	.label {
+		color: #999;
+		font-size: 32rpx;
+	}
+	
+	.content {
+		/* padding: 0 12rpx; */
+		font-size: 30rpx;
+	}
+	.input{
+		margin-left: 20rpx;  
+		width: 160rpx; 
+		height: 50rpx; 
+		font-size: 28rpx; 
+		border:#dadbde solid;
+		border-width: 0.5px;
+		border-radius: 4px; 
+		padding: 6px 9px;
+	}
+	.btn {
+			width: 200rpx;
+			height: 52rpx;
+			background-color: #28c6c4;
+			color: #FFFFFF;
+			line-height: 52rpx;
+			text-align: center;
+			border-radius: 18rpx;
+			/* margin: 0 auto; */
+			margin-top: 28rpx;
+			font-size: 30rpx;
+		}
+</style>

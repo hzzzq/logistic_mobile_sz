@@ -1,0 +1,249 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			//首页
+			"path": "pages/index/index",
+			"name": "index",
+			"meta":{
+				"requireAuth": "true"
+			},
+			"aliasPath": "/index",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "首页",
+			    "navigationStyle": "custom"
+			}
+		},
+		{
+			//登录页面
+		    "path" : "pages/login/login",
+			"name": "login",
+			"meta":{
+				"requireAuth": "false"
+			},
+			"aliasPath": "/login",
+		    "style" :                                                                                    
+		    {
+				"navigationBarTitleText": "登录",
+		        "navigationStyle": "custom"
+		    }
+		    
+		},
+		{
+			//人员管理首页
+		    "path" : "pages/account_management/index",
+			"name": "account_list",
+			"meta":{
+				"requireAuth": "true"
+			},
+			"aliasPath": "/account_list",
+		    "style" :                                                                                    
+		    {
+				"navigationBarTitleText": "人员管理",
+				"navigationStyle": "custom"
+				// "onReachBottomDistance":"200"
+		    }
+		    
+		},
+		{
+			//人员详情页
+			"path" : "pages/account_management/details",
+			"name": "account_details",
+			"meta":{
+				"requireAuth": "true"
+			},
+			"aliasPath": "/account_details",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "人员详情",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+		    "path" : "pages/dinner_service/breakfast/breakfast",
+			"name": "breakfast",
+			"meta":{
+				"requireAuth": "true"
+			},
+			"aliasPath": "/breakfast",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "早餐记录",
+				"navigationStyle": "custom",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		
+	    ,{
+            "path" : "pages/dinner_service/lunch/lunch",
+			"name" : "lunch",
+			"meta":{
+				"requireAuth": "true"
+			},
+			"aliasPath": "/lunch",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "午餐记录",
+				"navigationStyle": "custom",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/dinner_service/supper/supper",
+			"name" : "supper",
+			"meta":{
+				"requireAuth": "true"
+			},
+			"aliasPath": "/supper",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "晚餐记录",
+				"navigationStyle": "custom",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		    "path" : "pages/year_report/index",
+			"name" : "year_report",
+			"meta":{
+				"requireAuth": "true"
+			},
+			"aliasPath": "/year_report",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "年检报告",
+				"navigationStyle": "custom",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/disinfect_record/index",
+			"name" : "disinfect_record",
+			"meta":{
+				"requireAuth": "true"
+			},
+			"aliasPath": "/disinfect_record",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "消杀台账",
+				"navigationStyle": "custom",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/shop_record/index",
+			"name" : "shop_record",
+			"meta":{
+				"requireAuth": "true"
+			},
+			"aliasPath": "/shop_record",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "超市台账",
+				"navigationStyle": "custom",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/account_management/addUser/addUser",
+			"name" : "addUser",
+			"meta":{
+				"requireAuth": "true"
+			},
+			"aliasPath" : "/addUser",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加用户",
+				"navigationStyle": "custom",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/nuclein_manager/nuclein_manager",
+			"name": "nuclein_manager",
+			"meta":{
+				"requireAuth": "true"
+			},
+			"aliasPath":"/nucleinManager",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "核酸管理",
+				"navigationStyle": "custom",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/menuIndex/menuIndex",
+			"name": "menuIndex",
+			"meta":{
+				"requireAuth": "true"
+			},
+			"aliasPath":"/menuIndex",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "菜单首页",
+                "enablePullDownRefresh": false,
+				"navigationStyle":"custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/dinner_service/addRecord/addRecord",
+			"name":"addRecord",
+			"meta":{
+				"requireAuth":"true"
+			},
+			"aliasPath":"/addRecord",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加台账",
+                "enablePullDownRefresh": false,
+				"navigationStyle":"custom"
+            }
+        }
+        ,{
+            "path" : "pages/swill_record/swill_record",
+			"name":"swillRecord",
+			"meta":{
+				"requireAuth":"true"
+			},
+			"aliasPath":"/swillRecord",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "泔水上传",
+                "enablePullDownRefresh": false,
+				"navigationStyle":"custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/repair_record/repair_record",
+			"name":"repairRecord",
+			"meta":{
+				"requireAuth":"true"
+			},
+			"aliasPath":"/repairRecord",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "维保上传",
+                "enablePullDownRefresh": false,
+				"navigationStyle":"custom"
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}

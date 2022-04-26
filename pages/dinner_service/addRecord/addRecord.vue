@@ -1,0 +1,310 @@
+<template>
+	<view>
+		<!-- 商品选择 -->
+		<view class="upload_box" style="margin: 0;">
+			<text style="font-size: 28rpx;color:#8f9ca2;">台账上传：</text>
+			<view>
+				<uni-data-picker style="margin-top: 10rpx;" placeholder="请选择商品" popup-title="选择商品"  @nodeclick="nodeClick($event,'first')" :localdata="dataTree" ></uni-data-picker>
+				<view class="flex flexVc" style="margin-top: 10rpx;">
+					<text style="font-size: 28rpx;color:#8f9ca2;margin-left: 20rpx;">价格：<text>{{commodityList[0].price}}元</text></text>
+					<input type="number" placeholder="输入数量" class="quantityInput" @blur="inputHandler($event,'first')" v-model="commodityList[0].quantity"/>
+				</view>
+			</view>
+			<view>
+				<uni-data-picker style="margin-top: 10rpx;" placeholder="请选择商品" popup-title="选择商品"  @nodeclick="nodeClick($event,'second')" :localdata="dataTree"></uni-data-picker>
+				<view class="flex flexVc" style="margin-top: 10rpx;">
+					<text style="font-size: 28rpx;color:#8f9ca2;margin-left: 20rpx;">价格：<text>{{commodityList[1].price}}元</text></text>
+					<input type="number" placeholder="输入数量" class="quantityInput" @blur="inputHandler($event,'second')" v-model="commodityList[1].quantity"/>
+				</view>
+			</view>
+			<view>
+				<uni-data-picker style="margin-top: 10rpx;" placeholder="请选择商品" popup-title="选择商品"  @nodeclick="nodeClick($event,'third')" :localdata="dataTree" ></uni-data-picker>
+				<view class="flex flexVc" style="margin-top: 10rpx;">
+					<text style="font-size: 28rpx;color:#8f9ca2;margin-left: 20rpx;">价格：<text>{{commodityList[2].price}}元</text></text>
+					<input type="number" placeholder="输入数量" class="quantityInput" @blur="inputHandler($event,'third')" v-model="commodityList[2].quantity"/>
+				</view>
+			</view>
+		</view>
+
+		<!-- 下午拍照上传 -->
+		<view class="upload_box">
+			<view class="header">
+				图片上传
+			</view>
+			<u-upload :fileList="pictureList" @afterRead="afterRead" @delete="deletePic" name="2" multiple :maxCount="3"></u-upload>
+		</view>
+		<view class="btn" @click="update">
+			上传
+		</view>
+	</view>
+</template>
+
+<script>
+	var that 
+	import meal from '@/http/api/meal.js'
+export default {
+	data() {
+		return {
+			commodityList:[
+				{
+					branchCode: "",//
+					category: "",
+					commodityName: "",
+					operator: "",//
+					picture: "",
+					price: 0,
+					quantity: ""
+				},
+				{
+					branchCode: "",//
+					category: "",
+					commodityName: "",
+					operator: "",//
+					picture: "",
+					price: 0,
+					quantity: ""
+				},
+				{
+					branchCode: "",//
+					category: "",
+					commodityName: "",
+					operator: "",//
+					picture: "",
+					price: 0,
+					quantity: ""
+				}
+			],
+			pictureList:[],
+			dataTree: [],
+			branchCode:'',
+			operator:'',
+			pictureUrlList:[],
+			/* 未格式化的时间 */
+			date: Number(new Date()),
+			/* 格式化时间 */
+			todayDate:'',
+			/* 早中晚餐信息 */
+			mealCategory:''
+			
+		};
+	},
+	mounted() {
+		that = this
+		that.getTodayDate()
+		that.getCommodity()
+		// that.getData(that.branchCode)
+		that.dataInit()
+	},
+	created() {
+		/* 子菜单branchCode */
+		const tempCode = uni.getStorageSync('menuCode')
+ 		/*路由传值 区别早中晚餐*/	
+		const mealCategory = uni.getStorageSync('mealCategory')
+		if(tempCode){
+			this.branchCode = tempCode
+		}else{
+			this.branchCode = this.$Route.query.branchCode
+			uni.setStorageSync('menuCode', this.branchCode)
+		}
+		if(mealCategory){
+			this.mealCategory = mealCategory
+		}else{
+			this.mealCategory = this.$Route.query.category
+			uni.setStorageSync('mealCategory',this.mealCategory)
+		}
+		// 操作人员
+		const tempInfo = uni.getStorageSync('userInfo')
+		this.operator = tempInfo.adminName;
+		
+	},
+	beforeDestroy() {
+		uni.removeStorageSync('mealCategory')
+	},
+	methods: {
+		/* 获取商品 */
+		getCommodity(){
+			let temp = {category:that.mealCategory,pageSize:9999}
+			console.log(temp)
+			meal.getCommodity(temp).then((res)=>{
+				if(res.data.code != 200){
+					uni.$u.toast('数据请求失败，请重试')
+				}else{
+					res.data.data.records.forEach((item)=>{
+						let obj = {
+							text: item.dictName,
+							value: item.dictId,
+							price: item.details
+						}
+						that.dataTree.push(obj)
+					})
+					// console.log(that.dataTree)
+				}
+			})
+		},
+		dataInit(){
+			that.commodityList.forEach((item)=>{
+				item.branchCode = that.branchCode
+				item.operator = that.operator
+				item.category = that.mealCategory
+			})
+			console.log(that.commodityList)
+		},
+		//获取今日日期
+		getTodayDate(){
+			const timeFormat = uni.$u.timeFormat
+			let time = timeFormat(that.date,'yyyy-mm-dd')
+			that.todayDate = time
+		},
+		nodeClick(e,index){
+			console.log(e)
+			//index代表是第几个商品
+			if(index == 'first'){
+				that.commodityList[0].commodityName = e.text
+				that.commodityList[0].price = e.price
+			}else if(index == 'second'){
+				that.commodityList[1].commodityName = e.text
+				that.commodityList[1].price = e.price
+			}else if(index == 'third'){
+				that.commodityList[2].commodityName = e.text
+				that.commodityList[2].price = e.price
+			}
+			// console.log(that.commodityList)
+		},
+		inputHandler(e,index){
+			if(index == 'first'){
+				that.commodityList[0].quantity = e.detail.value
+			}else if(index == 'second'){
+				that.commodityList[1].quantity = e.detail.value
+			}else if(index == 'third'){
+				that.commodityList[2].quantity = e.detail.value
+			}
+		},
+		// 删除图片
+		deletePic(event) {
+			this[`pictureList`].splice(event.index, 1)
+			this[`pictureUrlList`].splice(event.index, 1)
+		},
+		// 新增图片  图片读取后的操作
+		async afterRead(event) {
+			// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
+			let lists = [].concat(event.file) //lists为当前图片数组
+			let fileListLen = this[`pictureList`].length //双向绑定图片数组的长度
+			lists.map((item) => {
+				this[`pictureList`].push({
+					...item,
+					status: 'uploading',
+					message: '上传中'
+				})
+			})
+			for (let i = 0; i < lists.length; i++) {
+				const result = await this.uploadFilePromise(lists[i].url)
+				let item = this[`pictureList`][fileListLen]
+				this[`pictureList`].splice(fileListLen, 1, Object.assign(item, {
+					status: 'success',
+					message: '图片上传成功',
+					url: result
+				}))
+				fileListLen++
+			}
+		},
+		//上传方法
+		uploadFilePromise(url) {
+			return new Promise((resolve, reject) => {
+				let a = uni.uploadFile({
+					url: 'http://101.33.249.154:8089/user/uploadImgs/img', // 仅为示例，非真实的接口地址
+					filePath: url,
+					name: 'uploadImgs',
+					header:{"token": uni.getStorageSync('token')},
+					success: (res) => {
+						let temp = JSON.parse(res.data)
+						that.pictureUrlList.push(temp.data[0])
+						// console.log(that.pictureUrlList)
+						resolve()
+					},
+					fail() {
+						uni.$u.toast('图片上传失败，请重试')
+					}
+				});
+			})
+		},
+		async update(){
+			if(that.pictureUrlList.length!=3){
+				uni.$u.toast("请上传3张图片")
+			}else{
+				let i = 0;
+				let flag = true
+				for(var j=0;j<that.commodityList.length;j++){
+					if(that.commodityList[j].commodityName == ""){
+						flag = false;
+						break;
+					}
+					if(that.commodityList[j].quantity == ""){
+						flag = false;
+						break;
+					}
+					that.commodityList[j].picture = that.pictureUrlList[i];
+					i++;
+				}
+				//判断信息是否完整  不完整上部循环会直接跳出到这里进行toast
+				if(!flag){
+					uni.$u.toast("请填写完整信息")
+				}else{
+					//添加数据
+					meal.addMealsRecord(that.commodityList).then(res=>{
+						if(res.data.code!=200){
+							uni.$u.toast(res.data.msg)
+						}else{
+							uni.$u.toast("数据上传成功")
+							// 重定向刷新数据
+							setTimeout(()=>{
+								that.$router.go(0)
+							},500)
+						}
+					})
+				}
+			}
+		}
+		
+	}
+};
+</script>
+
+<style lang="scss" scoped>
+	.upload_box {
+		margin-top: 18rpx;
+		background-color: #FFFFFF;
+		padding: 24rpx ;
+		.header {
+		   font-size: 14px;
+		   line-height: 56rpx;
+		   color: #8f9ca2;
+		}
+	}
+	.btn {
+			width: 320rpx;
+			height: 72rpx;
+			background-color: #28c6c4;
+			color: #FFFFFF;
+			line-height: 72rpx;
+			text-align: center;
+			border-radius: 18rpx;
+			margin: 0 auto;
+			margin-top: 36rpx;
+			font-size: 30rpx;
+		}
+	.point_container{
+		background-color: #FFFFFF;
+		height: 120rpx;
+		padding: 50rpx 30rpx;
+	}
+	.quantityInput{
+		margin-left: 20rpx;  
+		width: 150rpx; 
+		height: 50rpx; 
+		font-size: 28rpx; 
+		border:#dadbde solid;
+		border-width: 0.5px;
+		border-radius: 4px; 
+		padding: 6px 9px;
+	}
+</style>
