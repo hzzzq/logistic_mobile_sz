@@ -88,7 +88,7 @@
 			},
 			// 退出登录
 			loginOut() {
-				this.$Router.replace('/login');
+				this.$Router.replace({name: 'login'})
 			},
 			//轮播图改变时的回调方法
 			change(e) {
@@ -114,6 +114,7 @@
 					content: '是否退出登录',
 					success: function (res) {
 						if (res.confirm) {
+							console.log("清除缓存")
 							uni.clearStorageSync('user_info');
 							next()
 						} else if (res.cancel) {
@@ -135,7 +136,9 @@
 			that.userInfo = userInfo
 		},
 		beforeRouteLeave(to,from,next) {
+			console.log(to)
 			if(to.name == "login"){
+				console.log("弹窗")
 				that.outLoginModal(next)
 			}else{
 				next()

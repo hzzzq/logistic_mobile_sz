@@ -151,7 +151,8 @@
 				that.commodityInfo.recordTime = that.todayDate;
 				that.commodityInfo.adminId = that.adminId
 				that.commodityInfo.contrastSupermarket = e.value[0]
-				market.alterMarketRecord(that.commodityInfo).then((res)=>{
+				let temp = JSON.stringify(that.commodityInfo)
+				market.alterMarketRecord(temp).then((res)=>{
 					if(res.data.code!=200){
 						uni.$u.toast('数据提交失败，请重试')
 					}else{

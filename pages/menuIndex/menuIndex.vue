@@ -110,7 +110,7 @@
 						name: 'file-text',
 						title: '超市台账',
 						color: '#ab818c',
-						path: 'shopRecord'
+						path: 'shop_record'
 					},
 					{
 						name: 'volume',

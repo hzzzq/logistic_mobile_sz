@@ -5,7 +5,7 @@
 			"path": "pages/index/index",
 			"name": "index",
 			"meta":{
-				"requireAuth": "true"
+				"requireAuth": true
 			},
 			"aliasPath": "/index",
 			"style" :                                                                                    
@@ -19,9 +19,8 @@
 		    "path" : "pages/login/login",
 			"name": "login",
 			"meta":{
-				"requireAuth": "false"
+				"requireAuth": false
 			},
-			"aliasPath": "/login",
 		    "style" :                                                                                    
 		    {
 				"navigationBarTitleText": "登录",
@@ -34,7 +33,7 @@
 		    "path" : "pages/account_management/index",
 			"name": "account_list",
 			"meta":{
-				"requireAuth": "true"
+				"requireAuth": true
 			},
 			"aliasPath": "/account_list",
 		    "style" :                                                                                    
@@ -50,7 +49,7 @@
 			"path" : "pages/account_management/details",
 			"name": "account_details",
 			"meta":{
-				"requireAuth": "true"
+				"requireAuth": true
 			},
 			"aliasPath": "/account_details",
 			"style" :                                                                                    
@@ -63,7 +62,7 @@
 		    "path" : "pages/dinner_service/breakfast/breakfast",
 			"name": "breakfast",
 			"meta":{
-				"requireAuth": "true"
+				"requireAuth": true
 			},
 			"aliasPath": "/breakfast",
 		    "style" :                                                                                    
@@ -79,7 +78,7 @@
             "path" : "pages/dinner_service/lunch/lunch",
 			"name" : "lunch",
 			"meta":{
-				"requireAuth": "true"
+				"requireAuth": true
 			},
 			"aliasPath": "/lunch",
             "style" :                                                                                    
@@ -94,7 +93,7 @@
             "path" : "pages/dinner_service/supper/supper",
 			"name" : "supper",
 			"meta":{
-				"requireAuth": "true"
+				"requireAuth": true
 			},
 			"aliasPath": "/supper",
             "style" :                                                                                    
@@ -109,7 +108,7 @@
 		    "path" : "pages/year_report/index",
 			"name" : "year_report",
 			"meta":{
-				"requireAuth": "true"
+				"requireAuth": true
 			},
 			"aliasPath": "/year_report",
 		    "style" :                                                                                    
@@ -124,7 +123,7 @@
 		    "path" : "pages/disinfect_record/index",
 			"name" : "disinfect_record",
 			"meta":{
-				"requireAuth": "true"
+				"requireAuth": true
 			},
 			"aliasPath": "/disinfect_record",
 		    "style" :                                                                                    
@@ -139,7 +138,7 @@
 		    "path" : "pages/shop_record/index",
 			"name" : "shop_record",
 			"meta":{
-				"requireAuth": "true"
+				"requireAuth": true
 			},
 			"aliasPath": "/shop_record",
 		    "style" :                                                                                    
@@ -154,7 +153,7 @@
             "path" : "pages/account_management/addUser/addUser",
 			"name" : "addUser",
 			"meta":{
-				"requireAuth": "true"
+				"requireAuth": true
 			},
 			"aliasPath" : "/addUser",
             "style" :                                                                                    
@@ -169,7 +168,7 @@
             "path" : "pages/nuclein_manager/nuclein_manager",
 			"name": "nuclein_manager",
 			"meta":{
-				"requireAuth": "true"
+				"requireAuth": true
 			},
 			"aliasPath":"/nucleinManager",
             "style" :                                                                                    
@@ -184,7 +183,7 @@
             "path" : "pages/menuIndex/menuIndex",
 			"name": "menuIndex",
 			"meta":{
-				"requireAuth": "true"
+				"requireAuth": true
 			},
 			"aliasPath":"/menuIndex",
             "style" :                                                                                    
@@ -199,7 +198,7 @@
             "path" : "pages/dinner_service/addRecord/addRecord",
 			"name":"addRecord",
 			"meta":{
-				"requireAuth":"true"
+				"requireAuth":true
 			},
 			"aliasPath":"/addRecord",
             "style" :                                                                                    
@@ -213,7 +212,7 @@
             "path" : "pages/swill_record/swill_record",
 			"name":"swillRecord",
 			"meta":{
-				"requireAuth":"true"
+				"requireAuth":true
 			},
 			"aliasPath":"/swillRecord",
             "style" :                                                                                    
@@ -228,7 +227,7 @@
             "path" : "pages/repair_record/repair_record",
 			"name":"repairRecord",
 			"meta":{
-				"requireAuth":"true"
+				"requireAuth":true
 			},
 			"aliasPath":"/repairRecord",
             "style" :                                                                                    
