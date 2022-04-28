@@ -56,7 +56,7 @@
 		watch: {
 		    keywords: {
 		        handler(newValue, oldValue) {
-					if(oldValue!=undefine&&newValue ==''){
+					if(oldValue!=undefined&&newValue ==''){
 						let temp = {branchCode:that.branchCode}
 						that.getData(temp)
 						that.searchFlag = false

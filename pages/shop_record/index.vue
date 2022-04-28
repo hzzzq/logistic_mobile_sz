@@ -2,7 +2,7 @@
 	<view>
 		<!-- 搜索 -->
 		<view class="search_box">
-			<u-search v-model="params.keywords" placeholder="输入商品名称快速查找" @search="handleSerach()" @clear="handleClear()">
+			<u-search v-model="keywords" placeholder="输入商品名称快速查找" @custom="handleSearch($event)" @clear="handleClear()">
 			</u-search>
 		</view>
 		<!-- 列表 -->
@@ -50,11 +50,7 @@
 		data() {
 			return {
 				commodityInfo:{},
-				params: { // 获取数据参数
-					page: 1,
-					limit: 14,
-					keywords: ''
-				},
+				keywords: '',
 				total: 0, // 总数据条数
 				list: [],
 				currentItem:'',
@@ -63,22 +59,49 @@
 				marketColumns:[],
 				date: Number(new Date()),
 				adminId:'',
-				todayDate:''
+				todayDate:'',
+				/* 判断是否处于搜索状态 */
+				searchFlag:false,
+				refreshFlag:true,
+				pageInfo:{
+					current:'',
+					pages:''
+				}
 			};
 		},
+		watch: {
+		    keywords: {
+		        handler(newValue, oldValue) {
+					if(oldValue!=undefined&&newValue ==''){
+						let temp = {branchCode:that.branchCode}
+						that.getData(temp)
+						that.searchFlag = false
+					}
+		        },
+		        immediate: true
+		    }
+		},
 		onReachBottom() { // 触底事件
-			if (this.total >= this.params.page * this.params.limit) {
-				this.params.page++
-				this.$nextTick(() => {
-					this.getMore()
-				})
-				return
+			let temp = that.pageInfo
+			// console.log(that.userList)
+			if(temp.current<temp.pages){
+				that.getMore();
+				// 表名不处于刷新状态
+				that.refreshFlag = false;
+			}else{
+				//不处于刷新状态时下拉触发最后一页  原因：刷新会触发触底函数
+				if(!that.refreshFlag){
+					uni.$u.toast("已经是最后一页了！")
+				}
 			}
 		},
 		mounted() {
 			that = this
-			that.getData()
+			let temp = {branchCode:that.branchCode}
+			that.getData(temp)
+			//获取超市列表
 			that.getMarket()
+			//获取时间
 			that.getTodayDate()
 		},
 		created() {
@@ -91,16 +114,29 @@
 			}
 			const tempInfo = uni.getStorageSync('userInfo')
 			this.adminId = tempInfo.adminId
-			console.log(this.adminId)
 		},
 		methods: {
 			// 获取商品数据
-			getData(){
-				market.findMarketRecord(that.branchCode).then((res)=>{
+			getData(params) {
+				market.findMarketRecord(params).then((res)=>{
 					if(res.data.code!=200){
 						uni.$u.toast('数据请求失败，请重试')
 					}else{
 						that.list = res.data.data.records
+						that.pageInfo.current = res.data.data.current
+						that.pageInfo.pages = res.data.data.pages
+					}
+				})
+			},
+			getNextPage(temp){
+				market.findMarketRecord(temp).then((res)=>{
+					if(res.data.code!=200){
+						uni.$u.toast('数据请求失败，请重试')
+					}else{
+						/* 与getdata区别开  一个为等于 一个为数组合并 */
+						that.list.push.apply(that.list, res.data.data.records);
+						that.pageInfo.current = res.data.data.current
+						that.pageInfo.pages = res.data.data.pages
 					}
 				})
 			},
@@ -128,23 +164,43 @@
 				that.commodityInfo = item;
 			},
 			// 搜索事件
-			handleSearch() {
+			handleSearch(e) {
 				// 使用keyword进行按需搜索
-				this.getData()
+				if(e!=""){
+					let temp = {branchCode : that.branchCode, name: e}
+					that.getData(temp)
+					that.searchFlag = true
+				}else{
+					/* 无内容点击搜索框按钮 */
+					let temp = {branchCode: that.branchCode}
+					that.getData(temp)
+				}
 			},
 			// 输入框清空
 			handleClear() {
 				this.params.keywords = '',
 					this.$nextTick(() => {
 						//获取所有数据
-						this.getData()
+						let temp = {branchCode:that.branchCode}
+						this.getData(temp)
 					})
 			},
 			// 加载下一页数据
 			async getMore() {
-				const res = await getAccountList(this.params)
-				if (res.data.code == 200) {
-					this.list = [...this.list, ...res.data] || []
+				//判断是搜索后的数据的下一页  还是未搜索的数据的下一页： searchFlag
+				if(that.searchFlag = true){
+					let temp = {
+						branchCode : that.branchCode,
+						pageNum: that.pageInfo.current+1,
+						name: that.keywords
+					}
+					await that.getNextPage(temp)
+				}else{
+					let temp = {
+						branchCode : that.branchCode,
+						pageNum: that.pageInfo.current+1
+					}
+					that.getNextPage(temp)
 				}
 			},
 			marketConfirm(e) {
@@ -163,11 +219,6 @@
 			},
 			cancel() {
 				that.marketShow = false
-			},
-			editClick(index){
-				this.currentItem = index;
-				this.nucleinShow = true;
-				console.log(this.currentItem)
 			},
 			handleInputUpdate(e){
 				let temp = that.commodityInfo

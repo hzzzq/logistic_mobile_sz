@@ -7,7 +7,7 @@
 		<!-- 列表 -->
 		<view class="list">
 			<u-empty id="empty" text="暂无数据" marginTop="120" v-if="(list.length == 0 ? true:false)"></u-empty>
-			<view class="list_item" v-for="(item, index) in list" :key="'list' + index">
+			<view class="list_item" style="margin-bottom: 8rpx;" v-for="(item, index) in list" :key="'list' + index">
 				<!-- row1 -->
 				<view class="info_item flex">
 					<view><text class="label">姓名:</text><text class="content">{{item.name}}</text></view>
@@ -71,7 +71,7 @@
 			return {
 				//核酸信息
 				nucleinInfo:{
-					nucleinResult:true,
+					nucleinResult:false,
 					nucleinTime:'',
 					operator:'',
 					userId:''
@@ -104,7 +104,7 @@
 		watch: {
 		    keywords: {
 		        handler(newValue, oldValue) {
-					if(oldValue!=undefine&&newValue ==''){
+					if(oldValue!=undefined&&newValue ==''){
 						let temp = {branchCode:that.branchCode}
 						that.getData(temp)
 						that.searchFlag = false
