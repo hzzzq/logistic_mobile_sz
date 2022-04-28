@@ -58,7 +58,6 @@
 				that.swillInfo.recordTime = time
 			},
 			update(){
-				console.log(that.swillInfo)
 				meal.updateSwill(that.swillInfo).then(res=>{
 					if(res.data.code!=200){
 						uni.$u.toast('数据请求错误，请重试')

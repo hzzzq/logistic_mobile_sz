@@ -272,9 +272,7 @@
 			// 获取用户信息详情
 			getData(){
 				let temp =  {userId: this.userId , branchCode: that.branchCode}
-				console.log(temp)
 				employee.findAll(temp).then((res)=>{
-					console.log(res.data)
 					if(res.data.code!=200){
 						uni.showToast({
 							title:"请求数据失败，请重试",

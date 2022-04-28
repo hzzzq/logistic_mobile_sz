@@ -67,7 +67,7 @@
 			"aliasPath": "/breakfast",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "早餐记录",
+		        "navigationBarTitleText": "早餐台账",
 				"navigationStyle": "custom",
 		        "enablePullDownRefresh": false
 		    }
@@ -83,7 +83,7 @@
 			"aliasPath": "/lunch",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "午餐记录",
+                "navigationBarTitleText": "中餐台账",
 				"navigationStyle": "custom",
                 "enablePullDownRefresh": false
             }
@@ -98,7 +98,7 @@
 			"aliasPath": "/supper",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "晚餐记录",
+                "navigationBarTitleText": "晚餐台账",
 				"navigationStyle": "custom",
                 "enablePullDownRefresh": false
             }

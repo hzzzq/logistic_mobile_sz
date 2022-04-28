@@ -114,7 +114,6 @@
 		    }
 		},
 		onReachBottom() { // 触底事件
-			console.log("触底")
 			let temp = that.pageInfo
 			if(temp.current<temp.pages){
 				that.getMore();
@@ -149,7 +148,6 @@
 			getData(branchCode){
 				let temp = {branchCode: branchCode}
 				employee.findAll(temp).then((res)=>{
-					console.log(res.data.data)
 					if(res.data.code!=200){
 						uni.$u.toast('数据请求失败，请重试')
 					}else{	
@@ -176,7 +174,6 @@
 			},
 			getNextPage(temp){
 				employee.findAll(temp).then((res)=>{
-					console.log(res.data)
 					if(res.data.code!=200){
 						uni.showToast({
 							title:"数据获取失败，请重试",

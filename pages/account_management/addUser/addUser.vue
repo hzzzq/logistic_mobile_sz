@@ -430,7 +430,6 @@
 			}
 			let tempName = uni.getStorageSync('menuName')
 			this.model1.userInfo.branchName = tempName;
-			// console.log("that.model1.userInfo")
 		},
 		mounted() {
 			that = this;

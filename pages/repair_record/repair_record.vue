@@ -109,7 +109,6 @@
 							}else{
 								that.model1.reportInfo.picture+=(';'+temp.data[0])
 							}
-							console.log(that.model1.reportInfo.picture)
 							resolve()
 						},
 						fail() {
@@ -123,7 +122,6 @@
 			submit() {
 				// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
 				this.$refs.form1.validate().then(res => {
-					console.log(that.model1.reportInfo)
 					bus.addRepair(that.model1.reportInfo).then(res=>{
 						if(res.data.code!=200){
 							uni.$u.toast('上传失败，请重试')
@@ -133,7 +131,6 @@
 						}
 					})
 				}).catch(errors => {
-					console.log(errors)
 					uni.$u.toast('校验失败')
 				})
 			},

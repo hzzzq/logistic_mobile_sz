@@ -8,7 +8,6 @@ const router = createRouter({
 
 let token
 
-console.log(token)
 //全局路由前置守卫
 router.beforeEach((to, from, next) => {
 	uni.getStorage({

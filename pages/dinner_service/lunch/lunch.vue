@@ -1,8 +1,8 @@
 <template>
 	<view>
-		<view class="flex flexVc point_container" style="text-align: center; justify-content: center;">
+<!-- 		<view class="flex flexVc point_container" style="text-align: center; justify-content: center;">
 			<text style="font-size: 34rpx; font-weight: bold;">中餐台账</text>
-		</view>
+		</view> -->
 		<!-- 上午拍照上传 -->
 		<view class="upload_box">
 			<view class="header">
@@ -113,7 +113,7 @@ export default {
 					current: index,
 					urls: that.fileList1,
 					fail(err) {
-						console.log(err)
+						uni.$u.toast(err)
 					}
 				});
 			} else {
@@ -121,7 +121,7 @@ export default {
 					current: index,
 					urls: that.fileList2,
 					fail(err) {
-						console.log(err)
+						uni.$u.toast(err)
 					}
 				});
 			}
@@ -161,8 +161,8 @@ export default {
 
 	.point_container {
 		background-color: #FFFFFF;
-		height: 120rpx;
-		padding: 50rpx 30rpx;
+		height: 80rpx;
+		padding: 43rpx 30rpx;
 	}
 
 	.image_container {

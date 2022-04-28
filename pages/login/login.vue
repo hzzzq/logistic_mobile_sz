@@ -114,7 +114,6 @@
 				} else {
 					user.login(that.userInfo).then(res=>{
 						if(res.data.code == 200){
-							console.log(res.data)
 							let token = res.data.data.token
 							let userInfo = res.data.data.data
 							// 01 02
@@ -149,7 +148,6 @@
 					})
 					let params = JSON.stringify(that.findInfo)
 					user.findPassword(params).then(res=>{
-						console.log(res.data)
 						if(res.data.code!=200){
 							uni.$u.toast(msg)
 						}else{

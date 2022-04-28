@@ -72,7 +72,6 @@
 			// 根据用户权限获取对应菜单
 			getMenu(params) {
 				user.getMenu(params).then((res) => {
-					console.log(res.data)
 					if (res.data.code != 200) {
 						uni.showToast({
 							title: '数据请求错误，请检查网络后重试',
@@ -96,7 +95,7 @@
 			},
 			//轮播图点击事件
 			click(e) {
-				console.log('click', e);
+				// console.log('click', e);
 			},
 			selectMenu(branchCode,menu,branchName) {
 				this.$Router.push({
@@ -115,7 +114,6 @@
 					content: '是否退出登录',
 					success: function (res) {
 						if (res.confirm) {
-							console.log("清除缓存")
 							uni.clearStorageSync('user_info');
 							next()
 						} else if (res.cancel) {
@@ -137,9 +135,7 @@
 			that.userInfo = userInfo
 		},
 		beforeRouteLeave(to,from,next) {
-			console.log(to)
 			if(to.name == "login"){
-				console.log("弹窗")
 				that.outLoginModal(next)
 			}else{
 				next()

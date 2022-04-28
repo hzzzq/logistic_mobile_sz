@@ -156,7 +156,6 @@
 							}else{
 								that.model1.reportInfo.picture+=(';'+temp.data[0])
 							}
-							console.log(that.model1.reportInfo.picture)
 							resolve()
 						},
 						fail(error) {

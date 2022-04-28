@@ -124,7 +124,6 @@ export default {
 		/* 获取商品 */
 		getCommodity(){
 			let temp = {category:that.mealCategory,pageSize:9999}
-			console.log(temp)
 			meal.getCommodity(temp).then((res)=>{
 				if(res.data.code != 200){
 					uni.$u.toast('数据请求失败，请重试')
@@ -137,7 +136,6 @@ export default {
 						}
 						that.dataTree.push(obj)
 					})
-					// console.log(that.dataTree)
 				}
 			})
 		},
@@ -147,7 +145,6 @@ export default {
 				item.operator = that.operator
 				item.category = that.mealCategory
 			})
-			console.log(that.commodityList)
 		},
 		//获取今日日期
 		getTodayDate(){
@@ -156,8 +153,6 @@ export default {
 			that.todayDate = time
 		},
 		nodeClick(e,index){
-			console.log(e)
-			//index代表是第几个商品
 			if(index == 'first'){
 				that.commodityList[0].commodityName = e.text
 				that.commodityList[0].price = e.price
@@ -168,7 +163,6 @@ export default {
 				that.commodityList[2].commodityName = e.text
 				that.commodityList[2].price = e.price
 			}
-			// console.log(that.commodityList)
 		},
 		inputHandler(e,index){
 			if(index == 'first'){
@@ -218,7 +212,6 @@ export default {
 					success: (res) => {
 						let temp = JSON.parse(res.data)
 						that.pictureUrlList.push(temp.data[0])
-						// console.log(that.pictureUrlList)
 						resolve()
 					},
 					fail() {

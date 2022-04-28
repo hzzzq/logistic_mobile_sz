@@ -67,9 +67,7 @@
 		    }
 		},
 		onReachBottom() { // 触底事件
-			console.log("触底")
 			let temp = that.pageInfo
-			// console.log(that.userList)
 			if(temp.current<temp.pages){
 				that.getMore();
 				that.refreshFlag = false;
@@ -93,6 +91,10 @@
 				uni.setStorageSync('menuCode', this.branchCode)
 			}
 		},
+		// onShow() {
+		// 	let temp = {branchCode : that.branchCode}
+		// 	that.getData(temp)
+		// },
 		methods: {
 			// 获取数据
 			getData(params) {
@@ -112,7 +114,6 @@
 			},
 			getNextPage(temp){
 				employee.findAll(temp).then((res)=>{
-					console.log(res.data)
 					if(res.data.code!=200){
 						uni.showToast({
 							title:"数据获取失败，请重试",
@@ -167,7 +168,6 @@
 			},
 			// 跳转到用户详情
 			navtoDetails(item) {
-				console.log("userId:::::::"+item)
 				this.$Router.push({
 					name: 'account_details',
 					params: {
@@ -186,10 +186,10 @@
 				})
 			}
 		},
-		beforeRouteEnter(to,from,next) {
-			console.log(from)
-			next();
-		}
+		 beforeRouteEnter(to, from, next) {
+		    console.log("beforeenter")
+		      // next();
+		  },
 	}
 </script>
 
