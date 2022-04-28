@@ -1,90 +1,76 @@
 <template>
 	<view>
-		<view class="ListItem">
+		<u--form class="ListItem" labelPosition="left" :model="model1" ref="form1" :rules="rules">
 			<!-- 1 -->
 			<view class="coloum_item flex flexVc" style="width: 100%;">
-				<view class="item flex"  style="width: 33%;">
+				<u-form-item prop="userInfo.name"  class="item flex"  style="width: 33%;">
 					<view class="label" >姓名</view>
-					<input class="val":disabled="UnModifiable" v-model="userInfo.name" :value="userInfo.name" />
-				</view>
-				<view class="item flex" style="width: 33%;">
+					<input class="val":disabled="UnModifiable" v-model="model1.userInfo.name" />
+				</u-form-item >
+				<u-form-item prop="userInfo.sex" class="item flex" style="width: 33%;">
 					<view class="label">性别</view>
-					<input class="val" :disabled="UnModifiable" v-model="userInfo.sex" :value="userInfo.sex" />
-				</view>
-				<view class="item flex" style="width: 33%;">
+					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.sex" />
+				</u-form-item>
+				<u-form-item prop="userInfo.age" class="item flex" style="width: 33%;">
 					<view class="label">年龄</view>
-					<input class="val" :disabled="UnModifiable" v-model="userInfo.age" :value="userInfo.age" />
-				</view>
+					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.age" />
+				</u-form-item>
 			</view>
 			<!-- 2 -->
-			<view class="coloum_item flex flexVc">
-				<view class="item flex">
+	<!-- 		<view class="coloum_item flex flexVc">
+				<u-form-item prop="userInfo.idNumber" class="item flex">
 					<view class="label">身份证</view>
-					<input class="val" :disabled="UnModifiable" v-model="userInfo.idNumber" :value="userInfo.idNumber" />
-				</view>
-			</view>
+					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.idNumber"/>
+				</u-form-item>
+			</view> -->
 			<view class="coloum_item flex flexVc" style="width: 100%;">
-				<view class="item flex" style="width: 50%;">
+				<u-form-item prop="userInfo.phone" class="item flex" style="width: 50%;">
 					<view class="label">手机号</view>
-					<input class="val" :disabled="UnModifiable" v-model="userInfo.phone" :value="userInfo.phone" />
-				</view>
-				<view class="item flex" style="width: 50%;">
+					<input class="val" maxlength="11" :disabled="UnModifiable" v-model="model1.userInfo.phone" />
+				</u-form-item>
+				<u-form-item prop="userInfo.state" class="item flex" style="width: 50%;">
 					<view class="label">状态</view>
-					<input class="val" :disabled="UnModifiable" v-model="userInfo.state" :value="userInfo.state" />
-				</view>
+					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.state"/>
+				</u-form-item>
 			</view>
 			<!-- 4 -->
 			<view class="coloum_item flex flexVc" style="width: 100%;">
-				<view class="item flex" style="width: 50%;">
+				<u-form-item prop="userInfo.entryTime" class="item flex" style="width: 50%;">
 					<view class="label">入职时间</view>
-					<input class="val" :disabled="UnModifiable" v-model="userInfo.entryTime" :value="userInfo.entryTime" />
-				</view>
-				<view class="item flex" style="width: 50%;">
-					<view class="label">部门编号</view>
-					<input class="val" :disabled="UnModifiable" v-model="userInfo.branchCode" :value="userInfo.branchCode" />
-				</view>
-			</view>
-			<view class="coloum_item flex flexVc" style="width: 100%;">
-				<view class="item flex"  style="width: 50%;">
+					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.entryTime"/>
+				</u-form-item>
+				<u-form-item prop="userInfo.window" class="item flex"  style="width: 50%;">
 					<view class="label">所在窗口</view>
-					<input class="val" :disabled="UnModifiable" v-model="userInfo.window" :value="userInfo.window" />
-				</view>
-				<view class="item flex" style="width: 50%;">
-					<!-- <view class="label">离职时间</view>
-					<input class="val" :disabled="UnModifiable" v-model="userInfo.departureTime" :value="userInfo.departureTime" /> -->
-				</view>
+					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.window"/>
+				</u-form-item>
 			</view>
 			<!-- 5 -->
 			<view class="coloum_item flex flexVc" style="width: 100%;">
-				<view class="item flex" style="width: 50%;">
-					<view class="label">是否处于中高风险地区</view>
-					<input class="val"  :disabled="UnModifiable" v-model="userInfo.isRiskArea" :value="userInfo.isRiskArea" />
-				</view>
-				<view class="item flex" style="width: 50%;">
-					<view class="label">家中是否有外来人员居住</view>
-					<input class="val" :disabled="UnModifiable" v-model="userInfo.isOutside" :value="userInfo.isOutside" />
-				</view>
+				<u-form-item prop="userInfo.isRiskAreaInfo" class="item flex">
+					<view class="label" style="width: 100%;float: left !important;">是否处于中高风险地区</view>
+					<input class="val"  :disabled="UnModifiable" v-model="model1.userInfo.isRiskAreaInfo" />
+				</u-form-item>
+			</view>
+			<view class="coloum_item flex flexVc" style="width: 100%;">
+				<u-form-item prop="userInfo.isOutsideInfo" class="item flex">
+					<view class="label" style="width: 100%;">家中是否有外来人员居住</view>
+					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.isOutsideInfo" />
+				</u-form-item>
 			</view>
 			<!-- 6 -->
 			<view class="coloum_item flex flexVc" style="width: 100%;">
-				<view class="item flex" style="width: 50%;">
-					<view class="label">外来人员是否来自中高风险区</view>
-					<input class="val" :disabled="UnModifiable" v-model="userInfo.riskAreaIsOutside" :value="userInfo.riskAreaIsOutside" />
-				</view>
-				<view class="item flex" >
-					<!-- <view class="label">疫苗接种次数</view>
-					<input class="val" :disabled="UnModifiable" v-model="userInfo.vaccineFrequency" :value="userInfo.vaccineFrequency" /> -->
-				</view>
+				<u-form-item prop="userInfo.riskAreaIsOutsideInfo" class="item flex">
+					<view class="label" style="width: 100%;">外来人员是否来自中高风险区</view>
+					<input class="val" :disabled="UnModifiable" v-model=" model1.userInfo.riskAreaIsOutsideInfo" />
+				</u-form-item>
 			</view>
-		</view>
+		</u--form>
 		<!-- 编辑按钮 -->
 		<view>
-			<view class="btn" @click="Change('change')" v-if="UnModifiable">
-				点击修改信息
-			</view>
-			<view class="btn" @click="Change('save')" v-else>
-				保存
-			</view>
+			<u-button type="primary" text="点击修改信息" customStyle="width:320rpx;height:80rpx" v-if="UnModifiable"
+				@click="Change('change')" size="large" color="#28c6c4"></u-button>
+			<u-button type="primary" text="提交" customStyle="width:320rpx;height:80rpx" v-if="!UnModifiable"
+				@click="Change('save')" size="large" color="#28c6c4"></u-button>
 		</view>
 	</view>
 </template>
@@ -95,10 +81,124 @@
 	export default {
 		data() {
 			return {
-				userInfo:{},
+				model1:{
+					userInfo:{
+						
+					}
+				},
 				// 修改按钮判断
 				UnModifiable: true,
-				userId:''
+				userId:'',
+				branchCode:'',
+				rules:{
+					'userInfo.name': [{
+						type: 'string',
+						required: true,
+						message: '请填写姓名',
+						trigger: ['blur', 'change']
+					}, {
+						// 此为同步验证，可以直接返回true或者false，如果是异步验证，稍微不同，见下方说明
+						validator: (rule, value, callback) => {
+							// 调用uView自带的js验证规则，详见：https://www.uviewui.com/js/test.html
+							return uni.$u.test.chinese(value);
+						},
+						message: "姓名必须为中文",
+						// 触发器可以同时用blur和change，二者之间用英文逗号隔开
+						trigger: ["change", "blur"],
+					}],
+					'userInfo.sex': {
+						type: 'enum',
+						required: true,
+						message: '请输入男或女',
+						trigger: ['blur', 'change'],
+						enum:['男','女']
+					},
+					'userInfo.isRiskAreaInfo': {
+						type: 'enum',
+						required: true,
+						message: '请输入是或否',
+						trigger: ['change'],
+						enum: ['是','否']
+					},
+					'userInfo.idNumber': [{
+						type: 'string',
+						required: true,
+						message: '请填写身份证号码',
+						trigger: ['blur', 'change'],
+						len:18
+					}, {
+						validator: (rule, value, callback) => {
+							return uni.$u.test.idCard(value);
+						},
+						message: "请输入正确的身份证格式",
+						trigger: ["change", "blur"],
+					}],
+					'userInfo.age':{
+						type:'string',
+						max:3,
+						required:true,
+						message:'请输入年龄',
+						trigger: ["change", "blur"],
+					},
+					'userInfo.phone': [{
+						type: 'string',
+						required: true,
+						message: '请填写手机号码',
+						trigger: ['blur', 'change'],
+						len:11
+					}, {
+						validator: (rule, value, callback) => {
+							return uni.$u.test.mobile(value);
+						},
+						message: "请输入正确的手机号码",
+						trigger: ["change", "blur"],
+					}],
+					'userInfo.state': {
+						type: 'enum',
+						required: true,
+						message: '请输入在校/离校/请假',
+						trigger: ['change'],
+						enum: ['在校','离校','请假']
+					},
+					'userInfo.entryTime': {
+						type: 'date',
+						required: true,
+						message: '请输入入职日期',
+						trigger: ['change']
+					},
+					'userInfo.window':{
+						type: 'string',
+						required:true,
+						message:'请输入所在窗口',
+						trigger:['change']
+					},
+					// 'userInfo.idAddress':{
+					// 	type: 'string',
+					// 	required:true,
+					// 	message:'请输入身份证地址',
+					// 	trigger:['change']
+					// },
+					// 'userInfo.currentAddress':{
+					// 	type:'string',
+					// 	required:true,
+					// 	message:'请输入当前居住地址',
+					// 	trigger:['change']
+					// },
+					'userInfo.isOutsideInfo': {
+						type: 'enum',
+						required: true,
+						message: '请输入是或否',
+						trigger: ['change'],
+						enum: ['是','否']
+					},
+					'userInfo.riskAreaIsOutsideInfo': {
+						type: 'enum',
+						required: true,
+						message: '请输入是或否',
+						trigger: ['change'],
+						enum: ['是','否']
+					}
+				}
 			}
 		},
 		created() {
@@ -109,6 +209,17 @@
 				this.userId = this.$Route.query.userId
 				uni.setStorageSync('userId', this.userId)
 			}
+			const tempCode = uni.getStorageSync('menuCode')
+			if(tempCode){
+				this.branchCode = tempCode
+			}else{
+				this.branchCode = this.$Route.query.branchCode
+				uni.setStorageSync('menuCode', this.branchCode)
+			}
+		},
+		onReady() {
+			// 如果需要兼容微信小程序，并且校验规则中含有方法等，只能通过setRules方法设置规则
+			this.$refs.form1.setRules(this.rules)
 		},
 		beforeDestroy() {
 			uni.removeStorage({
@@ -125,22 +236,42 @@
 				if(info=="change"){
 					this.UnModifiable = !this.UnModifiable;
 				}else{
-					let temp = JSON.stringify(that.userInfo)
-					console.log(that.userInfo)
-					employee.updateEmployee(temp).then((res)=>{
-						console.log(res.data)
-						if(res.data.code!=200){
-							uni.$u.toast("数据修改失败，请重试")
+					// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
+					this.$refs.form1.validate().then(res => {
+						let temp = that.model1.userInfo
+						if(temp.isRiskAreaInfo =='是'){
+							temp.isRiskArea = true
 						}else{
-							uni.$u.toast("数据修改成功")
+							temp.isRiskArea = false
 						}
+						if(temp.isOutsideInfo == '是'){
+							temp.isOutside = true
+						}else{
+							temp.isOutside = false
+						}
+						if(temp.iskAreaIsOutsideInfo == '是')
+						{
+							temp.riskAreaIsOutside = true
+						}else{
+							temp.riskAreaIsOutside = false
+						}
+						let params = JSON.stringify(temp)
+						employee.updateEmployee(params).then((res)=>{
+							if(res.data.code!=200){
+								uni.$u.toast("数据修改失败，请重试")
+							}else{
+								uni.$u.toast("数据修改成功")
+								that.UnModifiable = !that.UnModifiable
+							}
+						})
+					}).catch(errors => {
+						uni.$u.toast('请正确填写信息')
 					})
-					that.UnModifiable = !that.UnModifiable
 				}
 			},
 			// 获取用户信息详情
 			getData(){
-				let temp =  {userId: this.userId}
+				let temp =  {userId: this.userId , branchCode: that.branchCode}
 				console.log(temp)
 				employee.findAll(temp).then((res)=>{
 					console.log(res.data)
@@ -151,7 +282,24 @@
 							duration:1000
 						})
 					}else{
-						that.userInfo = res.data.data.records[0]
+						let temp = res.data.data.records[0]
+						if(temp.isRiskArea){
+							temp.isRiskAreaInfo = '是'
+						}else{
+							temp.isRiskAreaInfo = '否'
+						}
+						if(temp.isOutside){
+							temp.isOutsideInfo = '是'
+						}else{
+							temp.isOutsideInfo = '否'
+						}
+						if(temp.riskAreaIsOutside)
+						{
+							temp.riskAreaIsOutsideInfo = '是'
+						}else{
+							temp.riskAreaIsOutsideInfo = '否'
+						}
+						that.model1.userInfo = temp
 					}
 				})
 			}

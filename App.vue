@@ -32,4 +32,7 @@
 	.priceInput>.u-input__content>.u-input__content__field-wrapper>.u-input__content__field-wrapper__field{
 		font-size: 28rpx !important;
 	}
+	.coloum_item>.u-form-item>.u-form-item__body{
+		width: 100%;
+	}
 </style>

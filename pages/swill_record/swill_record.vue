@@ -1,6 +1,9 @@
 <template>
 	<view style="width: 100%;height: 260rpx;background-color: #FFFFFF;padding: 12px 16px;">
 		<view style="padding: 6px 9px;">
+			<view><text class="label">单位名称：</text><text class="content">{{swillInfo.branchName}}</text></view>
+		</view>
+		<view style="padding: 6px 9px;">
 			<view><text class="label">当前时间：</text><text class="content">{{todayDate}}</text></view>
 		</view>
 		<view class="flex flexVc" style="margin-top: 10rpx;">
@@ -25,7 +28,8 @@
 					branchCode: "",
 					operator: "",
 					recordTime: "",
-					weight: 0
+					weight: 0,
+					branchName:''
 				}
 			}
 		},
@@ -43,6 +47,7 @@
 			}
 			const tempInfo = uni.getStorageSync('userInfo')
 			this.swillInfo.operator = tempInfo.adminName
+			this.swillInfo.branchName = uni.getStorageSync('menuName')
 		},
 		methods: {
 			//获取今日日期

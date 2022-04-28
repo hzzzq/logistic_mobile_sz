@@ -5,19 +5,19 @@
 			<u-search v-model="keywords" placeholder="输入姓名快速查找"  @custom="handleSearch($event)" @clear="handleClear()"></u-search>
 		</view>
 		<!-- 列表 -->
-		<view class="list">
+		<view class="list" style="background-color: #f1f4fb;">
 			<u-empty id="empty" text="暂无数据" marginTop="120" v-if="(list.length == 0 ? true:false)"></u-empty>
-			<view class="list_item" style="margin-bottom: 8rpx;" v-for="(item, index) in list" :key="'list' + index">
+			<view class="list_item" style="margin-bottom: 16rpx; background-color: #FFFFFF; height: 180rpx;" v-for="(item, index) in list" :key="'list' + index" >
 				<!-- row1 -->
-				<view class="info_item flex">
-					<view><text class="label">姓名:</text><text class="content">{{item.name}}</text></view>
-					<view><text class="label">所在窗口:</text><text class="content">{{item.window}}</text></view>
-					<view><text class="label">状态:</text><text class="content">{{item.state}}</text></view>
+				<view class="info_item flex" style="margin-bottom: 10rpx;">
+					<view style="width: 180rpx;"><text class="label">姓名:</text><text class="content">{{item.name}}</text></view>
+					<!-- <view><text class="label">所在窗口:</text><text class="content">{{item.window}}</text></view> -->
+					<view style="margin-left: 20rpx;"><text class="label">状态:</text><text class="content">{{item.state}}</text></view>
 				</view>
 				<!-- row2 -->
-				<view class="info_item flex flexVc">
+				<!-- <view class="info_item flex flexVc">
 					<view><text class="label">联系方式:</text><text class="content">{{item.phone}}</text></view>
-				</view>
+				</view> -->
 				<!-- row3 -->
 				<view class="info_item flex flexVc" style="width: 100%;">
 					<view class="flex flexVc" style="width: 58%;" @click="showDate(item.userId,index)">
@@ -29,7 +29,7 @@
 							border="surround"
 						></u--input>
 					</view>
-					<view style="width: 40%;" class="flex flexVc" @click="showTemperature(item.userId,index)">
+					<view style="width: 40%; margin-left: 10rpx;" class="flex flexVc" @click="showTemperature(item.userId,index)">
 						<text class="label">今日体温：</text>
 						<!-- 三种状态  -->
 						<u-button type="success" v-show="item.todayTemperature>=35&&item.todayTemperature<=37" plain="true" hairline="true" text="合格" size="small" customStyle="width:120rpx;flex:1"></u-button>
@@ -323,9 +323,12 @@
 			border-top: 1rpx solid #efefef;
 			padding: 12rpx;
 			cursor: pointer;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 
 			.info_item {
-				justify-content: space-between;
+				// justify-content: space-between;
 				line-height: 56rpx;
 
 				.label {

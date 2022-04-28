@@ -45,7 +45,7 @@
 						<view class="flex flexVc">
 							<text class="form_lable flex_we">身份证：</text>
 							<view class="flex_we" >
-								<u--input border="none" placeholder="请填写身份证号码" fontSize="26rpx" style="width: 400rpx;" type="idcard"
+								<u--input maxlength="18" border="none" placeholder="请填写身份证号码" fontSize="26rpx" style="width: 400rpx;" type="idcard"
 									v-model="model1.userInfo.idNumber"></u--input>
 							</view>
 						</view>
@@ -59,7 +59,7 @@
 							<view class="flex flexVc">
 								<text class="form_lable flex_we">手机号：</text>
 								<view class="flex_we">
-									<u--input border="none" placeholder="手机号" fontSize="26rpx" type="number"
+									<u--input maxlength = "11" border="none" placeholder="手机号" fontSize="26rpx" type="number"
 										v-model="model1.userInfo.phone"></u--input>
 								</view>
 							</view>
@@ -90,10 +90,10 @@
 						</u-form-item>
 						<u-form-item  ref="item4" style="width: 50%;" prop="userInfo.branchCode">
 							<view class="flex flexVc item_view">
-								<text class="form_lable flex_we">部门编号：</text>
+								<text class="form_lable flex_we">部门：</text>
 								<view class="flex_we">
 									<u--input border="none" placeholder="部门编号" fontSize="26rpx" disabled
-										v-model="model1.userInfo.branchCode"></u--input>
+										v-model="model1.userInfo.branchName"></u--input>
 								</view>
 							</view>
 						</u-form-item>
@@ -226,8 +226,8 @@
 						//虚拟字段 前端输入是否  用来匹配布尔类型
 						riskArea:'', //是否处于中高风险区
 						outSide:'',//是否有外来人口
-						outsideRiskArea:''//外来人口中高风险区
-						
+						outsideRiskArea:'',//外来人口中高风险区
+						branchName:''
 						// vaccineFrequency:'',
 						// remarks:'',
 						// disabled: false
@@ -347,7 +347,7 @@
 				sexColumns: [
 					['男', '女']
 				],
-				stateColumns:[['在校','离校']],
+				stateColumns:[['在校','离校','请假']],
 				sexShow: false,
 				stateShow: false,
 				dateShow: false,
@@ -428,6 +428,9 @@
 				this.model1.userInfo.branchCode = this.$Route.query.branchCode
 				uni.setStorageSync('menuCode', this.branchCode)
 			}
+			let tempName = uni.getStorageSync('menuName')
+			this.model1.userInfo.branchName = tempName;
+			// console.log("that.model1.userInfo")
 		},
 		mounted() {
 			that = this;

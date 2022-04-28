@@ -41,7 +41,7 @@
 				<u-button type="error" text="重置" customStyle="margin-top: 20rpx;width:320rpx;height:80rpx" @click="reset" size="large" color="#ca7b5a"></u-button>
 			</view>
 		</view>
-		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel" mode="date"></u-datetime-picker>
+		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel" mode="date" :maxDate="date"></u-datetime-picker>
 	</view>
 </template>
 

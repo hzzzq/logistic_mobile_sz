@@ -7,18 +7,19 @@
 		<!-- 列表 -->
 		<view class="list">
 			<u-empty id="empty" text="暂无数据" marginTop="120" v-if="(userList.length == 0 ? true:false)"></u-empty>
-			<view class="list_item" @click="navtoDetails(item.userId)" v-for="(item, index) in userList"
+			<view class="list_item" @click="navtoDetails(item.userId)" v-for="(item, index) in userList" 
 				:key="'userList' + index">
 				<view class="info_item flex flexVc" style="flex-direction: row;width: 100%;">
 					<image style="width: 18%; height: 130rpx; margin-left: 10rpx; border-radius: 30rpx;" :src="item.picture"></image>
-					<view style="margin-left: 20rpx; width: 70%; height:130rpx;display: flex;flex-direction: row; justify-content: space-between; ">
+					<view style="margin-left: 20rpx; width: 75%; height:130rpx;display: flex;flex-direction: row; justify-content: space-between; ">
 						<view>
 							<text class="content" style="display: block;">{{item.name}}</text>
 							<view><text style="color: #999; font-size: 32rpx;padding: 0 6rpx;">所在窗口:</text><text>{{item.window}}</text></view>
 						</view>
 						<view class="flex" style="flex-direction: row; justify-content: center; align-items: center;"  >
 							<u-button class="ins" v-show="item.state=='在校'" type="success" plain hairline :text="item.state" size="normal" customStyle="width:120rpx; font-size:32rpx"></u-button>
-							<u-button class="ins" v-show="item.state=='离校'" type="warning" plain hairline :text="item.state" size="normal" customStyle="width:120rpx; font-size:32rpx;color:#f9ae3d"></u-button>
+							<u-button class="ins" v-show="item.state=='离校'" type="error" plain hairline :text="item.state" size="normal" customStyle="width:120rpx;"></u-button>
+							<u-button class="ins" v-show="item.state=='请假'" type="warning" plain hairline :text="item.state" size="normal" customStyle="width:120rpx; font-size:32rpx;color:#f9ae3d"></u-button>
 							<!-- <text style="padding: 0 6rpx;display: block;">{{item.state}}</text> -->
 						</view>
 					</view>
@@ -170,7 +171,8 @@
 				this.$Router.push({
 					name: 'account_details',
 					params: {
-						userId: item
+						userId: item,
+						branchCode: that.branchCode
 					}
 				})
 		 },
@@ -183,6 +185,10 @@
 					}
 				})
 			}
+		},
+		beforeRouteEnter(to,from,next) {
+			console.log(from)
+			next();
 		}
 	}
 </script>

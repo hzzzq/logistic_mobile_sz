@@ -24,18 +24,18 @@
 						<u-collapse-item :title="sonItem.branchName" v-for="(sonItem, sonIndex) in item.child" v-if="sonItem.grandsonBranches.length!=0&&sonItem.grandsonBranches[0].menu==false">
 							<u-icon name="grid-fill" size="20" slot="icon" color="#ffd3b6"></u-icon>
 							<!-- 最低单位等级 -->
-							<u-cell @click="selectMenu(grandsonItem.branchCode,grandsonItem.grandsonBrancheChild)" :title="grandsonItem.branchName"
+							<u-cell @click="selectMenu(grandsonItem.branchCode,grandsonItem.grandsonBrancheChild,grandsonItem.branchName)" :title="grandsonItem.branchName"
 								icon="grid-fill" iconStyle="color:#a8e6cf" :border="false"
 								v-for="(grandsonItem, grandsonIndex) in sonItem.grandsonBranches"></u-cell>
 						</u-collapse-item>
 						<!-- 食堂超市同级无子级  2222 -->
-						<u-cell @click="selectMenu(sonItem.branchCode,sonItem.grandsonBranches)" :title="sonItem.branchName" v-for="(sonItem, sonIndex) in item.child" v-if="sonItem.grandsonBranches[0].menu ==true"
+						<u-cell @click="selectMenu(sonItem.branchCode,sonItem.grandsonBranches,sonItem.branchName)" :title="sonItem.branchName" v-for="(sonItem, sonIndex) in item.child" v-if="sonItem.grandsonBranches[0].menu ==true"
 						 icon="grid-fill" iconStyle="color:#ffd3b6" :border="false"></u-cell>
 					</u-collapse>
 				</u-collapse-item>
 				
 				<!-- xx管理中心同级无子级     111 -->
-				<u-cell @click="selectMenu(item.branchCode,item.child)" :title="item.branchName" v-for="(item,index) in branchList"
+				<u-cell @click="selectMenu(item.branchCode,item.child,item.branchName)" :title="item.branchName" v-for="(item,index) in branchList"
 					v-if="item.child[0].menu==true" icon="grid-fill" iconStyle="color:#ffaaa5" :border="false"></u-cell>
 			</u-collapse>
 		</view>
@@ -98,7 +98,7 @@
 			click(e) {
 				console.log('click', e);
 			},
-			selectMenu(branchCode,menu) {
+			selectMenu(branchCode,menu,branchName) {
 				this.$Router.push({
 					name: 'menuIndex',
 					params: {
@@ -106,6 +106,7 @@
 						menu:menu
 					}
 				})
+				uni.setStorageSync('menuName',branchName)
 			},
 			/* 退出登录的弹窗方法 */
 			outLoginModal(next){

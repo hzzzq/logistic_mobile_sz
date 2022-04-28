@@ -6,8 +6,8 @@
 				<!-- 表单 -->
 				<u--form labelPosition="left" :model="model1" ref="form1">
 					<!-- 标题 -->
-					<u-form-item label="单位编码" prop="reportInfo.branchCode" borderBottom labelWidth="80" ref="item1">
-						<u--input border="surround" disabled v-model="model1.reportInfo.branchCode" placeholder="单位名称不可为空">
+					<u-form-item label="消杀单位" prop="reportInfo.branchName" borderBottom labelWidth="80" ref="item1">
+						<u--input border="surround" disabled v-model="model1.reportInfo.branchName" >
 						</u--input>
 					</u-form-item>
 					<u-form-item label="消杀人员" prop="reportInfo.operator" borderBottom labelWidth="80" ref="item1">
@@ -58,29 +58,30 @@
 						branchCode:'',
 						operator:'',
 						picture:'',
-						disinfectTime:''
+						disinfectTime:'',
+						branchName:''
 					},
 				},
 				dateShow:false,
 				// 表单校验规则
 				rules: {
-					'reportInfo.branchCode': {
+					'reportInfo.branchName': {
 						type: 'string',
 						required: true,
-						message: '单位编码不可为空，请重试',
-						trigger: ['change']
+						message: '消杀单位不可为空，请重试',
+						trigger: ['blur','change']
 					},
 					'reportInfo.operator':{
 						type:'string',
 						required:true,
 						message:'记录人员名字不可为空',
-						trigger:['change']
+						trigger:['blur','change']
 					},
 					'reportInfo.disinfectTime':{
 						type:'string',
 						required:true,
 						message:'消杀日期不可为空',
-						trigger:['change']
+						trigger:['blur','change']
 					}
 					// 'reportInfo.description':{
 					// 	type:'string',
@@ -106,6 +107,7 @@
 				this.model1.reportInfo.branchCode = this.$Route.query.branchCode
 				uni.setStorageSync('menuCode', this.model1.reportInfo.branchCode)
 			}
+			this.model1.reportInfo.branchName = uni.getStorageSync('menuName')
 		},
 		mounted() {
 			that = this;
