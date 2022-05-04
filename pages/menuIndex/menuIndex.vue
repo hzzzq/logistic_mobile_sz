@@ -65,7 +65,7 @@
 						path: 'account_list'
 					},
 					{
-						name: 'volume',
+						name: 'star',
 						title: '体温核酸管理',
 						color: '#85b597',
 						path: 'nuclein_manager'
@@ -89,31 +89,31 @@
 						path: 'supper'
 					},
 					{
-						name: 'home',
+						name: 'calendar',
 						title: '消杀台账',
 						color: '#85b597',
 						path: 'disinfect_record'
 					},
 					{
-						name: 'volume',
-						title: '年检报告',
+						name: 'coupon',
+						title: '迎检报告',
 						color: '#85b597',
 						path: 'year_report'
 					},
 					{
-						name: 'file-text',
+						name: 'trash',
 						title: '泔水上传',
 						color: '#ab818c',
 						path: 'swillRecord'
 					},
 					{
-						name: 'file-text',
+						name: 'order',
 						title: '超市台账',
 						color: '#ab818c',
 						path: 'shop_record'
 					},
 					{
-						name: 'volume',
+						name: 'car',
 						title: '校车维保',
 						color: '#85b597',
 						path: 'repairRecord'

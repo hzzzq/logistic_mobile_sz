@@ -18,6 +18,10 @@
 						<u--input border="surround" disabled v-model="model1.reportInfo.inspectionTime" placeholder="年检日期">
 						</u--input>
 					</u-form-item>
+					<u-form-item label="年检重点" prop="reportInfo.keyPoint" borderBottom labelWidth="80" ref="item1">
+						<u--input border="surround" v-model="model1.reportInfo.keyPoint" placeholder="年检重点">
+						</u--input>
+					</u-form-item>
 					<!-- 概况 -->
 					<u-form-item label="年检概况" prop="reportInfo.description" labelWidth="80" borderBottom ref="item2">
 						<u--textarea placeholder="内容字数不少于3个字" v-model="model1.reportInfo.description" count>
@@ -37,11 +41,16 @@
 						</view>
 					</u-form-item>
 				</u--form>
+				<u-cell-group style="background-color: #FFFFFF;">
+					<u-cell title="历史记录" @click="historyClick">
+						<u-icon slot="right-icon" name="arrow-right"size="18" ></u-icon>
+					</u-cell>
+				</u-cell-group>
 				<u-button type="primary" text="提交" customStyle="margin-top: 80rpx; width:320rpx;height:80rpx" @click="submit" size="large" color="#28c6c4"></u-button>
 				<u-button type="error" text="重置" customStyle="margin-top: 20rpx;width:320rpx;height:80rpx" @click="reset" size="large" color="#ca7b5a"></u-button>
 			</view>
 		</view>
-		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel" mode="date" :maxDate="date"></u-datetime-picker>
+		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel" mode="datetime" :maxDate="date"></u-datetime-picker>
 	</view>
 </template>
 
@@ -57,7 +66,8 @@
 						inspectionTime:'',
 						description:'',
 						operator: '',
-						picture:''
+						picture:'',
+						keyPoint:''
 					},
 				},
 				rules: {
@@ -161,18 +171,23 @@
 			submit() {
 				// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
 				this.$refs.form1.validate().then(res => {
-					yearReport.addYearReport(that.model1.reportInfo).then((res)=>{
-						if(res.data.code!=200){
-							uni.$u.toast('提交失败，请重试')
-						}else{
-							that.reset();
-							that.pictureList = [];
-							that.model1.reportInfo.picture = '';
-							uni.$u.toast('提交成功');
-						}
-					})
-					uni.$u.toast('上传成功')
+					if(that.pictureList.length == 0){
+						uni.$u.toast('请上传图片')
+					}else{
+						yearReport.addYearReport(that.model1.reportInfo).then((res)=>{
+							if(res.data.code!=200){
+								uni.$u.toast('提交失败，请重试')
+							}else{
+								that.reset();
+								that.pictureList = [];
+								that.model1.reportInfo.picture = '';
+								uni.$u.toast('提交成功');
+							}
+						})
+						uni.$u.toast('上传成功')
+					}
 				}).catch(errors => {
+					console.log(errors)
 					uni.$u.toast('校验失败')
 				})
 			},
@@ -187,13 +202,21 @@
 			},
 			dateConfirm(e){
 				const timeFormat = uni.$u.timeFormat
-				let time = timeFormat(e.value, 'yyyy-mm-dd')
+				let time = timeFormat(e.value, 'yyyy-mm-dd hh:MM:ss')
 				this.model1.reportInfo.inspectionTime = time
 				this.dateShow = false
 			},
 			// 选择器取消方法
 			cancel() {
 				this.dateShow = false
+			},
+			historyClick(){
+				that.$Router.push({
+					name: 'historyRecord',
+					params: {
+						historyCategory: '迎检'
+					}
+				})
 			}
 		},
 	}

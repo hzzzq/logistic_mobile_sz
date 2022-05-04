@@ -3,10 +3,18 @@
 <!-- 		<view class="flex flexVc point_container" style="text-align: center; justify-content: center;">
 			<text style="font-size: 34rpx; font-weight: bold;">中餐台账</text>
 		</view> -->
+		<view class="header">
+			 <u-notice-bar :text="text1"></u-notice-bar>
+		</view>
 		<!-- 上午拍照上传 -->
 		<view class="upload_box">
 			<view class="header">
 				第一次图片
+			</view>
+			<!-- 商品详细 -->
+			<view style="padding: 9rpx 9rpx;">
+				<text>商品：</text>
+				<view style="margin-left: 20rpx;" v-for="(item,index) in commodityList1"><text>{{item.name}}：<text>{{item.quantity}}</text></text></view>
 			</view>
 			<view class="image_container">
 				<view v-for="(item,index) in fileList1" @click="imageClick(1,index)">
@@ -23,6 +31,10 @@
 			<view class="header">
 				第二次图片
 			</view>
+			<view style="padding: 9rpx 9rpx;">
+				<text>商品：</text>
+				<view style="margin-left: 20rpx;" v-for="(item,index) in commodityList2"><text>{{item.name}}：<text>{{item.quantity}}</text></text></view>
+			</view>
 			<view class="image_container">
 				<view v-for="(item,index) in fileList2" @click="imageClick(2,index)">
 					<image style="width: 160rpx; height: 160rpx; margin-left: 10rpx;" mode="aspectFill" :src="item"></image>
@@ -33,10 +45,15 @@
 			</view>
 		</view>
 		<!-- 底部栏 -->
+		<u-cell-group style="background-color: #FFFFFF;">
+			<u-cell title="历史记录" @click="historyClick">
+				<u-icon slot="right-icon" name="arrow-right"size="18" ></u-icon>
+			</u-cell>
+		</u-cell-group>
 		<view class="btn" @click="navTo" v-if="flag">
 			增加台账
 		</view>
-		<view style="text-align: center; margin-top: 20rpx; font-weight: bold;" v-else><text>今日已添加完成</text></view>
+		<view style="text-align: center; margin-top: 20rpx; font-weight: bold;" v-if="!flag"><text>今日已添加完成</text></view>
 	</view>
 </template>
 
@@ -48,11 +65,14 @@ export default {
 		return {
 			fileList1: [],
 			fileList2: [],
+			commodityList1:[],
+			commodityList2:[],
 			date: Number(new Date()),
 			/* 上传次数已满标志位 */
 			flag: true,
 			branchCode: '',
-			todayDate: ''
+			todayDate: '',
+			text1:'中餐台账上传时段 ：第一次: 11：00----11:30  第二次: 12:30----13:00'
 		};
 	},
 	mounted() {
@@ -91,16 +111,34 @@ export default {
 				} else {
 					//成功
 					let recordList = res.data.data.records
+					console.log(recordList)
 					if (recordList.length == 6) {
 						for (var i = 0; i < 3; i++) {
-							that.fileList1.push(recordList[i].picture)
+							let obj = {
+								name: recordList[i].commodityName,
+								quantity: recordList[i].quantity
+							}
+							//第二次
+							that.commodityList2.push(obj)
+							that.fileList2.push(recordList[i].picture)
 						}
 						for (var j = 3; j < 6; j++) {
-							that.fileList2.push(recordList[j].picture)
+							let obj = {
+								name: recordList[j].commodityName,
+								quantity: recordList[j].quantity
+							}
+							//第一次
+							that.commodityList1.push(obj)
+							that.fileList1.push(recordList[j].picture)
 						}
 						that.flag = false
 					} else if (recordList.length == 3) {
 						for (var i = 0; i < 3; i++) {
+							let obj = {
+								name: recordList[i].commodityName,
+								quantity: recordList[i].quantity
+							}
+							that.commodityList1.push(obj)
 							that.fileList1.push(recordList[i].picture)
 						}
 					}
@@ -126,6 +164,15 @@ export default {
 				});
 			}
 
+		},
+		historyClick(){
+			console.log("historyClick")
+			that.$Router.push({
+				name: 'historyRecord',
+				params: {
+					historyCategory: '中餐'
+				}
+			})
 		}
 	}
 };
@@ -142,8 +189,6 @@ export default {
 			line-height: 56rpx;
 			color: #8f9ca2;
 		}
-
-		height: 280rpx;
 	}
 
 	.btn {

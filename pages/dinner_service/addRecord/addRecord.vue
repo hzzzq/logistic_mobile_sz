@@ -1,27 +1,23 @@
 <template>
 	<view>
 		<!-- 商品选择 -->
-		<view class="upload_box" style="margin: 0;">
-			<text style="font-size: 28rpx;color:#8f9ca2;">台账上传：</text>
-			<view>
-				<uni-data-picker style="margin-top: 10rpx;" placeholder="请选择商品" popup-title="选择商品"  @nodeclick="nodeClick($event,'first')" :localdata="dataTree" ></uni-data-picker>
-				<view class="flex flexVc" style="margin-top: 10rpx;">
-					<text style="font-size: 28rpx;color:#8f9ca2;margin-left: 20rpx;">价格：<text>{{commodityList[0].price}}元</text></text>
-					<input type="number" placeholder="输入数量" class="quantityInput" @blur="inputHandler($event,'first')" v-model="commodityList[0].quantity"/>
+		<view class="upload_box" style="margin: 0;" ref>
+			<view class="header">
+				<text style="font-size: 28rpx;color:#8f9ca2;">台账上传：</text>
+				<view style="display: flex;">
+					<view class="btn" @click="addClick()" v-if="mealCategory=='早餐'">
+						新增
+					</view>
+					<view class="btn" @click="deleteClick()" v-if="mealCategory=='早餐'" style="background-color: #f56c6c;margin-left: 20rpx;">
+						删除
+					</view>
 				</view>
 			</view>
-			<view>
-				<uni-data-picker style="margin-top: 10rpx;" placeholder="请选择商品" popup-title="选择商品"  @nodeclick="nodeClick($event,'second')" :localdata="dataTree"></uni-data-picker>
+			<view v-for="(item, index ) in commodityList">
+				<uni-data-picker style="margin-top: 10rpx;" placeholder="请选择商品" popup-title="选择商品"  @nodeclick="nodeClick($event,index)" :localdata="dataTree" ></uni-data-picker>
 				<view class="flex flexVc" style="margin-top: 10rpx;">
-					<text style="font-size: 28rpx;color:#8f9ca2;margin-left: 20rpx;">价格：<text>{{commodityList[1].price}}元</text></text>
-					<input type="number" placeholder="输入数量" class="quantityInput" @blur="inputHandler($event,'second')" v-model="commodityList[1].quantity"/>
-				</view>
-			</view>
-			<view>
-				<uni-data-picker style="margin-top: 10rpx;" placeholder="请选择商品" popup-title="选择商品"  @nodeclick="nodeClick($event,'third')" :localdata="dataTree" ></uni-data-picker>
-				<view class="flex flexVc" style="margin-top: 10rpx;">
-					<text style="font-size: 28rpx;color:#8f9ca2;margin-left: 20rpx;">价格：<text>{{commodityList[2].price}}元</text></text>
-					<input type="number" placeholder="输入数量" class="quantityInput" @blur="inputHandler($event,'third')" v-model="commodityList[2].quantity"/>
+					<text style="font-size: 28rpx;color:#8f9ca2;margin-left: 20rpx;">价格：<text>{{commodityList[index].price}}元</text></text>
+					<input type="number" placeholder="输入数量" class="quantityInput"  v-model="commodityList[index].quantity"/>
 				</view>
 			</view>
 		</view>
@@ -31,7 +27,8 @@
 			<view class="header">
 				图片上传
 			</view>
-			<u-upload :fileList="pictureList" @afterRead="afterRead" @delete="deletePic" name="2" multiple :maxCount="3"></u-upload>
+			<u-upload v-if="mealCategory=='早餐'" :fileList="pictureList" @afterRead="afterRead" @delete="deletePic" name="2" multiple ></u-upload>
+			<u-upload v-else :fileList="pictureList" @afterRead="afterRead" @delete="deletePic" name="2" multiple :maxCount="3"></u-upload>
 		</view>
 		<view class="btn" @click="update">
 			上传
@@ -45,35 +42,7 @@
 export default {
 	data() {
 		return {
-			commodityList:[
-				{
-					branchCode: "",//
-					category: "",
-					commodityName: "",
-					operator: "",//
-					picture: "",
-					price: 0,
-					quantity: ""
-				},
-				{
-					branchCode: "",//
-					category: "",
-					commodityName: "",
-					operator: "",//
-					picture: "",
-					price: 0,
-					quantity: ""
-				},
-				{
-					branchCode: "",//
-					category: "",
-					commodityName: "",
-					operator: "",//
-					picture: "",
-					price: 0,
-					quantity: ""
-				}
-			],
+			commodityList:[],
 			pictureList:[],
 			dataTree: [],
 			branchCode:'',
@@ -84,15 +53,26 @@ export default {
 			/* 格式化时间 */
 			todayDate:'',
 			/* 早中晚餐信息 */
-			mealCategory:''
+			mealCategory:'',
+			menuList:[]
 			
 		};
+	},
+	watch:{
+		// commodityList: {
+		// 	handler(newName, oldName) {
+		// 		console.log(that.commodityList)
+		// 	},
+		// 	immediate: true,
+		// 	deep: true
+		// }
 	},
 	mounted() {
 		that = this
 		that.getTodayDate()
 		that.getCommodity()
 		// that.getData(that.branchCode)
+		console.log(this.mealCategory)
 		that.dataInit()
 	},
 	created() {
@@ -138,13 +118,23 @@ export default {
 					})
 				}
 			})
+			console.log(this.dataTree)
 		},
 		dataInit(){
-			that.commodityList.forEach((item)=>{
-				item.branchCode = that.branchCode
-				item.operator = that.operator
-				item.category = that.mealCategory
-			})
+			if(that.mealCategory != '早餐'){
+				for(var i = 0 ;i < 3 ;i++){
+					let obj = {
+							branchCode: that.branchCode,//
+							category: that.mealCategory,
+							commodityName: "",
+							operator: that.operator,//
+							picture: "",
+							price: 0,
+							quantity: ""
+						};
+					that.commodityList.push(obj)
+				}
+			}
 		},
 		//获取今日日期
 		getTodayDate(){
@@ -153,25 +143,13 @@ export default {
 			that.todayDate = time
 		},
 		nodeClick(e,index){
-			if(index == 'first'){
-				that.commodityList[0].commodityName = e.text
-				that.commodityList[0].price = e.price
-			}else if(index == 'second'){
-				that.commodityList[1].commodityName = e.text
-				that.commodityList[1].price = e.price
-			}else if(index == 'third'){
-				that.commodityList[2].commodityName = e.text
-				that.commodityList[2].price = e.price
-			}
+			console.log(index)
+			that.commodityList[index].commodityName = e.text
+			that.commodityList[index].price = e.price
 		},
 		inputHandler(e,index){
-			if(index == 'first'){
-				that.commodityList[0].quantity = e.detail.value
-			}else if(index == 'second'){
-				that.commodityList[1].quantity = e.detail.value
-			}else if(index == 'third'){
-				that.commodityList[2].quantity = e.detail.value
-			}
+			console.log(index)
+			// that.commodityList[index].quantity = e.detail.value
 		},
 		// 删除图片
 		deletePic(event) {
@@ -221,8 +199,10 @@ export default {
 			})
 		},
 		async update(){
-			if(that.pictureUrlList.length!=3){
-				uni.$u.toast("请上传3张图片")
+			if(that.commodityList.length==0){
+				uni.$u.toast("数据不可为空")
+			}else if(that.pictureUrlList.length!=that.commodityList.length){
+				uni.$u.toast("请上传对应数量的图片")
 			}else{
 				let i = 0;
 				let flag = true
@@ -243,7 +223,9 @@ export default {
 					uni.$u.toast("请填写完整信息")
 				}else{
 					//添加数据
+					console.log(that.commodityList)
 					meal.addMealsRecord(that.commodityList).then(res=>{
+						
 						if(res.data.code!=200){
 							uni.$u.toast(res.data.msg)
 						}else{
@@ -256,6 +238,18 @@ export default {
 					})
 				}
 			}
+		},
+		addClick(){
+			let temp ={
+					branchCode: that.branchCode,//
+					category: that.mealCategory,
+					commodityName: "",
+					operator: that.operator,//
+					picture: "",
+					price: 0,
+					quantity: ""
+				};
+			that.commodityList.push(temp)
 		}
 		
 	}
@@ -299,5 +293,21 @@ export default {
 		border-width: 0.5px;
 		border-radius: 4px; 
 		padding: 6px 9px;
+	}
+	.header{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		 .btn {
+				width: 150rpx;
+				height: 72rpx;
+				background-color: #28c6c4;
+				color: #FFFFFF;
+				line-height: 72rpx;
+				text-align: center;
+				border-radius: 18rpx;
+				font-size: 30rpx;
+				margin: 0;
+			}
 	}
 </style>

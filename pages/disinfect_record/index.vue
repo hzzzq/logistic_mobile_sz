@@ -38,11 +38,16 @@
 					</u-form-item>
 				</u--form>
 				<!-- 底层按钮 -->
+				<u-cell-group style="background-color: #FFFFFF;">
+					<u-cell title="历史记录" @click="historyClick">
+						<u-icon slot="right-icon" name="arrow-right"size="18" ></u-icon>
+					</u-cell>
+				</u-cell-group>
 				<u-button type="primary" text="提交" customStyle="margin-top: 80rpx; width:320rpx;height:80rpx" @click="submit" size="large" color="#28c6c4"></u-button>
 				<u-button type="error" text="重置" customStyle="margin-top: 20rpx;width:320rpx;height:80rpx" @click="reset" size="large" color="#ca7b5a"></u-button>
 			</view>
 		</view>
-		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel" mode="date"></u-datetime-picker>
+		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel" mode="datetime"></u-datetime-picker>
 	</view>
 </template>
 
@@ -168,16 +173,20 @@
 			submit() {
 				// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
 				this.$refs.form1.validate().then(res => {
-					disinfect.addDisinfect(that.model1.reportInfo).then((res)=>{
-						if(res.data.code!=200){
-							uni.$u.toast('数据上传失败，请重试')
-						}else{
-							that.reset();
-							that.model1.picture ='';
-							that.pictureList = []
-							uni.$u.toast('提交成功')
-						}
-					})
+					if(that.pictureList.length == 0 ){
+						uni.$u.toast('请上传图片')
+					}else{
+						disinfect.addDisinfect(that.model1.reportInfo).then((res)=>{
+							if(res.data.code!=200){
+								uni.$u.toast('数据上传失败，请重试')
+							}else{
+								that.reset();
+								that.model1.picture ='';
+								that.pictureList = []
+								uni.$u.toast('提交成功')
+							}
+						})
+					}
 				}).catch(errors => {
 					uni.$u.toast('校验失败')
 				})
@@ -195,7 +204,7 @@
 			},
 			dateConfirm(e){
 				const timeFormat = uni.$u.timeFormat
-				let time = timeFormat(e.value, 'yyyy-mm-dd')
+				let time = timeFormat(e.value, 'yyyy-mm-dd hh:MM:ss')
 				this.model1.reportInfo.disinfectTime = time
 				this.dateShow = false
 			},
@@ -203,6 +212,14 @@
 			cancel() {
 				this.dateShow = false
 			},
+			historyClick(){
+				that.$Router.push({
+					name: 'historyRecord',
+					params: {
+						historyCategory: '消杀'
+					}
+				})
+			}
 		},
 	}
 </script>

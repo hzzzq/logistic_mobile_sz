@@ -35,4 +35,8 @@
 	.coloum_item>.u-form-item>.u-form-item__body{
 		width: 100%;
 	}
+	.imageUpload>.u-upload__wrap uni-view{
+		border: solid 1px rgb(214, 215, 217);
+		// opacity: 0.6;
+	}
 </style>

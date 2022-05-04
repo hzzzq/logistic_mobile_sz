@@ -9,17 +9,39 @@
 						<u--input border="surround" disabled v-model="model1.reportInfo.recordTime" placeholder="维保日期">
 						</u--input>
 					</u-form-item>
+					<u-form-item label="维保金额" prop="reportInfo.money" borderBottom labelWidth="80" ref="item1">
+						<u--input border="surround"  v-model="model1.reportInfo.money" placeholder="维保金额" type="number">
+						</u--input>
+					</u-form-item>
+					<u-form-item label="维保类别" prop="reportInfo.category" borderBottom labelWidth="80" ref="item1" @click="categoryShow = true" >
+						<u--input border="surround" disabled   v-model="model1.reportInfo.category" placeholder="维保/保养">
+						</u--input>
+					</u-form-item>
 					<!-- 概况 -->
 					<u-form-item label="维保概况" prop="reportInfo.repairContent" labelWidth="80" borderBottom ref="item2">
 						<u--textarea placeholder="内容字数不少于3个字" v-model="model1.reportInfo.repairContent" count>
 						</u--textarea>
+					</u-form-item>
+					<!-- 图片相关 -->
+					<u-form-item>
+						<view class="u-demo-block">
+							<text class="u-demo-block__title">图片文件</text>
+							<view class="u-demo-block__content">
+								<view class="u-page__upload-item">
+									<u-upload :fileList="pictureList" @afterRead="afterRead" @delete="deletePic"
+										capture="camera" accept="image" multiple :maxCount="5"
+										:previewFullImage="true"></u-upload>
+								</view>
+							</view>
+						</view>
 					</u-form-item>
 				</u--form>
 				<u-button type="primary" text="提交" customStyle="margin-top: 80rpx; width:320rpx;height:80rpx" @click="submit" size="large" color="#28c6c4"></u-button>
 				<u-button type="error" text="重置" customStyle="margin-top: 20rpx;width:320rpx;height:80rpx" @click="reset" size="large" color="#ca7b5a"></u-button>
 			</view>
 		</view>
-		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel" mode="date" :maxDate="date"></u-datetime-picker>
+		<u-picker :show="categoryShow" :columns="categoryColumns" @cancel="cancel('categoryShow')" @confirm="categoryConfirm"></u-picker>
+		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel('dateShow')" mode="date" :maxDate="date"></u-datetime-picker>
 	</view>
 </template>
 
@@ -34,6 +56,9 @@
 					  adminId: "",
 					  recordTime: "",
 					  repairContent: "",
+					  category:"",
+					  money:0,
+					  picture:""
 					}
 				},
 				rules: {
@@ -48,11 +73,27 @@
 						required: true,
 						message: '请填写维保内容',
 						trigger: ['blur', 'change']
-					}
+					},
+					'reportInfo.money': {
+						type: 'string',
+						required: true,
+						message: '请输入金额',
+						trigger: ['blur', 'change']
+					},
+					'reportInfo.category': {
+						type: 'string',
+						required: true,
+						message: '请选择维修或保养',
+						trigger: ['blur', 'change']
+					},
 				},
 				pictureList: [],
 				dateShow:false,
 				date: Number(new Date()),
+				categoryShow:false,
+				categoryColumns: [
+					['维修', '保养']
+				],
 			}
 		},
 		onReady() {
@@ -122,26 +163,34 @@
 			submit() {
 				// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
 				this.$refs.form1.validate().then(res => {
-					bus.addRepair(that.model1.reportInfo).then(res=>{
-						if(res.data.code!=200){
-							uni.$u.toast('上传失败，请重试')
-						}else{
-							uni.$u.toast('提交成功');
-							that.reset();
-						}
-					})
+					if(that.pictureList.length == 0){
+						uni.$u.toast('请上传图片后提交')
+					}else{
+						bus.addRepair(that.model1.reportInfo).then(res=>{
+							if(res.data.code!=200){
+								uni.$u.toast('上传失败，请重试')
+							}else{
+								uni.$u.toast('提交成功');
+								that.reset();
+							}
+						})
+					}
 				}).catch(errors => {
+					console.log(errors)
 					uni.$u.toast('校验失败')
 				})
 			},
 			reset() {
-				const validateList = ['reportInfo.recordTime', 'reportInfo.repairContent']
+				const validateList = ['reportInfo.recordTime', 'reportInfo.repairContent','reportInfo.category','reportInfo.money']
 				this.$refs.form1.resetFields()
 				this.$refs.form1.clearValidate()
+				this[`pictureList`].splice(0, that.pictureList.length);
+				that.model1.reportInfo.picture = '';
 				setTimeout(() => {
 					this.$refs.form1.clearValidate(validateList)
 					// 或者使用 this.$refs.form1.clearValidate()
 				}, 10)
+				
 			},
 			dateConfirm(e){
 				const timeFormat = uni.$u.timeFormat
@@ -150,8 +199,12 @@
 				this.dateShow = false
 			},
 			// 选择器取消方法
-			cancel() {
-				this.dateShow = false
+			cancel(name) {
+				this[`${name}`] = false
+			},
+			categoryConfirm(e){
+				that.model1.reportInfo.category = e.value[0]
+				that.categoryShow = false
 			}
 		},
 	}

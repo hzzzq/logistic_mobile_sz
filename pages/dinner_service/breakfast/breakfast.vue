@@ -1,13 +1,16 @@
 <template>
 	<view>
-		<!-- <view class="flex flexVc point_container" style="text-align: center; justify-content: center;">
-			<text style="font-size: 34rpx; font-weight: bold;">早餐台账</text>
-		</view> -->
 		<!-- 上午拍照上传 -->
 		<view class="upload_box">
 			<view class="header">
-				第一次图片
+				今日早餐
 			</view>
+			<!-- 商品详细 -->
+			<view style="padding: 9rpx 9rpx;">
+				<text>商品：</text>
+				<view style="margin-left: 20rpx;" v-for="(item,index) in commodityList"><text>{{item.name}}：<text>{{item.quantity}}</text></text></view>
+			</view>
+			<!-- 商品图片 -->
 			<view class="image_container">
 				<view v-for="(item,index) in fileList1" @click="imageClick(index)">
 					<image style="width: 160rpx; height: 160rpx; margin-left: 10rpx;" mode="aspectFill" :src="item"></image>
@@ -18,10 +21,15 @@
 			</view>
 		</view>
 		<!-- 底部栏 -->
+		<u-cell-group style="background-color: #FFFFFF;">
+			<u-cell title="历史记录" @click="historyClick">
+				<u-icon slot="right-icon" name="arrow-right"size="18" ></u-icon>
+			</u-cell>
+		</u-cell-group>
 		<view class="btn" @click="navTo" v-if="flag">
 			增加台账
 		</view>
-		<view style="text-align: center; margin-top: 20rpx; font-weight: bold;" v-else><text>今日已添加完成</text></view>
+		<view style="text-align: center; margin-top: 20rpx; font-weight: bold;" v-if="!flag"><text>今日已添加完成</text></view>
 	</view>
 </template>
 
@@ -36,7 +44,8 @@
 				/* 上传次数已满标志位 */
 				flag: true,
 				branchCode: '',
-				todayDate: ''
+				todayDate: '',
+				commodityList:[]
 			};
 		},
 		mounted() {
@@ -73,10 +82,16 @@
 					if (res.data.code != 200) {
 						uni.$u.toast('数据请求错误，请重试')
 					} else {
+						console.log(res.data.data)
 						//成功
 						let recordList = res.data.data.records
-						if (recordList.length == 3) {
-							for (var i = 0; i < 3; i++) {
+						if (recordList.length != 0) {
+							for (var i = 0; i < recordList.length; i++) {
+								let obj = {
+									name:recordList[i].commodityName,
+									quantity:recordList[i].quantity
+								}
+								that.commodityList.push(obj)
 								that.fileList1.push(recordList[i].picture)
 							}
 							that.flag = false
@@ -92,6 +107,15 @@
 						uni.$u.toast(err)
 					}
 				});
+			},
+			historyClick(){
+				console.log("historyClick")
+				that.$Router.push({
+					name: 'historyRecord',
+					params: {
+						historyCategory: '早餐'
+					}
+				})
 			}
 		}
 	};
@@ -99,7 +123,7 @@
 
 <style lang="scss" scoped>
 	.upload_box {
-		margin-top: 18rpx;
+		// margin-top: 18rpx;
 		background-color: #FFFFFF;
 		padding: 24rpx;
 
@@ -109,7 +133,6 @@
 			color: #8f9ca2;
 		}
 
-		height: 280rpx;
 	}
 
 	.btn {

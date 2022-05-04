@@ -1,5 +1,5 @@
 <template>
-	<view style="width: 100%;height: 260rpx;background-color: #FFFFFF;padding: 12px 16px;">
+	<view style="width: 100%; height:410rpx; background-color: #FFFFFF;padding: 12px 16px;">
 		<view style="padding: 6px 9px;">
 			<view><text class="label">单位名称：</text><text class="content">{{swillInfo.branchName}}</text></view>
 		</view>
@@ -10,6 +10,11 @@
 			<text style="font-size: 32rpx;color:#8f9ca2;margin-left: 20rpx;">泔水重量：</text>
 			<input type="number" v-model="swillInfo.weight" placeholder="输入数量" class="input"/><text style="font-size: 28rpx;margin-left: 10rpx;">千克</text>
 		</view>
+		<u-cell-group style="background-color: #FFFFFF;margin-top: 20rpx; " :border="false">
+			<u-cell title="历史记录" @click="historyClick" >
+				<u-icon slot="right-icon" name="arrow-right"size="18" ></u-icon>
+			</u-cell>
+		</u-cell-group>
 		<view class="btn" @click="update()" style="float: right; margin-right:20rpx;">
 			提交
 		</view>
@@ -64,6 +69,14 @@
 					}else{
 						uni.$u.toast("上传成功")
 						that.$router.go(0)
+					}
+				})
+			},
+			historyClick(){
+				that.$Router.push({
+					name: 'historyRecord',
+					params: {
+						historyCategory: '泔水'
 					}
 				})
 			}

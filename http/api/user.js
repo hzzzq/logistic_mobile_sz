@@ -11,6 +11,12 @@ let user = {
 	},
 	findPassword(params){
 		return methods.post('/admin/updatePsw',params)
+	},
+	findAllTemperature(params){
+		return methods.get('/temperatureRecord/findAllTempareture',params)
+	},
+	findAllNuclein(params){
+		return methods.get('/nucleinRecord/findAllNuclein',params)
 	}
 	
 }

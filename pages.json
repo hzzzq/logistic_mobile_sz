@@ -113,7 +113,7 @@
 			"aliasPath": "/year_report",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "年检报告",
+		        "navigationBarTitleText": "迎检报告",
 				"navigationStyle": "custom",
 		        "enablePullDownRefresh": false
 		    }
@@ -173,7 +173,7 @@
 			"aliasPath":"/nucleinManager",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "核酸管理",
+                "navigationBarTitleText": "体温核酸管理",
 				"navigationStyle": "custom",
                 "enablePullDownRefresh": false
             }
@@ -233,6 +233,66 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "维保上传",
+                "enablePullDownRefresh": false,
+				"navigationStyle":"custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/nuclein_manager/temperature_record/temperature_record",
+			"name":"temperatureRecord",
+			"meta":{
+				"requireAuth":true
+			},
+			"aliasPath":"/temperatureRecord",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "体温记录",
+                "enablePullDownRefresh": false,
+				"navigationStyle":"custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/nuclein_manager/nuclein_record/nuclein_record",
+            "name":"nucleinRecord",
+            "meta":{
+            	"requireAuth":true
+            },
+			"aliasPath":"/nucleinRecord",
+			"style" :                                                                                    
+            {
+                "navigationBarTitleText": "核酸记录",
+                "enablePullDownRefresh": false,
+				"navigationStyle":"custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/history_record/history_record",
+			"name":"historyRecord",
+			"meta":{
+				"requireAuth":true
+			},
+			"aliasPath":"/historyRecord",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "历史记录",
+                "enablePullDownRefresh": false,
+				"navigationStyle":"custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/history_record/history_detail/history_detail",
+			"name":"historyDetail",
+			"meta":{
+				"requireAuth":true
+			},
+			"aliasPath":"/historyDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "历史记录详情",
                 "enablePullDownRefresh": false,
 				"navigationStyle":"custom"
             }

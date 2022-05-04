@@ -6,13 +6,18 @@
 		</view>
 		<!-- 列表 -->
 		<view class="list" style="background-color: #f1f4fb;">
-			<u-empty id="empty" text="暂无数据" marginTop="120" v-if="(list.length == 0 ? true:false)"></u-empty>
+			<u-empty id="empty" text="暂无数据" marginTop="120" v-if="(list.length == 0 ? true:false)" style="background-color: #ffffff;"></u-empty>
 			<view class="list_item" style="margin-bottom: 16rpx; background-color: #FFFFFF; height: 180rpx;" v-for="(item, index) in list" :key="'list' + index" >
 				<!-- row1 -->
-				<view class="info_item flex" style="margin-bottom: 10rpx;">
-					<view style="width: 180rpx;"><text class="label">姓名:</text><text class="content">{{item.name}}</text></view>
-					<!-- <view><text class="label">所在窗口:</text><text class="content">{{item.window}}</text></view> -->
-					<view style="margin-left: 20rpx;"><text class="label">状态:</text><text class="content">{{item.state}}</text></view>
+				<view class="info_item flex" style="margin-bottom: 10rpx; justify-content: space-between;">
+					<view >
+						<text class="label">姓名:</text><text class="content">{{item.name}}</text>
+						<text class="label">状态:</text><text class="content">{{item.state}}</text>
+					</view>
+					<view class="flex" style="float: right">
+						<u-button  hairline="true" text="体温记录" size="small" color="rgb(10, 185, 156)" customStyle="width:60rpx;" @click="temperatureClick(item.userId)"></u-button>
+						<u-button  hairline="true" text="核酸记录" size="small" color="rgb(10, 185, 156)" customStyle="width:60rpx;margin-left:10rpx;" @click="nucleinClick(item.userId)"></u-button>
+					</view>
 				</view>
 				<!-- row2 -->
 				<!-- <view class="info_item flex flexVc">
@@ -145,17 +150,17 @@
 		},
 		methods: {
 			//根据当前的branchCode 获取用户信息
-			getData(branchCode){
-				let temp = {branchCode: branchCode}
-				employee.findAll(temp).then((res)=>{
-					if(res.data.code!=200){
-						uni.$u.toast('数据请求失败，请重试')
-					}else{	
-						let temp = res.data.data.records
-						that.list = temp;
-					}
-				})
-			},
+			// getData(branchCode){
+			// 	let temp = {branchCode: branchCode}
+			// 	employee.findAll(temp).then((res)=>{
+			// 		if(res.data.code!=200){
+			// 			uni.$u.toast('数据请求失败，请重试')
+			// 		}else{	
+			// 			let temp = res.data.data.records
+			// 			that.list = temp;
+			// 		}
+			// 	})
+			// },
 			// 获取数据
 			getData(params) {
 				employee.findAll(params).then((res)=>{
@@ -295,6 +300,14 @@
 					}
 				})
 			},
+			temperatureClick(userId){
+				console.log("temperature")
+				this.$Router.push({ name: 'temperatureRecord', params: { temperatureId: userId }}) 
+			},
+			nucleinClick(userId){
+				console.log("nucleinClick")
+				this.$Router.push({ name: 'nucleinRecord', params: { nucleinId: userId }})
+			}
 			
 		}
 	}
@@ -307,7 +320,7 @@
 
 	// 搜索控件
 	.search_box {
-		margin-top: 12rpx;
+		margin-top: 6rpx;
 		background-color: #FFFFFF;
 		padding: 18rpx 24rpx;
 	}

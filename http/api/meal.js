@@ -16,6 +16,12 @@ let meal = {
 	//提交泔水
 	updateSwill(params){
 		return methods.post('/swill/addSwill',params)
+	},
+	getMealTime(params){
+		return methods.get('/mealRecord/findTime',params)
+	},
+	getAllSwill(params){
+		return methods.get('/swill/findAllSwill',params)
 	}
 }
 

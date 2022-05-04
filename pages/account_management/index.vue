@@ -17,6 +17,7 @@
 							<view><text style="color: #999; font-size: 32rpx;padding: 0 6rpx;">所在窗口:</text><text>{{item.window}}</text></view>
 						</view>
 						<view class="flex" style="flex-direction: row; justify-content: center; align-items: center;"  >
+							<u-tag text="冷链" size="mini" style="margin-right: 20rpx;" v-if="item.cold"></u-tag>
 							<u-button class="ins" v-show="item.state=='在校'" type="success" plain hairline :text="item.state" size="normal" customStyle="width:120rpx; font-size:32rpx"></u-button>
 							<u-button class="ins" v-show="item.state=='离校'" type="error" plain hairline :text="item.state" size="normal" customStyle="width:120rpx;"></u-button>
 							<u-button class="ins" v-show="item.state=='请假'" type="warning" plain hairline :text="item.state" size="normal" customStyle="width:120rpx; font-size:32rpx;color:#f9ae3d"></u-button>
@@ -200,7 +201,7 @@
 
 	// 搜索控件
 	.search_box {
-		margin-top: 12rpx;
+		margin-top: 6rpx;
 		background-color: #FFFFFF;
 		padding: 18rpx 24rpx;
 	}
