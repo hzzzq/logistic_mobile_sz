@@ -34,7 +34,7 @@
 							<view class="u-demo-block__content">
 								<view class="u-page__upload-item">
 									<u-upload :fileList="pictureList" @afterRead="afterRead" @delete="deletePic"
-										capture="camera" accept="image" multiple :maxCount="10"
+										 accept="image" multiple :maxCount="10"
 										:previewFullImage="true"></u-upload>
 								</view>
 							</view>

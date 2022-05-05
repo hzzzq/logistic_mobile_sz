@@ -405,6 +405,8 @@
 								uni.$u.toast('添加失败，请重试')
 							}else{
 								uni.$u.toast('添加成功')
+								that.pictureList = []
+								that.model1.userInfo.picture = ''
 								that.reset()
 							}
 						})

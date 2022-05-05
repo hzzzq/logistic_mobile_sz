@@ -250,6 +250,9 @@ export default {
 					quantity: ""
 				};
 			that.commodityList.push(temp)
+		},
+		deleteClick(){
+			that.commodityList.splice(that.commodityList.length-1,1)
 		}
 		
 	}

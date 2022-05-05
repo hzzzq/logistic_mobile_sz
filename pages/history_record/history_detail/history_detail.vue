@@ -4,7 +4,8 @@
 		<view class="upload_box" v-if="historyCategory=='早餐'||historyCategory=='中餐'||historyCategory=='晚餐'">
 			<!-- 商品详细 -->
 			<view><text class="u-demo-block__title">商品</text></view>
-			<view style="margin-left: 20rpx;" v-for="(item,index) in commodityList"><text>{{item.name}}：<text>{{item.quantity}}</text></text></view>
+			<!-- <view style="margin-left: 20rpx;" v-for="(item,index) in commodityList"><text>{{item.name}}：<text>{{item.quantity}}</text></text></view> -->
+				<lyy-table headerFixed :contents="commodityList" :columnFixed="1" :headers="headers"  height="auto"></lyy-table>
 			<!-- 商品图片 -->
 			<view style="margin: 10rpx 0;"><text class="u-demo-block__title">图片列表</text></view>
 			<view class="image_container">
@@ -35,17 +36,18 @@
 		
 		<!-- 消杀记录 -->
 		<view v-if="historyCategory == '消杀'" class="upload_box">
-			<view class="cellbox">
+			<text class="u-demo-block__title">消杀记录</text>
+			<view class="cellbox" style="margin-top: 20rpx;">
 				<text class="u-cell-text">消杀时间：</text>
-				<text style="margin-left: 20rpx;">{{detailList.disinfectTime}}</text>
+				<u--input disabled :value="detailList.disinfectTime"></u--input>
 			</view>
 			<view class="cellbox">
 				<text class="u-cell-text">消杀人员：</text>
-				<text style="margin-left: 20rpx;">{{detailList.operator}}</text>
+				<u--input disabled :value="detailList.operator"></u--input>
 			</view>
 			<!-- 商品图片 -->
-			<view style="margin: 10rpx 0;"><text class="u-demo-block__title">图片列表</text></view>
-			<view class="image_container">
+			<view style="margin: 30rpx 0;"><text class="u-demo-block__title">图片列表</text></view>
+			<view class="image_container" style=" margin-top: 0rpx;">
 				<view v-for="(item,index) in pictureList" @click="imageClick(index)">
 					<image style="width: 160rpx; height: 160rpx; margin-left: 10rpx;" mode="aspectFill" :src="item"></image>
 				</view>
@@ -57,7 +59,8 @@
 		
 		<!-- 迎检记录 -->
 		<view v-if="historyCategory == '迎检'" class="upload_box">
-			<view class="cellbox">
+			<text class="u-demo-block__title">迎检记录</text>
+			<view class="cellbox" style="margin-top: 12rpx;">
 				<text class="u-cell-text">迎检标题：</text>
 				<text style="margin-left: 20rpx;">{{detailList.inspectionTitle}}</text>
 			</view>
@@ -98,18 +101,42 @@
 				detailList :[],
 				commodityList:[],
 				pictureList:[],
-				historyCategory:''
+				historyCategory:'',
+				headers: [{
+						label: '序号',
+						key: 'index',
+						width: this.upx2px(100)
+					}, {
+						label: '商品名',
+						key: 'name',
+						width:  this.upx2px(150)
+					}, {
+						label: '商品数量',
+						key: 'quantity',
+						width:  this.upx2px(200)
+					}],
 			}
 		},
 		methods: {
+			upx2px(value) {
+                //#ifndef MP-WEIXIN
+                return uni.upx2px(value) + 'px'
+                //#endif
+                //#ifdef MP-WEIXIN
+                return uni.upx2px(value)
+                //#endif
+            },
 			mealDataInit(){
 				console.log(that.detailList)
+				let i = 1;
 				that.detailList.forEach(item=>{
 					let obj = {
 						name:item.commodityName,
-						quantity:item.quantity
+						quantity:item.quantity,
+						index: i
 					}
 					that.commodityList.push(obj)
+					i++
 					that.pictureList.push(item.picture)
 				})
 			},
@@ -192,5 +219,7 @@
 	.cellbox{
 		height: 60rpx;
 		line-height: 60rpx;
+		display: flex;
+		margin-bottom: 14rpx;
 	}
 </style>

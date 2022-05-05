@@ -29,7 +29,7 @@
 							<view class="u-demo-block__content">
 								<view class="u-page__upload-item">
 									<u-upload :fileList="pictureList" @afterRead="afterRead" @delete="deletePic"
-										capture="camera" accept="image" multiple :maxCount="5"
+										 accept="image" multiple :maxCount="5"
 										:previewFullImage="true"></u-upload>
 								</view>
 							</view>
@@ -171,6 +171,8 @@
 								uni.$u.toast('上传失败，请重试')
 							}else{
 								uni.$u.toast('提交成功');
+								that.pictureList = []
+								that.model1.reportInfo.picture = ''
 								that.reset();
 							}
 						})
