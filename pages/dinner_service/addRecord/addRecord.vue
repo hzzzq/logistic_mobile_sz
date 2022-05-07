@@ -58,21 +58,11 @@ export default {
 			
 		};
 	},
-	watch:{
-		// commodityList: {
-		// 	handler(newName, oldName) {
-		// 		console.log(that.commodityList)
-		// 	},
-		// 	immediate: true,
-		// 	deep: true
-		// }
-	},
 	mounted() {
 		that = this
 		that.getTodayDate()
 		that.getCommodity()
 		// that.getData(that.branchCode)
-		console.log(this.mealCategory)
 		that.dataInit()
 	},
 	created() {
@@ -118,7 +108,6 @@ export default {
 					})
 				}
 			})
-			console.log(this.dataTree)
 		},
 		dataInit(){
 			if(that.mealCategory != '早餐'){
@@ -143,12 +132,10 @@ export default {
 			that.todayDate = time
 		},
 		nodeClick(e,index){
-			console.log(index)
 			that.commodityList[index].commodityName = e.text
 			that.commodityList[index].price = e.price
 		},
 		inputHandler(e,index){
-			console.log(index)
 			// that.commodityList[index].quantity = e.detail.value
 		},
 		// 删除图片
@@ -223,7 +210,6 @@ export default {
 					uni.$u.toast("请填写完整信息")
 				}else{
 					//添加数据
-					console.log(that.commodityList)
 					meal.addMealsRecord(that.commodityList).then(res=>{
 						
 						if(res.data.code!=200){

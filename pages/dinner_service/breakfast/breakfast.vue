@@ -82,7 +82,6 @@
 					if (res.data.code != 200) {
 						uni.$u.toast('数据请求错误，请重试')
 					} else {
-						console.log(res.data.data)
 						//成功
 						let recordList = res.data.data.records
 						if (recordList.length != 0) {
@@ -109,7 +108,6 @@
 				});
 			},
 			historyClick(){
-				console.log("historyClick")
 				that.$Router.push({
 					name: 'historyRecord',
 					params: {

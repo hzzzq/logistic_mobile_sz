@@ -456,7 +456,6 @@
 				return info;
 			},
 			riskConfirm(e){
-				console.log(e)
 				let flag = that.riskSelect
 				let value = e.value[0]
 				if(flag == 'riskArea'){
@@ -488,7 +487,6 @@
 			},
 			// 新增图片  图片读取后的操作
 			async afterRead(event) {
-				console.log(event)
 				// 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
 				let lists = [].concat(event.file) //lists为当前图片数组
 				let fileListLen = this[`pictureList`].length //双向绑定图片数组的长度

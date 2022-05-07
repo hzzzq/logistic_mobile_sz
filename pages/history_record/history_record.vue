@@ -64,7 +64,6 @@
 					pageNum: that.pageInfo.current
 				}
 				meal.getMealTime(obj).then(res=>{
-					console.log(res.data.data)
 					if(res.data.code!=200){
 						uni.$u.toast('数据请求错误，请重试')
 					}else{
@@ -83,7 +82,6 @@
 					pageNum: that.pageInfo.current
 				}
 				disinfect.getDisinfect(obj).then(res=>{
-					console.log(res.data)
 					that.pageInfo.current = res.data.data.current
 					that.pageInfo.pages = res.data.data.pages
 					that.recordInfo.push.apply(that.recordInfo, res.data.data.records);
@@ -120,7 +118,6 @@
 					}else{
 						that.pageInfo.current = res.data.data.current
 						that.pageInfo.pages = res.data.data.pages
-						console.log(res.data)
 						that.recordInfo.push.apply(that.recordInfo, res.data.data.records);
 						// res.data.data.records.forEach(item=>{
 						// 	that.recordInfo.push(item)
@@ -138,7 +135,6 @@
 			}
 		},
 		onReachBottom() { // 触底事件
-			console.log("触底")
 			let temp = that.pageInfo
 			if(temp.current<temp.pages){
 				if(that.historyCategory == '早餐'|| that.historyCategory == '中餐'||that.historyCategory=='晚餐'){
@@ -157,7 +153,6 @@
 					that.pageInfo.current ++;
 					that.getYearData()
 				}
-				console.log(that.pageInfo.current)
 				that.refreshFlag = false;
 			}else{
 				if(!that.refreshFlag){

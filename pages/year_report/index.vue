@@ -187,7 +187,6 @@
 						uni.$u.toast('上传成功')
 					}
 				}).catch(errors => {
-					console.log(errors)
 					uni.$u.toast('校验失败')
 				})
 			},

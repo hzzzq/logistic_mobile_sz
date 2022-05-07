@@ -42,12 +42,12 @@
 						</u--input>
 						<!-- 手机号 -->
 						<u--input placeholder="绑定手机号" prefixIcon="phone-fill"
-							prefixIconStyle="font-size: 22px;color: #909399" v-model="findInfo.passWord"
+							prefixIconStyle="font-size: 22px;color: #909399" v-model="findInfo.phone"
 							id="form_input">
 						</u--input>
 						<!-- 新密码 -->
-						<u--input placeholder="新密码" prefixIcon="lock-fill"
-							prefixIconStyle="font-size: 22px;color: #909399" v-model="findInfo.phone"
+						<u--input placeholder="新密码" prefixIcon="lock-fill" type="password"
+							prefixIconStyle="font-size: 22px;color: #909399" v-model="findInfo.password"
 							id="form_input">
 						</u--input>
 					</view>
@@ -82,7 +82,7 @@
 				},
 				findInfo: {
 					adminNumber: "",
-					passWord: "",
+					password: "",
 					phone:""
 				},
 				popupData: {
@@ -140,7 +140,7 @@
 					uni.$u.toast('请输入找回账号的用户名')
 				} else if (!this.findInfo.phone) {
 					uni.$u.toast('请输入绑定手机号')
-				} else if(!this.findInfo.passWord){
+				} else if(!this.findInfo.password){
 					uni.$u.toast('请输入新密码')
 				}else {
 					uni.showLoading({

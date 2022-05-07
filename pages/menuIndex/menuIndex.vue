@@ -19,6 +19,7 @@
 						</u-grid-item>
 					</u-grid>
 				</view>
+				<u-empty id="empty" text="暂无数据" marginTop="120" v-if="menuList.length == 0"></u-empty>
 			</view>
 		</view>
 	</view>
@@ -54,7 +55,7 @@
 			},
 			//轮播图点击事件
 			click(e) {
-				console.log('click', e);
+				// console.log('click', e);
 			},
 			getFunction() {
 				// 功能列表

@@ -186,11 +186,7 @@
 					}
 				})
 			}
-		},
-		 beforeRouteEnter(to, from, next) {
-		    console.log("beforeenter")
-		      // next();
-		  },
+		}
 	}
 </script>
 

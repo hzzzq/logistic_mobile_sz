@@ -111,7 +111,6 @@ export default {
 				} else {
 					//成功
 					let recordList = res.data.data.records
-					console.log(recordList)
 					if (recordList.length == 6) {
 						for (var i = 0; i < 3; i++) {
 							let obj = {
@@ -166,7 +165,6 @@ export default {
 
 		},
 		historyClick(){
-			console.log("historyClick")
 			that.$Router.push({
 				name: 'historyRecord',
 				params: {

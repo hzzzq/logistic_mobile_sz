@@ -127,7 +127,6 @@
                 //#endif
             },
 			mealDataInit(){
-				console.log(that.detailList)
 				let i = 1;
 				that.detailList.forEach(item=>{
 					let obj = {
@@ -141,7 +140,6 @@
 				})
 			},
 			disinfectInit(){
-				console.log(that.detailList)
 				var tempList = that.detailList.picture.split(";");
 				that.pictureList = tempList
 			},
@@ -156,7 +154,6 @@
 				})
 			},
 			imageClick(index){
-				console.log(index)
 				uni.previewImage({
 					current:index,
 					urls:that.pictureList,
@@ -188,7 +185,6 @@
 				this.detailList = this.$Route.query.list
 				uni.setStorageSync('detailList',this.detailList)
 			}
-			console.log(this.detailList)
 		},
 		beforeDestroy() {
 			uni.removeStorageSync('detailList')

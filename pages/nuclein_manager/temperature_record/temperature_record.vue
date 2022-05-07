@@ -32,12 +32,10 @@
 		},
 		methods: {
 			getData(){
-				console.log(that.params)
 				user.findAllTemperature(that.params).then(res=>{
 					// console.log(res.data)
 					that.pageInfo.current = res.data.data.current
 					that.pageInfo.pages = res.data.data.pages
-					console.log(res.data.data.records)
 					res.data.data.records.forEach(item=>{
 						that.recordInfo.push(item)
 					})
@@ -57,7 +55,6 @@
 			}
 		},
 		onReachBottom() { // 触底事件
-			console.log('触底')
 			let temp = that.pageInfo
 			if(temp.current<temp.pages){
 				that.getNextPage();

@@ -32,7 +32,6 @@
 		},
 		methods: {
 			getData(){
-				console.log(that.params)
 				user.findAllNuclein(that.params).then(res=>{
 					that.pageInfo.current = res.data.data.current
 					that.pageInfo.pages = res.data.data.pages

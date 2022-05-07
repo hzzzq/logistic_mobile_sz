@@ -301,11 +301,9 @@
 				})
 			},
 			temperatureClick(userId){
-				console.log("temperature")
 				this.$Router.push({ name: 'temperatureRecord', params: { temperatureId: userId }}) 
 			},
 			nucleinClick(userId){
-				console.log("nucleinClick")
 				this.$Router.push({ name: 'nucleinRecord', params: { nucleinId: userId }})
 			}
 			

@@ -10,33 +10,32 @@
 		</view>
 		<!-- 操作栏 -->
 		<view class="item-collapse">
-			<!-- 第一层折叠面板 -->
 			<u-collapse accordion :border="false">
-				
-				<!-- 商业餐饮管理中心一级 -->
-				<u-collapse-item :title="item.branchName" v-for="(item,index) in branchList"
-					v-if="item.child.length!=0&&item.child[0].menu==false">
+				<!-- 第一级 -->
+				<u-collapse-item :title="item.branchName" v-for="(item,index) in branchList" v-if="!item.leaf">   
 					<u-icon name="grid-fill" size="20" slot="icon" color="#ffaaa5"></u-icon>
-					
-					<!-- 第二层折叠面板 -->
+					<!-- 第二级 -->
 					<u-collapse accordion :border="false">
-						<!-- 食堂超市一级 -->
-						<u-collapse-item :title="sonItem.branchName" v-for="(sonItem, sonIndex) in item.child" v-if="sonItem.grandsonBranches.length!=0&&sonItem.grandsonBranches[0].menu==false">
+						<u-collapse-item :title="sonItem.branchName" v-for="(sonItem, sonIndex) in item.child" v-if="!sonItem.leaf"  ref="item2" > <!-- 111 -->
 							<u-icon name="grid-fill" size="20" slot="icon" color="#ffd3b6"></u-icon>
-							<!-- 最低单位等级 -->
-							<u-cell @click="selectMenu(grandsonItem.branchCode,grandsonItem.grandsonBrancheChild,grandsonItem.branchName)" :title="grandsonItem.branchName"
-								icon="grid-fill" iconStyle="color:#a8e6cf" :border="false"
-								v-for="(grandsonItem, grandsonIndex) in sonItem.grandsonBranches"></u-cell>
+								<!-- 第三级 -->
+								<u-collapse accordion :border="false">
+									<u-collapse-item :title="grandsonItem.branchName" v-for="(grandsonItem, grandsonIndex) in sonItem.grandsonBranches" v-if="!grandsonItem.leaf" >
+										<u-icon name="grid-fill" size="20" slot="icon" color="#a8e6cf"></u-icon>																			<!-- 	这里是功能  -->
+									</u-collapse-item>
+									<u-cell @click="selectMenu(grandsonItem.branchCode,grandsonItem.grandsonBrancheChild,grandsonItem.branchName)" :title="grandsonItem.branchName"
+										icon="grid-fill" iconStyle="color:#a8e6cf" :border="false" v-if="grandsonItem.leaf"
+										v-for="(grandsonItem, grandsonIndex) in sonItem.grandsonBranches"></u-cell>
+								</u-collapse>
 						</u-collapse-item>
-						<!-- 食堂超市同级无子级  2222 -->
-						<u-cell @click="selectMenu(sonItem.branchCode,sonItem.grandsonBranches,sonItem.branchName)" :title="sonItem.branchName" v-for="(sonItem, sonIndex) in item.child" v-if="sonItem.grandsonBranches[0].menu ==true"
+						<u-cell @click="selectMenu(sonItem.branchCode,sonItem.grandsonBranches,sonItem.branchName)" :title="sonItem.branchName" v-for="(sonItem, sonIndex) in item.child" v-if="sonItem.leaf"
 						 icon="grid-fill" iconStyle="color:#ffd3b6" :border="false"></u-cell>
 					</u-collapse>
 				</u-collapse-item>
 				
-				<!-- xx管理中心同级无子级     111 -->
-				<u-cell @click="selectMenu(item.branchCode,item.child,item.branchName)" :title="item.branchName" v-for="(item,index) in branchList"
-					v-if="item.child[0].menu==true" icon="grid-fill" iconStyle="color:#ffaaa5" :border="false"></u-cell>
+				<!-- xx管理中心同级无子级 -->
+				<u-cell @click="selectMenu(item.branchCode,item.child,item.branchName)" :title="item.branchName" v-for="(item,index) in branchList" v-if="item.leaf"
+					 icon="grid-fill" iconStyle="color:#ffaaa5" :border="false"></u-cell>
 			</u-collapse>
 		</view>
 
@@ -67,6 +66,9 @@
 				second_branchList: [],
 				show: true
 			};
+		},
+		computed:{
+			
 		},
 		methods: {
 			// 根据用户权限获取对应菜单
