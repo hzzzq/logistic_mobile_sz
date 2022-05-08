@@ -138,7 +138,6 @@
 				// 每次面板打开或者收起时，都查询元素尺寸
 				// 好处是，父组件从服务端获取内容后，变更折叠面板后可以获得最新的高度
 				const rect = await this.queryRect()
-				console.log(rect)
 				//
 				// const height = this.expanded ? rect.height : 0
 				const height = this.expanded ? 'auto' : 0			
