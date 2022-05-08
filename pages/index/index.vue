@@ -73,6 +73,7 @@
 		methods: {
 			// 根据用户权限获取对应菜单
 			getMenu(params) {
+				console.log(params)
 				user.getMenu(params).then((res) => {
 					if (res.data.code != 200) {
 						uni.showToast({
