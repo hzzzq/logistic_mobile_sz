@@ -4,6 +4,7 @@
 			{{historyCategory}}历史记录
 		</view>
 		<view class="list" style="background-color: #f1f4fb; ">
+			<u-empty id="empty" text="暂无数据" marginTop="120" v-if="(recordInfo.length == 0 ? true:false)"></u-empty>
 			<!-- 早中晚餐 -->
 			<view class="list_item flex flexVc item_container"   @click="detailClick(item.recordList)" 
 			v-if="historyCategory=='早餐'||historyCategory=='中餐'||historyCategory=='晚餐'"
@@ -70,9 +71,6 @@
 						that.pageInfo.current = res.data.data.current
 						that.pageInfo.pages = res.data.data.pages
 						that.recordInfo.push.apply(that.recordInfo, res.data.data.records);
-						// res.data.data.records.forEach(item=>{
-						// 	that.recordInfo.push(item)
-						// })
 					}
 				})
 			},
@@ -215,10 +213,11 @@
 	}
 }
 .header {
-	font-size: 14px;
+	font-size: 15px;
 	line-height: 56rpx;
 	color: #8f9ca2;
-	margin-top: 4rpx;
+	margin-top: 10rpx;
+	margin-left: 10rpx;
 }
 .item_container{
 	flex-direction: row !important; 
@@ -230,4 +229,7 @@
 		margin-left: 20rpx;
 	}
 }
+#empty {
+		height: 500rpx;
+	}
 </style>

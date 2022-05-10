@@ -72,7 +72,8 @@ export default {
 			flag: true,
 			branchCode: '',
 			todayDate: '',
-			text1:'中餐台账上传时段 ：第一次: 11：00----11:30  第二次: 12:30----13:00'
+			text1:'中餐台账上传时段 ：第一次: 11:00----11:30  第二次: 12:30----13:00',
+			currentTime:''
 		};
 	},
 	mounted() {
@@ -91,7 +92,11 @@ export default {
 	},
 	methods: {
 		navTo() {
-			this.$Router.push({ name: 'addRecord', params: { category: '中餐' }})
+			if(that.checkTime()){
+				this.$Router.push({ name: 'addRecord', params: { category: '中餐' }})
+			}else{
+				uni.$u.toast('请在规定时间内上传')
+			}
 		},
 		//获取今日日期
 		getTodayDate() {
@@ -171,6 +176,16 @@ export default {
 					historyCategory: '中餐'
 				}
 			})
+		},
+		checkTime(){
+			let time = new Date()
+			let timeLowwer1 =  new Date(that.todayDate + ' 11:00') 
+			let timeUpper1 = new Date(that.todayDate + ' 11:30') 
+			let timeLowwer2 = new Date(that.todayDate + ' 12:30') 
+			let timeUpper2 = new Date(that.todayDate + ' 13:00') 
+			let flag1 = time>=timeLowwer1&&time<=timeUpper1
+			let flag2 = time>=timeLowwer2&&time<=timeUpper2
+			return (flag1||flag2)
 		}
 	}
 };

@@ -73,7 +73,7 @@ export default {
 			flag: true,
 			branchCode: '',
 			todayDate: '',
-			text1:'晚餐台账上传时段 ：第一次: 16：30----17:00  第二次: 18:00----18:30'
+			text1:'晚餐台账上传时段 ：第一次: 16:30----17:00  第二次: 18:00----18:30'
 		};
 	},
 	mounted() {
@@ -92,7 +92,11 @@ export default {
 	},
 	methods: {
 		navTo() {
-			this.$Router.push({ name: 'addRecord', params: { category: '晚餐' }})
+			if(that.checkTime()){
+				this.$Router.push({ name: 'addRecord', params: { category: '晚餐' }})
+			}else{
+				uni.$u.toast('请在规定时间内上传')
+			}
 		},
 		//获取今日日期
 		getTodayDate() {
@@ -171,6 +175,16 @@ export default {
 					historyCategory: '晚餐'
 				}
 			})
+		},
+		checkTime(){
+			let time = new Date()
+			let timeLowwer1 =  new Date(that.todayDate + ' 16:30') 
+			let timeUpper1 = new Date(that.todayDate + ' 17:00') 
+			let timeLowwer2 = new Date(that.todayDate + ' 18:00') 
+			let timeUpper2 = new Date(that.todayDate + ' 18:30') 
+			let flag1 = time>=timeLowwer1&&time<=timeUpper1
+			let flag2 = time>=timeLowwer2&&time<=timeUpper2
+			return (flag1||flag2)
 		}
 	}
 };
