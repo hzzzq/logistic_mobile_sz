@@ -36,10 +36,12 @@
 						</view>
 					</u-form-item>
 				</u--form>
+				<!-- 底部栏 -->
 				<u-button type="primary" text="提交" customStyle="margin-top: 80rpx; width:320rpx;height:80rpx" @click="submit" size="large" color="#28c6c4"></u-button>
 				<u-button type="error" text="重置" customStyle="margin-top: 20rpx;width:320rpx;height:80rpx" @click="reset" size="large" color="#ca7b5a"></u-button>
 			</view>
 		</view>
+		<!-- 选择器 -->
 		<u-picker :show="categoryShow" :columns="categoryColumns" @cancel="cancel('categoryShow')" @confirm="categoryConfirm"></u-picker>
 		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel('dateShow')" mode="date" :maxDate="date"></u-datetime-picker>
 	</view>
@@ -158,8 +160,7 @@
 					});
 				})
 			},
-			//以上图片相关方法暂做保留
-			
+			// 表单提交
 			submit() {
 				// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
 				this.$refs.form1.validate().then(res => {
@@ -181,6 +182,7 @@
 					uni.$u.toast('校验失败')
 				})
 			},
+			// 表单重置
 			reset() {
 				const validateList = ['reportInfo.recordTime', 'reportInfo.repairContent','reportInfo.category','reportInfo.money']
 				this.$refs.form1.resetFields()
@@ -193,6 +195,7 @@
 				}, 10)
 				
 			},
+			// 时间选择
 			dateConfirm(e){
 				const timeFormat = uni.$u.timeFormat
 				let time = timeFormat(e.value, 'yyyy-mm-dd')

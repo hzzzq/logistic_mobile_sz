@@ -85,9 +85,6 @@
 					that.pageInfo.current = res.data.data.current
 					that.pageInfo.pages = res.data.data.pages
 					that.recordInfo.push.apply(that.recordInfo, res.data.data.records);
-					// res.data.data.records.forEach(item=>{
-					// 	that.recordInfo.push(item)
-					// })
 				})
 			},
 			getSwillData(){
@@ -102,9 +99,6 @@
 						that.pageInfo.current = res.data.data.current
 						that.pageInfo.pages = res.data.data.pages
 						that.recordInfo.push.apply(that.recordInfo, res.data.data.records);
-						// res.data.data.records.forEach(item=>{
-						// 	that.recordInfo.push(item)
-						// })
 					}
 				})
 			},
@@ -119,9 +113,6 @@
 						that.pageInfo.current = res.data.data.current
 						that.pageInfo.pages = res.data.data.pages
 						that.recordInfo.push.apply(that.recordInfo, res.data.data.records);
-						// res.data.data.records.forEach(item=>{
-						// 	that.recordInfo.push(item)
-						// })
 					}
 				})
 			},

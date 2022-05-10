@@ -9,12 +9,15 @@ let user = {
 	getMenu(params){
 		return methods.get('/branch/branchCatalogue', params)
 	},
+	//找回密码
 	findPassword(params){
 		return methods.post('/admin/updatePsw',params)
 	},
+	// 查找体温信息
 	findAllTemperature(params){
 		return methods.get('/temperatureRecord/findAllTempareture',params)
 	},
+	// 查找核酸信息
 	findAllNuclein(params){
 		return methods.get('/nucleinRecord/findAllNuclein',params)
 	}

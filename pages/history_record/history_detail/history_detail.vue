@@ -98,9 +98,11 @@
 	export default {
 		data() {
 			return {
+				// 数据列表
 				detailList :[],
 				commodityList:[],
 				pictureList:[],
+				// 历史记录标志位
 				historyCategory:'',
 				headers: [{
 						label: '序号',
@@ -126,6 +128,7 @@
                 return uni.upx2px(value)
                 //#endif
             },
+			// 餐饮数据
 			mealDataInit(){
 				let i = 1;
 				that.detailList.forEach(item=>{
@@ -139,10 +142,12 @@
 					that.pictureList.push(item.picture)
 				})
 			},
+			// 消杀数据
 			disinfectInit(){
 				var tempList = that.detailList.picture.split(";");
 				that.pictureList = tempList
 			},
+			// 迎检数据
 			yearReportInit(){
 				/* 此时的this.detailList 为迎检标题 */
 				let obj = {

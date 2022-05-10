@@ -7,6 +7,7 @@
 		<!-- 列表 -->
 		<view class="list" style="background-color: #f1f4fb;">
 			<u-empty id="empty" text="暂无数据" marginTop="120" v-if="(list.length == 0 ? true:false)" style="background-color: #ffffff;"></u-empty>
+			<!-- 列表item -->
 			<view class="list_item" style="margin-bottom: 16rpx; background-color: #FFFFFF; height: 180rpx;" v-for="(item, index) in list" :key="'list' + index" >
 				<!-- row1 -->
 				<view class="info_item flex" style="margin-bottom: 10rpx; justify-content: space-between;">
@@ -20,10 +21,6 @@
 					</view>
 				</view>
 				<!-- row2 -->
-				<!-- <view class="info_item flex flexVc">
-					<view><text class="label">联系方式:</text><text class="content">{{item.phone}}</text></view>
-				</view> -->
-				<!-- row3 -->
 				<view class="info_item flex flexVc" style="width: 100%;">
 					<view class="flex flexVc" style="width: 58%;" @click="showDate(item.userId,index)">
 						<text class="label">上次核酸时间:</text>
@@ -94,6 +91,7 @@
 				dateShow:false,
 				temperatureShow:false,
 				date: Number(new Date()),
+				// 当前点击用户
 				currentUserIndex:'',
 				keywords:'',
 				pageInfo:{
@@ -149,18 +147,6 @@
 			this.temperatureInfo.operator = tempInfo.adminName
 		},
 		methods: {
-			//根据当前的branchCode 获取用户信息
-			// getData(branchCode){
-			// 	let temp = {branchCode: branchCode}
-			// 	employee.findAll(temp).then((res)=>{
-			// 		if(res.data.code!=200){
-			// 			uni.$u.toast('数据请求失败，请重试')
-			// 		}else{	
-			// 			let temp = res.data.data.records
-			// 			that.list = temp;
-			// 		}
-			// 	})
-			// },
 			// 获取数据
 			getData(params) {
 				employee.findAll(params).then((res)=>{

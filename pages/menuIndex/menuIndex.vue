@@ -120,33 +120,34 @@
 						path: 'repairRecord'
 					},
 				];
+				// 根据登录用户所拥有的权限 显示对应菜单
 				that.menuList.forEach(item=>{
 					// 人员核酸
-					if(item.branchCode.slice(-2)=="01"){
+					if(item.branchName=="人员管理"){
 						that.function_list.push(list[0],list[1])
 					}
 					// 早中晚餐
-					if(item.branchCode.slice(-2)=="02"){
+					if(item.branchName=="早中晚餐信息"){
 						that.function_list.push(list[2],list[3],list[4])
 					}
 					// 消杀
-					if(item.branchCode.slice(-2)=="03"){
+					if(item.branchName=="消杀信息"){
 						that.function_list.push(list[5])
 					}
 					// 年检
-					if(item.branchCode.slice(-2)=="04"){
+					if(item.branchName=="迎检记录"){
 						that.function_list.push(list[6])
 					}
 					// 泔水
-					if(item.branchCode.slice(-2)=="05"){
+					if(item.branchName=="泔水信息"){
 						that.function_list.push(list[7])
 					}
 					// 超市台账
-					if(item.branchCode.slice(-2)=="06"){
+					if(item.branchName=="台账信息"){
 						that.function_list.push(list[8])
 					}
 					// 校车维保
-					if(item.branchCode.slice(-2)=="07"){
+					if(item.branchName=="校车维保"){
 						that.function_list.push(list[9])
 					}
 				})

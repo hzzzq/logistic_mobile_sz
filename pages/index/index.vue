@@ -23,17 +23,19 @@
 									<u-collapse-item :title="grandsonItem.branchName" v-for="(grandsonItem, grandsonIndex) in sonItem.grandsonBranches" v-if="!grandsonItem.leaf" >
 										<u-icon name="grid-fill" size="20" slot="icon" color="#a8e6cf"></u-icon>																			<!-- 	这里是功能  -->
 									</u-collapse-item>
+									<!-- 第三级同级无子级 -->
 									<u-cell @click="selectMenu(grandsonItem.branchCode,grandsonItem.grandsonBrancheChild,grandsonItem.branchName)" :title="grandsonItem.branchName"
 										icon="grid-fill" iconStyle="color:#a8e6cf" :border="false" v-if="grandsonItem.leaf"
 										v-for="(grandsonItem, grandsonIndex) in sonItem.grandsonBranches"></u-cell>
 								</u-collapse>
 						</u-collapse-item>
+						<!-- 第二级同级无子级 -->
 						<u-cell @click="selectMenu(sonItem.branchCode,sonItem.grandsonBranches,sonItem.branchName)" :title="sonItem.branchName" v-for="(sonItem, sonIndex) in item.child" v-if="sonItem.leaf"
 						 icon="grid-fill" iconStyle="color:#ffd3b6" :border="false"></u-cell>
 					</u-collapse>
 				</u-collapse-item>
 				
-				<!-- xx管理中心同级无子级 -->
+				<!-- 第一级同级无子级 -->
 				<u-cell @click="selectMenu(item.branchCode,item.child,item.branchName)" :title="item.branchName" v-for="(item,index) in branchList" v-if="item.leaf"
 					 icon="grid-fill" iconStyle="color:#ffaaa5" :border="false"></u-cell>
 			</u-collapse>

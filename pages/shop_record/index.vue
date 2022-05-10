@@ -128,6 +128,7 @@
 					}
 				})
 			},
+			// 下一页请求
 			getNextPage(temp){
 				market.findMarketRecord(temp).then((res)=>{
 					if(res.data.code!=200){
@@ -140,6 +141,7 @@
 					}
 				})
 			},
+			// 获取超市内容
 			getMarket(){
 				let temp ={category:'超市'} 
 				market.getMarket(temp).then((res)=>{
@@ -154,11 +156,13 @@
 					}
 				})
 			},
+			// 今日日期
 			getTodayDate(){
 				const timeFormat = uni.$u.timeFormat
 				let time = timeFormat(that.date,'yyyy-mm-dd')
 				that.todayDate = time
 			},
+			// 超市选择
 			selectMarket(item){
 				that.marketShow = true;
 				that.commodityInfo = item;
@@ -220,6 +224,7 @@
 			cancel() {
 				that.marketShow = false
 			},
+			// 价格输入框方法
 			handleInputUpdate(e){
 				let temp = that.commodityInfo
 				temp.recordTime = that.todayDate;
@@ -234,6 +239,7 @@
 					}
 				})
 			},
+			// focus时 选中当前这条信息
 			getItemInfo(item){
 				that.commodityInfo = item
 			}

@@ -99,7 +99,7 @@
 			that = this;
 		},
 		methods: {
-		
+			// 登录
 			async startLogin() {
 				if (!this.userInfo.adminNumber) {
 					uni.showToast({
@@ -135,6 +135,7 @@
 			close() {
 				this.findPasswordShow = false;
 			},
+			// 密码找回
 			findPassword() {
 				if (!this.findInfo.adminNumber) {
 					uni.$u.toast('请输入找回账号的用户名')

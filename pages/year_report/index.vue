@@ -41,6 +41,7 @@
 						</view>
 					</u-form-item>
 				</u--form>
+				<!-- 历史记录 -->
 				<u-cell-group style="background-color: #FFFFFF;">
 					<u-cell title="历史记录" @click="historyClick">
 						<u-icon slot="right-icon" name="arrow-right"size="18" ></u-icon>
@@ -60,6 +61,7 @@
 	export default {
 		data() {
 			return {
+				/* 绑定表单 */
 				model1: {
 					reportInfo: {
 						inspectionTitle: '',
@@ -70,6 +72,7 @@
 						keyPoint:''
 					},
 				},
+				/* 表单验证规则 */
 				rules: {
 					'reportInfo.inspectionTitle': {
 						type: 'string',
@@ -145,7 +148,7 @@
 					fileListLen++
 				}
 			},
-			//上传方法
+			//图片上传方法
 			uploadFilePromise(url) {
 				return new Promise((resolve, reject) => {
 					let a = uni.uploadFile({
@@ -168,6 +171,7 @@
 					});
 				})
 			},
+			/* 表单提交 */
 			submit() {
 				// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
 				this.$refs.form1.validate().then(res => {
@@ -190,6 +194,7 @@
 					uni.$u.toast('校验失败')
 				})
 			},
+			/* 表单重置 */
 			reset() {
 				const validateList = ['reportInfo.inspectionTitle', 'reportInfo.inspectionTime', 'reportInfo.description', 'reportInfo.operator']
 				this.$refs.form1.resetFields()
@@ -199,6 +204,7 @@
 					// 或者使用 this.$refs.form1.clearValidate()
 				}, 10)
 			},
+			/* 选择器 */
 			dateConfirm(e){
 				const timeFormat = uni.$u.timeFormat
 				let time = timeFormat(e.value, 'yyyy-mm-dd hh:MM:ss')

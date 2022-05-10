@@ -5,10 +5,9 @@
 			<view class="u-demo-block__content">
 				<!-- 表单 -->
 				<u--form labelPosition="left" :model="model1" ref="form1" :rules="rules">
-					<!--
-						row1 
-					 -->
+					<!--row1 -->
 					<view style="display: flex; flex-direction: row;">
+						<!-- 左侧头像 -->
 						<u-form-item  ref="item1" prop="userInfo.image" style="width: 33%;" >
 							 <u-upload :fileList="pictureList" @afterRead="afterRead" @delete="deletePic" name="1" :maxCount="1" class="imageUpload" 
 								ref="upload"
@@ -18,8 +17,10 @@
 							 <image style="width: 100px; height: 120px;" mode="scaleToFill" src="../../../static/upload.png"></image>
 							 </u-upload>
 						</u-form-item>
-						<view style="width: 100%;">	<!-- 外层view -->
-							<view class="flex flexVc" style="flex-direction: row;"> <!-- 内层view -->
+						<!-- 右侧信息 -->
+						<view style="width: 100%;">	
+							<!-- 第一行 -->
+							<view class="flex flexVc" style="flex-direction: row;"> 
 								<u-form-item  ref="item1" prop="userInfo.name" style="width: 50%;" >
 									<view class="flex flexVc" >
 										<text class="form_lable flex_we">姓名：</text>
@@ -39,7 +40,8 @@
 									</view>
 								</u-form-item>
 							</view>
-							<view class="flex flexVc" style="flex-direction: row;"> <!-- 内层view -->
+							<!-- 第二行 -->
+							<view class="flex flexVc" style="flex-direction: row;"> 
 								<u-form-item  ref="item1" prop="userInfo.age" style="width: 50%;">
 									<view class="flex flexVc" >
 										<text class="form_lable flex_we">年龄：</text>
@@ -59,7 +61,8 @@
 									</view>
 								</u-form-item>
 							</view>
-							<view class="flex flexVc" style="flex-direction: row;" ><!-- 内层view -->
+							<!-- 第三行 -->
+							<view class="flex flexVc" style="flex-direction: row;" >
 								<u-form-item  ref="item3" style="width: 100%;" prop="userInfo.phone">
 									<view class="flex flexVc">
 										<text class="form_lable flex_we">手机号：</text>
@@ -73,9 +76,7 @@
 						</view>
 					</view>
 					<u-line color="rgb(214, 215, 217)"></u-line>
-					<!-- 
-						row2
-					 -->
+					<!--row2-->
 					<u-form-item  ref="item2" prop="userInfo.idNumber" style="width: 100%;">
 						<view class="flex flexVc">
 							<text class="form_lable flex_we">身份证：</text>
@@ -86,14 +87,7 @@
 						</view>
 					</u-form-item>
 					<u-line color="rgb(214, 215, 217)"></u-line>
-					<!-- 
-						row3 
-					-->
-					
-					<u-line color="rgb(214, 215, 217)"></u-line>
-					<!-- 
-						row4 
-					-->
+					<!--row3-->
 					<view style="display: flex;flex-direction:row; width: 100%;">
 						<u-form-item  ref="item4" style="width: 50%;" prop="userInfo.entryTime">
 							<view class="flex flexVc" @click="dateShow = !dateShow">
@@ -114,10 +108,9 @@
 							</view>
 						</u-form-item>
 					</view>
+					<!-- 分隔线 -->
 					<u-line color="rgb(214, 215, 217)"></u-line>
-					<!-- 
-						row5 
-					-->
+					<!--row4-->
 					<view style="display: flex;flex-direction: row; width: 100%;">
 						<u-form-item  ref="item5" style="width: 55%;" prop="userInfo.departureTime">
 							<view class="flex flexVc">
@@ -138,10 +131,9 @@
 							</view>
 						</u-form-item>
 					</view>
+					<!-- 分隔线 -->
 					<u-line color="rgb(214, 215, 217)"></u-line>
-					<!-- 
-						row6 
-					-->
+					<!-- row5 -->
 					<u-form-item borderBottom ref="item6" prop="userInfo.idAddress">
 						<view class="flex flexVc item_view">
 							<text class="form_lable flex_we">身份证地址：</text>
@@ -151,9 +143,7 @@
 							</view>
 						</view>
 					</u-form-item>
-					<!--
-						row7 
-					-->
+					<!--row6-->
 					<u-form-item borderBottom ref="item6" prop="userInfo.currentAddress">
 						<view class="flex flexVc item_view">
 							<text class="form_lable flex_we">当前居住地址：</text>
@@ -163,9 +153,7 @@
 							</view>
 						</view>
 					</u-form-item>
-					<!-- 
-						row8 
-					-->
+					<!--row7 -->
 					<view style="display: flex;flex-direction: row;width: 100%;">
 						<u-form-item  ref="item7" prop="userInfo.riskArea">
 							<view class="flex flexVc">
@@ -178,9 +166,7 @@
 						</u-form-item>
 					</view>
 					<u-line color="rgb(214, 215, 217)"></u-line>
-					<!-- 
-						row9 
-					-->
+					<!-- row8 -->
 					<view style="display: flex;flex-direction: row;width: 100%;">
 						<u-form-item  ref="item7" prop="userInfo.outSide">
 							<view class="flex flexVc item_view">
@@ -193,9 +179,7 @@
 						</u-form-item>
 					</view>
 					<u-line color="rgb(214, 215, 217)"></u-line>
-					<!--
-						row10
-					-->
+					<!--row9-->
 					<u-form-item borderBottom ref="item7" prop="userInfo.outsideRiskArea">
 						<view class="flex flexVc">
 							<text class="form_lable flex_we" style="width:780rpx;">家中人员有无到中高风险区：</text>
@@ -206,16 +190,22 @@
 						</view>
 					</u-form-item>
 				</u--form>
+				<!-- 底部栏 -->
 				<u-button type="primary" text="提交" customStyle="margin-top: 80rpx; width:320rpx;height:80rpx"
 					@click="submit" size="large" color="#28c6c4"></u-button>
 				<u-button type="error" text="重置" customStyle="margin-top: 20rpx;width:320rpx;height:80rpx"
 					@click="reset" size="large" color="#ca7b5a"></u-button>
 			</view>
 		</view>
+		<!-- 性别选择器 -->
 		<u-picker :show="sexShow" :columns="sexColumns" @cancel="cancel('sexShow')" @confirm="sexConfirm"></u-picker>
+		<!-- 在校选择器 -->
 		<u-picker :show="stateShow" :columns="stateColumns" @cancel="cancel('stateShow')" @confirm="stateConfirm"></u-picker>
+		<!-- 入职时间 -->
 		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel('dateShow')"  mode="date"></u-datetime-picker>
+		<!-- 中高风险等 -->
 		<u-picker :show="riskShow" :columns="riskColumns" @cancel="cancel('riskShow')" @confirm="riskConfirm"></u-picker>
+		<!-- 冷链 -->
 		<u-picker :show="coldShow" :columns="coldColumns" @cancel="cancel('coldShow')" @confirm="coldConfirm"></u-picker>
 	</view>
 </template>
@@ -228,7 +218,6 @@
 			return {
 				model1: {
 					userInfo: {
-						// userId:'',
 						branchCode:'',
 						window:'',
 						name:'',
@@ -240,12 +229,10 @@
 						picture:'',
 						phone:'',
 						entryTime:'',
-						// departureTime:'',
-						// nucleinTime:'',
-						// todayTemperature:'',
 						state:'',
 						idAddress:'',
 						currentAddress:'',
+					// -----------------------
 						isRiskArea:'',
 						isOutside:'',
 						riskAreaIsOutside:'',
@@ -253,10 +240,8 @@
 						riskArea:'', //是否处于中高风险区
 						outSide:'',//是否有外来人口
 						outsideRiskArea:'',//外来人口中高风险区
+					// -----------------------
 						branchName:''
-						// vaccineFrequency:'',
-						// remarks:'',
-						// disabled: false
 					},
 				},
 				/* 表单验证规则 */
@@ -393,8 +378,8 @@
 			this.$refs.form1.setRules(this.rules)
 		},
 		methods: {
+			// 表单提交
 			submit() {
-				// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
 				this.$refs.form1.validate().then(res => {
 					if(that.pictureList.length == 0){
 						uni.$u.toast('请上传用户头像')
@@ -415,6 +400,7 @@
 					uni.$u.toast('请正确填写信息')
 				})
 			},
+			// 表单重置
 			reset() {
 				const validateList = ['userInfo.name', 'userInfo.sex', 'userInfo.age', 'userInfo.idNumber', 'userInfo.phone','userInfo.state','userInfo.entryTime','userInfo.window',
 					'userInfo.idAddress', 'userInfo.currentAddress', 'userInfo.riskArea','userInfo.outSide','userInfo.outsideRiskArea'
@@ -435,10 +421,12 @@
 				this.model1.userInfo.sex = e.value[0];
 				this.sexShow = false;
 			},
+			// 在校
 			stateConfirm(e){
 				this.model1.userInfo.state = e.value[0];
 				this.stateShow = false;
 			},
+			// 时间选择
 			dateConfirm(e){
 				const timeFormat = uni.$u.timeFormat
 				let time = timeFormat(e.value, 'yyyy-mm-dd')
@@ -449,12 +437,14 @@
 			cancel(name) {
 				this[`${name}`] = false
 			},
+			// 后端记录01对应是否塞入对象
 			dataDispose(info){
 				if(info.riskArea == '是'){info.isRiskArea = true}else{info.isRiskArea = false}
 				if(info.outSide == '是'){info.isOutside = true}else{info.isOutside = false}
 				if(info.outsideRiskArea == '是'){info.riskAreaIsOutside = true}else{info.riskAreaIsOutside = false}
 				return info;
 			},
+			// 中高风险等确定方法
 			riskConfirm(e){
 				let flag = that.riskSelect
 				let value = e.value[0]
@@ -530,6 +520,7 @@
 			},
 		},
 		created() {
+			// params传值解决刷新无数据问题: 存入storge中存取
 			const tempCode = uni.getStorageSync('menuCode')
 			if(tempCode){
 				this.branchCode = tempCode

@@ -63,6 +63,7 @@
 			}
 		},
 		methods: {
+			// 跳转
 			navTo() {
 				this.$Router.push({ name: 'addRecord', params: { category: '早餐' }})
 			},
@@ -72,6 +73,7 @@
 				let time = timeFormat(that.date, 'yyyy-mm-dd')
 				that.todayDate = time
 			},
+			// 数据获取
 			async getData() {
 				let params = {
 					branchCode: that.branchCode,
@@ -98,6 +100,7 @@
 					}
 				})
 			},
+			// 图片预览
 			imageClick(index) {
 				uni.previewImage({
 					current: index,
@@ -107,6 +110,7 @@
 					}
 				});
 			},
+			// 历史跳转
 			historyClick(){
 				that.$Router.push({
 					name: 'historyRecord',

@@ -60,7 +60,9 @@ export default {
 	},
 	mounted() {
 		that = this
+		// 获取日期
 		that.getTodayDate()
+		// 获取商品
 		that.getCommodity()
 		// that.getData(that.branchCode)
 		that.dataInit()
@@ -109,6 +111,7 @@ export default {
 				}
 			})
 		},
+		// 不是早餐 则加入三项商品内容
 		dataInit(){
 			if(that.mealCategory != '早餐'){
 				for(var i = 0 ;i < 3 ;i++){
@@ -166,7 +169,7 @@ export default {
 				fileListLen++
 			}
 		},
-		//上传方法
+		//上传图片
 		uploadFilePromise(url) {
 			return new Promise((resolve, reject) => {
 				let a = uni.uploadFile({
@@ -185,6 +188,7 @@ export default {
 				});
 			})
 		},
+		// 记录提交
 		async update(){
 			if(that.commodityList.length==0){
 				uni.$u.toast("数据不可为空")
@@ -225,6 +229,7 @@ export default {
 				}
 			}
 		},
+		// 增加商品项
 		addClick(){
 			let temp ={
 					branchCode: that.branchCode,//
@@ -237,6 +242,7 @@ export default {
 				};
 			that.commodityList.push(temp)
 		},
+		// 删除商品项
 		deleteClick(){
 			that.commodityList.splice(that.commodityList.length-1,1)
 		}

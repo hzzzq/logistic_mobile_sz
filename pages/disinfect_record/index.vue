@@ -88,12 +88,6 @@
 						message:'消杀日期不可为空',
 						trigger:['blur','change']
 					}
-					// 'reportInfo.description':{
-					// 	type:'string',
-					// 	required:true,
-					// 	message:'消杀概况信息不可为空',
-					// 	trigger:['change']
-					// }
 				},
 				//图片列表
 				pictureList: [],
@@ -146,7 +140,7 @@
 					fileListLen++
 				}
 			},
-			//上传方法
+			//图片上传方法
 			uploadFilePromise(url) {
 				return new Promise((resolve, reject) => {
 					let a = uni.uploadFile({
@@ -202,6 +196,7 @@
 					// 或者使用 this.$refs.form1.clearValidate()
 				}, 10)
 			},
+			// 时间选择器确定方法
 			dateConfirm(e){
 				const timeFormat = uni.$u.timeFormat
 				let time = timeFormat(e.value, 'yyyy-mm-dd hh:MM:ss')
@@ -212,6 +207,7 @@
 			cancel() {
 				this.dateShow = false
 			},
+			// 历史跳转
 			historyClick(){
 				that.$Router.push({
 					name: 'historyRecord',

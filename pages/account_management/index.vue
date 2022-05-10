@@ -7,10 +7,13 @@
 		<!-- 列表 -->
 		<view class="list">
 			<u-empty id="empty" text="暂无数据" marginTop="120" v-if="(userList.length == 0 ? true:false)"></u-empty>
+			<!-- 列表项 -->
 			<view class="list_item" @click="navtoDetails(item.userId)" v-for="(item, index) in userList" 
 				:key="'userList' + index">
 				<view class="info_item flex flexVc" style="flex-direction: row;width: 100%;">
+					<!-- 头像 -->
 					<image style="width: 18%; height: 130rpx; margin-left: 10rpx; border-radius: 30rpx;" :src="item.picture"></image>
+					<!-- 信息 -->
 					<view style="margin-left: 20rpx; width: 75%; height:130rpx;display: flex;flex-direction: row; justify-content: space-between; ">
 						<view>
 							<text class="content" style="display: block;">{{item.name}}</text>
@@ -21,7 +24,6 @@
 							<u-button class="ins" v-show="item.state=='在校'" type="success" plain hairline :text="item.state" size="normal" customStyle="width:120rpx; font-size:32rpx"></u-button>
 							<u-button class="ins" v-show="item.state=='离校'" type="error" plain hairline :text="item.state" size="normal" customStyle="width:120rpx;"></u-button>
 							<u-button class="ins" v-show="item.state=='请假'" type="warning" plain hairline :text="item.state" size="normal" customStyle="width:120rpx; font-size:32rpx;color:#f9ae3d"></u-button>
-							<!-- <text style="padding: 0 6rpx;display: block;">{{item.state}}</text> -->
 						</view>
 					</view>
 				</view>
@@ -43,6 +45,7 @@
 	export default {
 		data() {
 			return {
+				// 搜索框内容
 				keywords:'',
 				userList: [],
 				branchCode:'',
@@ -52,10 +55,12 @@
 				},
 				/* 判断是否处于搜索状态 */
 				searchFlag:false,
+				// 判断是否处于刷新状态  解决刷新自动触发一次触底函数的问题
 				refreshFlag:true
 			};
 		},
 		watch: {
+			// 监听搜索框
 		    keywords: {
 		        handler(newValue, oldValue) {
 					if(oldValue!=undefined&&newValue ==''){
@@ -92,10 +97,6 @@
 				uni.setStorageSync('menuCode', this.branchCode)
 			}
 		},
-		// onShow() {
-		// 	let temp = {branchCode : that.branchCode}
-		// 	that.getData(temp)
-		// },
 		methods: {
 			// 获取数据
 			getData(params) {
@@ -113,6 +114,7 @@
 					}
 				})
 			},
+			// 下一页数据的请求方法
 			getNextPage(temp){
 				employee.findAll(temp).then((res)=>{
 					if(res.data.code!=200){

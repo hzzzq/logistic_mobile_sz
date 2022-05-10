@@ -17,12 +17,6 @@
 				</u-form-item>
 			</view>
 			<!-- 2 -->
-	<!-- 		<view class="coloum_item flex flexVc">
-				<u-form-item prop="userInfo.idNumber" class="item flex">
-					<view class="label">身份证</view>
-					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.idNumber"/>
-				</u-form-item>
-			</view> -->
 			<view class="coloum_item flex flexVc" style="width: 100%;">
 				<u-form-item prop="userInfo.phone" class="item flex" style="width: 50%;">
 					<view class="label">手机号</view>
@@ -33,7 +27,7 @@
 					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.state"/>
 				</u-form-item>
 			</view>
-			<!-- 4 -->
+			<!-- 3 -->
 			<view class="coloum_item flex flexVc" style="width: 100%;">
 				<u-form-item prop="userInfo.entryTime" class="item flex" style="width: 50%;">
 					<view class="label">入职时间</view>
@@ -44,7 +38,7 @@
 					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.window"/>
 				</u-form-item>
 			</view>
-			<!-- 5 -->
+			<!-- 4 -->
 			<view class="coloum_item flex flexVc" style="width: 100%;">
 				<u-form-item prop="userInfo.isRiskAreaInfo" class="item flex">
 					<view class="label" style="width: 100%;float: left !important;">是否处于中高风险地区</view>
@@ -57,7 +51,7 @@
 					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.isOutsideInfo" />
 				</u-form-item>
 			</view>
-			<!-- 6 -->
+			<!-- 5 -->
 			<view class="coloum_item flex flexVc" style="width: 100%;">
 				<u-form-item prop="userInfo.riskAreaIsOutsideInfo" class="item flex">
 					<view class="label" style="width: 100%;">外来人员是否来自中高风险区</view>
@@ -81,6 +75,7 @@
 	export default {
 		data() {
 			return {
+				// 表单信息
 				model1:{
 					userInfo:{
 						
@@ -90,6 +85,7 @@
 				UnModifiable: true,
 				userId:'',
 				branchCode:'',
+				// 表单验证规则
 				rules:{
 					'userInfo.name': [{
 						type: 'string',
@@ -236,7 +232,6 @@
 				if(info=="change"){
 					this.UnModifiable = !this.UnModifiable;
 				}else{
-					// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
 					this.$refs.form1.validate().then(res => {
 						let temp = that.model1.userInfo
 						if(temp.isRiskAreaInfo =='是'){
@@ -281,6 +276,7 @@
 						})
 					}else{
 						let temp = res.data.data.records[0]
+						// 返回数据01转是否
 						if(temp.isRiskArea){
 							temp.isRiskAreaInfo = '是'
 						}else{
