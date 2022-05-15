@@ -5,33 +5,54 @@
 		</view>
 		<view class="list" style="background-color: #f1f4fb; ">
 			<u-empty id="empty" text="暂无数据" marginTop="120" v-if="(recordInfo.length == 0 ? true:false)"></u-empty>
+			
 			<!-- 早中晚餐 -->
-			<view class="list_item flex flexVc item_container"   @click="detailClick(item.recordList)" 
+			<view style="border-radius:12px; background-color: #FFFFFF; margin: 10px 10px;"  @click="detailClick(item.recordList)" 
 			v-if="historyCategory=='早餐'||historyCategory=='中餐'||historyCategory=='晚餐'"
 			v-for="(item, index) in recordInfo" :key="'record' + index" >
-				<text class="label">时间：<text>{{item.creteTime}}</text></text>
-			</view >
+				<u-cell icon="file-text" :title="historyCategory+'记录'" titleStyle="font-size: 32rpx" iconStyle="font-size:40rpx">
+					<u-icon name="arrow-right" size="18"slot="right-icon" color="#c0c4cc"></u-icon>
+				</u-cell>
+				<view style="height: 100rpx;padding: 10px 15px;line-height: 55rpx;">
+					<text style="color: #9b9b9c;">记录时间：<text style="color: #3f3356;">{{item.creteTime}}</text></text>
+				</view>
+			</view>
 			
 			<!-- 消杀 -->
-			<view class="list_item flex flexVc item_container"   @click="detailClick(item)"
+			<view style="border-radius:12px; background-color: #FFFFFF; margin: 10px 10px;"   @click="detailClick(item)"
 			v-if="historyCategory == '消杀'"
-			v-for="(item, index) in recordInfo" :key="'record' + index" >
-				<text class="label" >时间：<text>{{item.disinfectTime}}</text></text>
-			</view >
-				
+			v-for="(item, index) in recordInfo" :key="'record' + index">
+				<u-cell icon="file-text" :title="historyCategory+'记录'" titleStyle="font-size: 32rpx" iconStyle="font-size:40rpx">
+					<u-icon name="arrow-right" size="18"slot="right-icon" color="#c0c4cc"></u-icon>
+				</u-cell>
+				<view style="height: 100rpx;padding: 10px 15px;line-height: 55rpx;">
+					<text style="color: #9b9b9c;">记录时间：<text style="color: #3f3356;">{{item.disinfectTime}}</text></text>
+				</view>
+			</view>
+			
 			<!-- 泔水 -->
-			<view class="list_item flex flexVc item_container"   @click="detailClick(item)"
+			<view style="border-radius:12px; background-color: #FFFFFF; margin: 10px 10px;"  @click="detailClick(item)"
 			v-if="historyCategory == '泔水'"
-			v-for="(item, index) in recordInfo" :key="'record' + index" >
-				<text class="label" >时间：<text>{{item.recordTime}}</text></text>
-			</view >
-				
+			v-for="(item, index) in recordInfo" :key="'record' + index">
+				<u-cell icon="file-text" :title="historyCategory+'记录'" titleStyle="font-size: 32rpx" iconStyle="font-size:40rpx">
+					<u-icon name="arrow-right" size="18"slot="right-icon" color="#c0c4cc"></u-icon>
+				</u-cell>
+				<view style="height: 100rpx;padding: 10px 15px;line-height: 55rpx;">
+					<text style="color: #9b9b9c;">记录时间：<text style="color: #3f3356;">{{item.recordTime}}</text></text>
+				</view>
+			</view>
+			
 			<!-- 迎检 -->
-			<view class="list_item flex flexVc item_container"   @click="detailClick(item.inspectionTitle)"
+			<view style="border-radius:12px; background-color: #FFFFFF; margin: 10px 10px;"  @click="detailClick(item.inspectionTitle)"
 			v-if="historyCategory == '迎检'"
 			v-for="(item, index) in recordInfo" :key="'record' + index" >
-				<text class="label" >时间：<text>{{item.inspectionTime}}</text></text>
-			</view >
+				<u-cell icon="file-text" :title="historyCategory+'记录'" titleStyle="font-size: 32rpx" iconStyle="font-size:40rpx">
+					<u-icon name="arrow-right" size="18"slot="right-icon" color="#c0c4cc"></u-icon>
+				</u-cell>
+				<view style="height: 100rpx;padding: 10px 15px;line-height: 55rpx;">
+					<text style="color: #9b9b9c;">记录时间：<text style="color: #3f3356;">{{item.inspectionTime}}</text></text>
+				</view>
+			</view>
 				
 		</view>
 	</view>

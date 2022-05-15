@@ -1,5 +1,11 @@
 <template>
 	<view>
+		<view class="header">
+			 <u-notice-bar :text="text1"></u-notice-bar>
+		</view>
+		<view class="btn2" @click="historyClick" >
+			历史记录
+		</view>
 		<!-- 上午拍照上传 -->
 		<view class="upload_box">
 			<view class="header">
@@ -21,11 +27,11 @@
 			</view>
 		</view>
 		<!-- 底部栏 -->
-		<u-cell-group style="background-color: #FFFFFF;">
+		<!-- <u-cell-group style="background-color: #FFFFFF;">
 			<u-cell title="历史记录" @click="historyClick">
 				<u-icon slot="right-icon" name="arrow-right"size="18" ></u-icon>
 			</u-cell>
-		</u-cell-group>
+		</u-cell-group> -->
 		<view class="btn" @click="navTo" v-if="flag">
 			增加台账
 		</view>
@@ -45,7 +51,8 @@
 				flag: true,
 				branchCode: '',
 				todayDate: '',
-				commodityList:[]
+				commodityList:[],
+				text1:'早餐台账上传时段：6:30----8:30'
 			};
 		},
 		mounted() {
@@ -65,7 +72,11 @@
 		methods: {
 			// 跳转
 			navTo() {
-				this.$Router.push({ name: 'addRecord', params: { category: '早餐' }})
+				if(this.checkTime()){
+					this.$Router.push({ name: 'addRecord', params: { category: '早餐' }})
+				}else{
+					uni.$u.toast('请在规定时间内上传')
+				}
 			},
 			//获取今日日期
 			getTodayDate() {
@@ -118,6 +129,13 @@
 						historyCategory: '早餐'
 					}
 				})
+			},
+			checkTime(){
+				let time = new Date()
+				let timeLowwer1 =  new Date(that.todayDate + ' 6:30') 
+				let timeUpper1 = new Date(that.todayDate + ' 8:30') 
+				let flag1 = time>=timeLowwer1&&time<=timeUpper1
+				return (flag1)
 			}
 		}
 	};
@@ -147,6 +165,16 @@
 		border-radius: 18rpx;
 		margin: 0 auto;
 		margin-top: 36rpx;
+		font-size: 30rpx;
+	}
+	.btn2 {
+		width: 100%;
+		height: 72rpx;
+		background-color: #28c6c4;
+		color: #FFFFFF;
+		line-height: 72rpx;
+		text-align: center;
+		margin: 0 auto;
 		font-size: 30rpx;
 	}
 

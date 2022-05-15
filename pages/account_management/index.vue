@@ -83,6 +83,10 @@
 				}
 			}
 		},
+		onShow() {
+			let temp = {branchCode: that.branchCode}
+			that.getData(temp)
+		},
 		mounted() {
 			that = this
 			let temp = {branchCode: that.branchCode}

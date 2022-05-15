@@ -64,10 +64,10 @@
 			return {
 				userInfo: {},
 				swiper_list: [
-					'https://images.weserv.nl/?url=img2022.cnblogs.com/blog/1614106/202204/1614106-20220412190633624-609451251.png',
-					'https://images.weserv.nl/?url=img2022.cnblogs.com/blog/1614106/202204/1614106-20220412190643827-1389417433.png',
-					'https://images.weserv.nl/?url=img2022.cnblogs.com/blog/1614106/202204/1614106-20220412190651327-1007330676.png',
-					'https://images.weserv.nl/?url=img2022.cnblogs.com/blog/1614106/202204/1614106-20220411163458819-1432720006.png'
+					'http://101.33.249.154:8080/logistic_mobile/image/1.png',
+					'http://101.33.249.154:8080/logistic_mobile/image/2.png',
+					'http://101.33.249.154:8080/logistic_mobile/image/3.png',
+					'http://101.33.249.154:8080/logistic_mobile/image/4.png'
 				],
 				branchList: [],
 				second_branchList: [],

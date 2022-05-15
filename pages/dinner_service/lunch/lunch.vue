@@ -1,10 +1,10 @@
 <template>
 	<view>
-<!-- 		<view class="flex flexVc point_container" style="text-align: center; justify-content: center;">
-			<text style="font-size: 34rpx; font-weight: bold;">中餐台账</text>
-		</view> -->
 		<view class="header">
 			 <u-notice-bar :text="text1"></u-notice-bar>
+		</view>
+		<view class="btn2" @click="historyClick" >
+			历史记录
 		</view>
 		<!-- 上午拍照上传 -->
 		<view class="upload_box">
@@ -45,11 +45,11 @@
 			</view>
 		</view>
 		<!-- 底部栏 -->
-		<u-cell-group style="background-color: #FFFFFF;">
+<!-- 		<u-cell-group style="background-color: #FFFFFF;">
 			<u-cell title="历史记录" @click="historyClick">
 				<u-icon slot="right-icon" name="arrow-right"size="18" ></u-icon>
 			</u-cell>
-		</u-cell-group>
+		</u-cell-group> -->
 		<view class="btn" @click="navTo" v-if="flag">
 			增加台账
 		</view>
@@ -226,5 +226,15 @@ export default {
 	.image_container {
 		display: flex;
 		flex-direction: row;
+	}
+	.btn2 {
+		width: 100%;
+		height: 72rpx;
+		background-color: #28c6c4;
+		color: #FFFFFF;
+		line-height: 72rpx;
+		text-align: center;
+		margin: 0 auto;
+		font-size: 30rpx;
 	}
 </style>

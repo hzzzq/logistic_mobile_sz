@@ -1,5 +1,8 @@
 <template>
 	<view class="u-page">
+		<view class="btn2" @click="historyClick" >
+			历史记录
+		</view>
 		<view class="u-demo-block">
 			<text class="u-demo-block__title">报告提交</text>
 			<view class="u-demo-block__content">
@@ -10,26 +13,26 @@
 						<u--input border="surround" v-model="model1.reportInfo.inspectionTitle" placeholder="标题字数不少于3个字">
 						</u--input>
 					</u-form-item>
-					<u-form-item label="年检人员" prop="reportInfo.operator" borderBottom labelWidth="80" ref="item1">
+					<u-form-item label="迎检人员" prop="reportInfo.operator" borderBottom labelWidth="80" ref="item1">
 						<u--input border="surround" v-model="model1.reportInfo.operator" placeholder="请输入人员名字">
 						</u--input>
 					</u-form-item>
-					<u-form-item label="年检日期" prop="reportInfo.inspectionTime" borderBottom labelWidth="80" ref="item1" @click="dateShow = !dateShow">
+					<u-form-item label="迎检日期" prop="reportInfo.inspectionTime" borderBottom labelWidth="80" ref="item1" @click="dateClick">
 						<u--input border="surround" disabled v-model="model1.reportInfo.inspectionTime" placeholder="年检日期">
 						</u--input>
 					</u-form-item>
-					<u-form-item label="年检重点" prop="reportInfo.keyPoint" borderBottom labelWidth="80" ref="item1">
-						<u--input border="surround" v-model="model1.reportInfo.keyPoint" placeholder="年检重点">
+					<u-form-item label="迎检重点" prop="reportInfo.importance" borderBottom labelWidth="80" ref="item1">
+						<u--input border="surround" v-model="model1.reportInfo.importance" placeholder="年检重点">
 						</u--input>
 					</u-form-item>
 					<!-- 概况 -->
-					<u-form-item label="年检概况" prop="reportInfo.description" labelWidth="80" borderBottom ref="item2">
+					<u-form-item label="迎检概况" prop="reportInfo.description" labelWidth="80" borderBottom ref="item2">
 						<u--textarea placeholder="内容字数不少于3个字" v-model="model1.reportInfo.description" count>
 						</u--textarea>
 					</u-form-item>
 					<!-- 图片相关 -->
 					<u-form-item>
-						<view class="u-demo-block">
+						<view>
 							<text class="u-demo-block__title">图片文件</text>
 							<view class="u-demo-block__content">
 								<view class="u-page__upload-item">
@@ -42,11 +45,11 @@
 					</u-form-item>
 				</u--form>
 				<!-- 历史记录 -->
-				<u-cell-group style="background-color: #FFFFFF;">
+				<!-- <u-cell-group style="background-color: #FFFFFF;">
 					<u-cell title="历史记录" @click="historyClick">
 						<u-icon slot="right-icon" name="arrow-right"size="18" ></u-icon>
 					</u-cell>
-				</u-cell-group>
+				</u-cell-group> -->
 				<u-button type="primary" text="提交" customStyle="margin-top: 80rpx; width:320rpx;height:80rpx" @click="submit" size="large" color="#28c6c4"></u-button>
 				<u-button type="error" text="重置" customStyle="margin-top: 20rpx;width:320rpx;height:80rpx" @click="reset" size="large" color="#ca7b5a"></u-button>
 			</view>
@@ -69,7 +72,7 @@
 						description:'',
 						operator: '',
 						picture:'',
-						keyPoint:''
+						importance:''
 					},
 				},
 				/* 表单验证规则 */
@@ -97,8 +100,14 @@
 						required: true,
 						message: '请填写年检概述',
 						trigger: ['blur', 'change']
+					},
+					'reportInfo.importance': {
+						type: 'string',
+						required: true,
+						message: '请填写迎检重点',
+						trigger: ['blur', 'change']
 					}
-				},
+				}, 
 				pictureList: [],
 				dateShow:false,
 				date: Number(new Date()),
@@ -196,7 +205,7 @@
 			},
 			/* 表单重置 */
 			reset() {
-				const validateList = ['reportInfo.inspectionTitle', 'reportInfo.inspectionTime', 'reportInfo.description', 'reportInfo.operator']
+				const validateList = ['reportInfo.inspectionTitle', 'reportInfo.inspectionTime', 'reportInfo.description', 'reportInfo.operator','reportInfo.importance']
 				this.$refs.form1.resetFields()
 				this.$refs.form1.clearValidate()
 				setTimeout(() => {
@@ -222,13 +231,17 @@
 						historyCategory: '迎检'
 					}
 				})
+			},
+			dateClick(){
+				this.dateShow = !this.dateShow
+				this.date =  Number(new Date())
 			}
 		},
 	}
 </script>
 
 <style lang="scss" scoped>
-	.u-page {
+	.u-demo-block {
 		padding: 30rpx 30rpx 80rpx 30rpx;
 	}
 
@@ -242,5 +255,15 @@
 
 	page {
 		background-color: #ffffff;
+	}
+	.btn2 {
+		width: 100%;
+		height: 72rpx;
+		background-color: #28c6c4;
+		color: #FFFFFF;
+		line-height: 72rpx;
+		text-align: center;
+		margin: 0 auto;
+		font-size: 30rpx;
 	}
 </style>

@@ -287,5 +287,6 @@
 
 	#empty {
 		height: 500rpx;
+		background-color: #f1f4fb;
 	}
 </style>

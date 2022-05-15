@@ -1,14 +1,16 @@
 <template>
 	<view>
-		<view class="header">
-			核酸记录
-		</view>
 		<view class="list" style="background-color: #f1f4fb; ">
-			<u-empty id="empty" text="暂无数据" marginTop="120" v-if="(recordInfo.length == 0 ? true:false)" style="background-color: #ffffff;"></u-empty>
-			<view class="list_item flex flexVc" style="flex-direction: row; justify-content: flex-start; background-color: #FFFFFF; height: 80rpx; margin-bottom: 10rpx;" v-for="(item, index) in recordInfo" :key="'record' + index" >
-				<text class="label">日期：<text>{{item.nucleinTime}}</text></text>
-				<text style="margin-left: 80rpx;">检测结果：<text>{{item.nucleinResult==true?'阳性':'阴性'}}</text></text>
-			</view >
+			<u-empty id="empty" text="暂无数据" marginTop="120" v-if="(recordInfo.length == 0 ? true:false)" ></u-empty>
+			
+			<view style="border-radius:12px; background-color: #FFFFFF; margin: 10px 10px;"  v-for="(item, index) in recordInfo" :key="'record' + index" >
+				<u-cell icon="file-text" title="核酸记录" titleStyle="font-size: 32rpx" iconStyle="font-size:40rpx">
+				</u-cell>
+				<view style="height: 100rpx;padding: 10px 15px;line-height: 55rpx;">
+					<text style="color: #9b9b9c;">记录日期：<text style="color: #3f3356;">{{item.nucleinTime}}</text></text>
+					<text style="color: #9b9b9c;margin-left: 60rpx;">检测结果：<text style="color: #3f3356;">{{item.nucleinResult==true?'阳性':'阴性'}}</text></text>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>

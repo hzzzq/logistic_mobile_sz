@@ -1,27 +1,32 @@
 <template>
-	<view style="width: 100%; height:410rpx; background-color: #FFFFFF;padding: 12px 16px;">
-		<!-- row1 -->
-		<view style="padding: 6px 9px;">
-			<view><text class="label">单位名称：</text><text class="content">{{swillInfo.branchName}}</text></view>
+	<view>
+		<view class="btn2" @click="historyClick" >
+			历史记录
 		</view>
-		<!-- row2 -->
-		<view style="padding: 6px 9px;">
-			<view><text class="label">当前时间：</text><text class="content">{{todayDate}}</text></view>
-		</view>
-		<!-- row3 -->
-		<view class="flex flexVc" style="margin-top: 10rpx;">
-			<text style="font-size: 32rpx;color:#8f9ca2;margin-left: 20rpx;">泔水重量：</text>
-			<input type="number" v-model="swillInfo.weight" placeholder="输入数量" class="input"/><text style="font-size: 28rpx;margin-left: 10rpx;">千克</text>
-		</view>
-		<!-- row4 -->
-		<u-cell-group style="background-color: #FFFFFF;margin-top: 20rpx; " :border="false">
-			<u-cell title="历史记录" @click="historyClick" >
-				<u-icon slot="right-icon" name="arrow-right"size="18" ></u-icon>
-			</u-cell>
-		</u-cell-group>
-		<!-- 底部 -->
-		<view class="btn" @click="update()" style="float: right; margin-right:20rpx;">
-			提交
+		<view style="width: 100%; height:340rpx; background-color: #FFFFFF;padding: 12px 16px;">
+			<!-- row1 -->
+			<view style="padding: 6px 9px;">
+				<view><text class="label">单位名称：</text><text class="content">{{swillInfo.branchName}}</text></view>
+			</view>
+			<!-- row2 -->
+			<view style="padding: 6px 9px;">
+				<view><text class="label">当前日期：</text><text class="content">{{todayDate}}</text></view>
+			</view>
+			<!-- row3 -->
+			<view class="flex flexVc" style="margin-top: 10rpx;">
+				<text style="font-size: 32rpx;color:#8f9ca2;margin-left: 20rpx;">泔水重量：</text>
+				<input type="number" v-model="swillInfo.weight" placeholder="输入数量" class="input"/><text style="font-size: 28rpx;margin-left: 10rpx;">千克</text>
+			</view>
+			<!-- row4 -->
+			<!-- <u-cell-group style="background-color: #FFFFFF;margin-top: 20rpx; " :border="false">
+				<u-cell title="历史记录" @click="historyClick" >
+					<u-icon slot="right-icon" name="arrow-right"size="18" ></u-icon>
+				</u-cell>
+			</u-cell-group> -->
+			<!-- 底部 -->
+			<view class="btn" @click="update()" style="float: right; margin-right:20rpx;">
+				提交
+			</view>
 		</view>
 	</view>
 </template>
@@ -123,4 +128,14 @@
 			margin-top: 28rpx;
 			font-size: 30rpx;
 		}
+	.btn2 {
+		width: 100%;
+		height: 72rpx;
+		background-color: #28c6c4;
+		color: #FFFFFF;
+		line-height: 72rpx;
+		text-align: center;
+		margin: 0 auto;
+		font-size: 30rpx;
+	}
 </style>

@@ -1,14 +1,16 @@
 <template>
 	<view>
-		<view class="header">
-			体温记录
-		</view>
 		<view class="list" style="background-color: #f1f4fb; ">
-			<u-empty id="empty" text="暂无数据" marginTop="120" v-if="(recordInfo.length == 0 ? true:false)" style="background-color: #ffffff;"></u-empty>
-			<view class="list_item flex flexVc" style="flex-direction: row; justify-content: flex-start; background-color: #FFFFFF; height: 80rpx; margin-bottom: 10rpx;" v-for="(item, index) in recordInfo" :key="'record' + index" >
-				<text class="label">日期：<text>{{item.temperatureTime}}</text></text>
-				<text style="margin-left: 80rpx;">当日体温：<text>{{item.temperature}}</text></text>
-			</view >
+			<u-empty id="empty" text="暂无数据" marginTop="120" v-if="(recordInfo.length == 0 ? true:false)"></u-empty>
+			
+			<view style="border-radius:12px; background-color: #FFFFFF; margin: 10px 10px;"  v-for="(item, index) in recordInfo" :key="'record' + index" >
+				<u-cell icon="file-text" title="体温记录" titleStyle="font-size: 32rpx" iconStyle="font-size:40rpx">
+				</u-cell>
+				<view style="height: 100rpx;padding: 10px 15px;line-height: 55rpx;">
+					<text class="label" style="color: #9b9b9c;">日期：<text style="color: #3f3356;">{{item.temperatureTime}}</text></text>
+					<text style="margin-left: 60rpx;color: #9b9b9c;">当日体温：<text style="color: #3f3356;">{{item.temperature}}</text></text>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>

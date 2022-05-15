@@ -23,7 +23,6 @@
 			</view>
 		</view>
 	</view>
-
 </template>
 
 <script>
@@ -34,10 +33,10 @@
 			return {
 				userInfo: {},
 				swiper_list: [
-					'https://images.weserv.nl/?url=img2022.cnblogs.com/blog/1614106/202204/1614106-20220412190633624-609451251.png',
-					'https://images.weserv.nl/?url=img2022.cnblogs.com/blog/1614106/202204/1614106-20220412190643827-1389417433.png',
-					'https://images.weserv.nl/?url=img2022.cnblogs.com/blog/1614106/202204/1614106-20220412190651327-1007330676.png',
-					'https://images.weserv.nl/?url=img2022.cnblogs.com/blog/1614106/202204/1614106-20220411163458819-1432720006.png'
+					'http://101.33.249.154:8080/logistic_mobile/image/1.png',
+					'http://101.33.249.154:8080/logistic_mobile/image/2.png',
+					'http://101.33.249.154:8080/logistic_mobile/image/3.png',
+					'http://101.33.249.154:8080/logistic_mobile/image/4.png'
 				],
 				function_list: [],
 				branchCode: "",
@@ -123,32 +122,34 @@
 				// 根据登录用户所拥有的权限 显示对应菜单
 				that.menuList.forEach(item=>{
 					// 人员核酸
-					if(item.branchName=="人员管理"){
-						that.function_list.push(list[0],list[1])
-					}
-					// 早中晚餐
-					if(item.branchName=="早中晚餐信息"){
-						that.function_list.push(list[2],list[3],list[4])
-					}
-					// 消杀
-					if(item.branchName=="消杀信息"){
-						that.function_list.push(list[5])
-					}
-					// 年检
-					if(item.branchName=="迎检记录"){
-						that.function_list.push(list[6])
-					}
-					// 泔水
-					if(item.branchName=="泔水信息"){
-						that.function_list.push(list[7])
-					}
-					// 超市台账
-					if(item.branchName=="台账信息"){
-						that.function_list.push(list[8])
-					}
-					// 校车维保
-					if(item.branchName=="校车维保"){
-						that.function_list.push(list[9])
+					if(!item.disabled){
+						if(item.branchName=="人员管理"){
+							that.function_list.push(list[0],list[1])
+						}
+						// 早中晚餐
+						if(item.branchName=="早中晚餐信息"){
+							that.function_list.push(list[2],list[3],list[4])
+						}
+						// 消杀
+						if(item.branchName=="消杀信息"){
+							that.function_list.push(list[5])
+						}
+						// 年检
+						if(item.branchName=="迎检记录"){
+							that.function_list.push(list[6])
+						}
+						// 泔水
+						if(item.branchName=="泔水信息"){
+							that.function_list.push(list[7])
+						}
+						// 超市台账
+						if(item.branchName=="台账信息"){
+							that.function_list.push(list[8])
+						}
+						// 校车维保
+						if(item.branchName=="校车维保"){
+							that.function_list.push(list[9])
+						}
 					}
 				})
 			}

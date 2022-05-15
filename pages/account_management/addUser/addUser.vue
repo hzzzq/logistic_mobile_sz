@@ -202,7 +202,7 @@
 		<!-- 在校选择器 -->
 		<u-picker :show="stateShow" :columns="stateColumns" @cancel="cancel('stateShow')" @confirm="stateConfirm"></u-picker>
 		<!-- 入职时间 -->
-		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel('dateShow')"  mode="date"></u-datetime-picker>
+		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel('dateShow')"  mode="date" :maxDate="date"></u-datetime-picker>
 		<!-- 中高风险等 -->
 		<u-picker :show="riskShow" :columns="riskColumns" @cancel="cancel('riskShow')" @confirm="riskConfirm"></u-picker>
 		<!-- 冷链 -->

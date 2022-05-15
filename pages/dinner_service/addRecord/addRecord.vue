@@ -213,6 +213,7 @@ export default {
 				if(!flag){
 					uni.$u.toast("请填写完整信息")
 				}else{
+					that.getTodayDate()
 					//添加数据
 					meal.addMealsRecord(that.commodityList).then(res=>{
 						

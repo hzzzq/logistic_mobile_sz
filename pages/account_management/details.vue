@@ -31,7 +31,7 @@
 			<view class="coloum_item flex flexVc" style="width: 100%;">
 				<u-form-item prop="userInfo.entryTime" class="item flex" style="width: 50%;">
 					<view class="label">入职时间</view>
-					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.entryTime"/>
+					<input class="val" disabled="true" v-model="model1.userInfo.entryTime" @click="dateClick"/>
 				</u-form-item>
 				<u-form-item prop="userInfo.window" class="item flex"  style="width: 50%;">
 					<view class="label">所在窗口</view>
@@ -66,6 +66,7 @@
 			<u-button type="primary" text="提交" customStyle="width:320rpx;height:80rpx" v-if="!UnModifiable"
 				@click="Change('save')" size="large" color="#28c6c4"></u-button>
 		</view>
+		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel" mode="date" :maxDate="date"></u-datetime-picker>
 	</view>
 </template>
 
@@ -194,7 +195,10 @@
 						trigger: ['change'],
 						enum: ['是','否']
 					}
-				}
+				},
+				dateShow:false,
+				date: Number(new Date()),
+				
 			}
 		},
 		created() {
@@ -244,7 +248,7 @@
 						}else{
 							temp.isOutside = false
 						}
-						if(temp.iskAreaIsOutsideInfo == '是')
+						if(temp.riskAreaIsOutsideInfo == '是')
 						{
 							temp.riskAreaIsOutside = true
 						}else{
@@ -296,6 +300,24 @@
 						that.model1.userInfo = temp
 					}
 				})
+			},
+			dateClick(){
+				if(that.UnModifiable){
+					uni.$u.toast("请点击按钮进入修改状态")
+				}else{
+					that.dateShow = !this.dateShow
+					that.date =  Number(new Date())
+				}
+			},
+			dateConfirm(e){
+				const timeFormat = uni.$u.timeFormat
+				let time = timeFormat(e.value, 'yyyy-mm-dd')
+				// that.model1.userInfo.entryTime
+				that.model1.userInfo.entryTime = time
+				that.dateShow = false
+			},
+			cancel(){
+				that.dateShow = false
 			}
 		}
 	};
