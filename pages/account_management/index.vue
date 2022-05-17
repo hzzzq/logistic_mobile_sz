@@ -56,7 +56,9 @@
 				/* 判断是否处于搜索状态 */
 				searchFlag:false,
 				// 判断是否处于刷新状态  解决刷新自动触发一次触底函数的问题
-				refreshFlag:true
+				refreshFlag:true,
+				// 进入详情后退出刷新页面flag
+				onShowFlag:false
 			};
 		},
 		watch: {
@@ -84,8 +86,11 @@
 			}
 		},
 		onShow() {
-			let temp = {branchCode: that.branchCode}
-			that.getData(temp)
+			if(that.onShowFlag){
+				let temp = {branchCode: that.branchCode}
+				that.getData(temp)
+				that.onShowFlag = false
+			}
 		},
 		mounted() {
 			that = this
@@ -175,6 +180,7 @@
 			},
 			// 跳转到用户详情
 			navtoDetails(item) {
+				that.onShowFlag = true;
 				this.$Router.push({
 					name: 'account_details',
 					params: {
@@ -182,10 +188,11 @@
 						branchCode: that.branchCode
 					}
 				})
-		 },
+			},
 			// 添加员工
 			navtoAdd() {
-			 this.$Router.push({
+				that.onShowFlag = true;
+				this.$Router.push({
 					name: 'addUser',
 					params:{
 						branchCode : that.branchCode

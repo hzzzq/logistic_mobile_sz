@@ -473,7 +473,6 @@
 			// 删除图片
 			deletePic(event) {
 				this[`pictureList`].splice(event.index, 1)
-				this[`pictureUrlList`].splice(event.index, 1)
 			},
 			// 新增图片  图片读取后的操作
 			async afterRead(event) {

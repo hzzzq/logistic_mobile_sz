@@ -3,7 +3,7 @@
 		<view class="content">
 			<!-- 头部logo -->
 			<view class="header"></view>
-			<view class="title_container"><text class="info_title">后勤管理后台登录</text></view>
+			<view class="title_container"><text class="info_title">后勤管理系统</text></view>
 
 			<!-- 主体表单 -->
 			<view class="main">
