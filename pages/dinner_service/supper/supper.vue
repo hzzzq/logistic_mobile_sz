@@ -93,7 +93,7 @@ export default {
 	methods: {
 		navTo() {
 			if(that.checkTime()){
-				this.$Router.push({ name: 'addRecord', params: { category: '晚餐' }})
+				this.$Router.push({ name: 'addRecord', params: { category: '中晚餐' }})
 			}else{
 				uni.$u.toast('请在规定时间内上传')
 			}

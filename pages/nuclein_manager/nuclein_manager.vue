@@ -255,9 +255,6 @@
 						uni.$u.toast('数据提交失败，请重试')
 					}else{
 						uni.$u.toast('核酸信息已更新')
-						setTimeout(()=>{
-							that.$router.go(0)
-						},500)
 					}
 				})
 			},
@@ -271,18 +268,16 @@
 			updateTemperatureInfo(){
 				let params = that.temperatureInfo
 				
+				
 				employee.addTemperatureInfo(params).then((res)=>{
 					if(res.data.code != 200){
 						uni.$u.toast(res.data.msg)
 					}else{
 						uni.$u.toast('体温信息更新成功')
 						//更改当前渲染list的temperature
-						that.list[that.currentUserIndex].temperature = that.temperatureInfo.temperature;
+						that.$set(that.list[that.currentUserIndex],'todayTemperature',that.temperatureInfo.temperature)
 						//修改完成  关闭当前窗口
 						that.temperatureShow = false
-						setTimeout(()=>{
-							that.$router.go(0)
-						},500)
 					}
 				})
 			},

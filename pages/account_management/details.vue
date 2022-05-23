@@ -10,7 +10,8 @@
 						width="100"
 					 	height="120"
 					 >
-					 <image style="width: 100px; height: 120px;" mode="scaleToFill":src="model1.userInfo.picture==null?'../../static/upload.png':model1.userInfo.picture"></image>
+					 <image style="width: 100px; height: 120px;" mode="scaleToFill" :src="model1.userInfo.picture==null?defaultImage:model1.userInfo.picture"></image>
+					 <!-- <image style="width: 100px; height: 120px;" mode="scaleToFill" :src="model1.userInfo.picture"></image> -->
 					 </u-upload>
 				</u-form-item>
 				<!-- 右侧信息 -->
@@ -255,7 +256,8 @@
 				sexColumns: [
 					['男', '女']
 				],
-				pictureList:[]
+				pictureList:[],
+				defaultImage:'http://101.33.249.154:8080/logistic_mobile/image/upload.png'
 			}
 		},
 		created() {

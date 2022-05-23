@@ -12,7 +12,7 @@
 				:key="'userList' + index">
 				<view class="info_item flex flexVc" style="flex-direction: row;width: 100%;">
 					<!-- 头像 -->
-					<image style="width: 18%; height: 130rpx; margin-left: 10rpx; border-radius: 30rpx;" :src="item.picture"></image>
+					<image style="width: 18%; height: 130rpx; margin-left: 10rpx; border-radius: 30rpx;" :src="item.picture==null?defaultPicture:item.picture"></image>
 					<!-- 信息 -->
 					<view style="margin-left: 20rpx; width: 75%; height:130rpx;display: flex;flex-direction: row; justify-content: space-between; ">
 						<view>
@@ -58,7 +58,8 @@
 				// 判断是否处于刷新状态  解决刷新自动触发一次触底函数的问题
 				refreshFlag:true,
 				// 进入详情后退出刷新页面flag
-				onShowFlag:false
+				onShowFlag:false,
+				defaultPicture:'http://101.33.249.154:8080/logistic_mobile/image/user.png'
 			};
 		},
 		watch: {
