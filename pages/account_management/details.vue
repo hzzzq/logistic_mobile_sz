@@ -11,7 +11,6 @@
 					 	height="120"
 					 >
 					 <image style="width: 100px; height: 120px;" mode="scaleToFill" :src="model1.userInfo.picture==null?defaultImage:model1.userInfo.picture"></image>
-					 <!-- <image style="width: 100px; height: 120px;" mode="scaleToFill" :src="model1.userInfo.picture"></image> -->
 					 </u-upload>
 				</u-form-item>
 				<!-- 右侧信息 -->
@@ -86,8 +85,13 @@
 			</view>
 			<!-- 4 -->
 			<view class="coloum_item flex flexVc" style="width: 100%;">
+				<u-form-item prop="userInfo.entryTime" class="item flex" style="width: 50%;">
+					<view class="label">离职时间</view>
+					<input class="val" disabled="true" v-model="model1.userInfo.departureTime" placeholder="无" @click="showPicker('departDateShow')"/>
+					<u-icon name="close-circle" v-if="model1.userInfo.departureTime!=null" @click="clear"></u-icon>
+				</u-form-item>
 				<u-form-item prop="userInfo.coldInfo" class="item flex">
-					<view class="label" style="width: 100%;float: left !important;">是否冷链人员</view>
+					<view class="label" style="width:100%;float: left !important;">是否冷链人员</view>
 					<input class="val"  :disabled="UnModifiable" v-model="model1.userInfo.coldInfo" />	
 				</u-form-item>
 			</view>
@@ -121,6 +125,7 @@
 				@click="Change('save')" size="large" color="#28c6c4"></u-button>
 		</view>
 		<u-datetime-picker :show="dateShow" v-model="date" @confirm="dateConfirm" @cancel="cancel('dateShow')" mode="date" :maxDate="date"></u-datetime-picker>
+		<u-datetime-picker :show="departDateShow" v-model="date" @confirm="departDateConfirm" @cancel="cancel('departDateShow')" mode="date" :maxDate="date"></u-datetime-picker>
 		<u-picker :show="stateShow" :columns="stateColumns" @cancel="cancel('stateShow')" @confirm="stateConfirm"></u-picker>
 		<u-picker :show="sexShow" :columns="sexColumns" @cancel="cancel('sexShow')" @confirm="sexConfirm"></u-picker>
 	</view>
@@ -248,6 +253,7 @@
 					}
 				},
 				dateShow:false,
+				departDateShow:false,
 				date: Number(new Date()),
 				stateShow:false,
 				sexShow:false,
@@ -367,6 +373,9 @@
 						}else{
 							temp.coldInfo = '否'
 						}
+						if(temp.disabled == 0){
+							temp.departureTime = null
+						}
 						that.model1.userInfo = temp
 					}
 				})
@@ -390,7 +399,7 @@
 				this[`${name}`] = false
 			},
 			stateConfirm(e){
-				that.model1.userInfo.state  = e.value
+				that.model1.userInfo.state  = e.value[0]
 				that.stateShow = false
 			},
 			sexConfirm(e){
@@ -443,6 +452,20 @@
 					});
 				})
 			},
+			departDateConfirm(e){
+				const timeFormat = uni.$u.timeFormat
+				let time = timeFormat(e.value, 'yyyy-mm-dd')
+				that.model1.userInfo.departureTime = time
+				that.departDateShow = false
+			},
+			clear(){
+				if(that.UnModifiable){
+					uni.$u.toast("请点击按钮进入修改状态")
+				}else{
+					that.model1.userInfo.departureTime = null;
+					that.model1.userInfo.disabled = 0;
+				}
+			}
 		}
 	};
 </script>

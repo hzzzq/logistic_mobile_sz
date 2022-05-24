@@ -13,8 +13,8 @@
 					<view><text class="label">商品名称:</text><text class="content">{{item.name}}</text></view>
 				</view>
 				<view class="info_item flex flexVc" style="width: 100%;">
-					<view style="width: 60%;"><text class="label">商品条码:</text><text class="content">{{item.barCode}}</text></view>
-					<view class="flex flexVc" style="width: 38%;">
+					<view style="width: 55%;"><text class="label">商品条码:</text><text class="content">{{item.barCode}}</text></view>
+					<view class="flex flexVc" style="width: 45%;">
 						<text class="label">参考超市:</text>
 						<view @click="selectMarket(item)">
 							<u--input class="priceInput" disabled v-model="item.contrastSupermarket" placeholder="选择超市" border="surround" style="width: 150rpx; height: 50rpx;" ></u--input>
@@ -22,8 +22,8 @@
 					</view>
 				</view>
 				<view class="info_item flex flexVc" style="width: 100%;">
-					<view style="width: 60%;"><text class="label">商品价格:</text><text class="content">{{item.price}}</text></view>
-					<view class="flex flexVc" style="width: 38%;">
+					<view style="width: 55%;"><text class="label">商品价格:</text><text class="content">{{item.price}}</text></view>
+					<view class="flex flexVc" style="width: 45%;">
 						<text class="label">参考价格:</text>
 						<view>
 							<input  type="number"  placeholder="输入价格" @blur = "handleInputUpdate($event)" v-model="item.contrastPrice" @focus="getItemInfo(item)"

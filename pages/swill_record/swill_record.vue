@@ -3,7 +3,7 @@
 		<view class="btn2" @click="historyClick" >
 			历史记录
 		</view>
-		<view style="width: 100%; height:340rpx; background-color: #FFFFFF;padding: 12px 16px;">
+		<view style="width: 100%; height:400rpx; background-color: #FFFFFF;padding: 12px 16px;">
 			<!-- row1 -->
 			<view style="padding: 6px 9px;">
 				<view><text class="label">单位名称：</text><text class="content">{{swillInfo.branchName}}</text></view>
@@ -18,6 +18,10 @@
 				<input type="number" v-model="swillInfo.weight" placeholder="输入数量" class="input"/><text style="font-size: 28rpx;margin-left: 10rpx;">千克</text>
 			</view>
 			<!-- row4 -->
+			<view class="flex flexVc" style="margin-top: 10rpx;">
+				<text style="font-size: 32rpx;color:#8f9ca2;margin-left: 20rpx;">回收公司：</text>
+				<input type="number" v-model="swillInfo.recovery" placeholder="公司名称" class="input"/>
+			</view>
 			<!-- <u-cell-group style="background-color: #FFFFFF;margin-top: 20rpx; " :border="false">
 				<u-cell title="历史记录" @click="historyClick" >
 					<u-icon slot="right-icon" name="arrow-right"size="18" ></u-icon>

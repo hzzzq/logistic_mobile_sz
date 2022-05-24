@@ -14,11 +14,11 @@
 			<!-- 商品详细 -->
 			<view style="padding: 9rpx 9rpx;">
 				<text>商品：</text>
-				<view style="margin-left: 20rpx;" v-for="(item,index) in commodityList"><text>{{item.name}}：<text>{{item.quantity}}</text></text></view>
+				<view style="margin-left: 20rpx;" v-for="(item,index) in commodityList" :key="item.id"><text>{{item.name}}：<text>{{item.quantity}}</text></text></view>
 			</view>
 			<!-- 商品图片 -->
 			<view class="image_container">
-				<view v-for="(item,index) in fileList1" @click="imageClick(index)">
+				<view v-for="(item,index) in fileList1" @click="imageClick(index)" :key="item.id" >
 					<image style="width: 160rpx; height: 160rpx; margin-left: 10rpx;" mode="aspectFill" :src="item"></image>
 				</view>
 				<view v-if="fileList1.length == 0">
@@ -131,11 +131,13 @@
 				})
 			},
 			checkTime(){
-				let time = new Date()
-				let timeLowwer1 =  new Date(that.todayDate + ' 6:30') 
-				let timeUpper1 = new Date(that.todayDate + ' 8:30') 
-				let flag1 = time>=timeLowwer1&&time<=timeUpper1
-				return (flag1)
+				let date = new Date()
+				let hour = date.getHours().toString()
+				let minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
+				
+				let flag = Number(hour+minute) >=630 && Number(hour+minute) <=830
+				
+				return flag
 			}
 		}
 	};

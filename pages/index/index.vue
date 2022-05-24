@@ -12,15 +12,15 @@
 		<view class="item-collapse">
 			<u-collapse accordion :border="false">
 				<!-- 第一级 -->
-				<u-collapse-item :title="item.branchName" v-for="(item,index) in branchList" v-if="!item.leaf&&!item.disabled">   
+				<u-collapse-item :title="item.branchName" v-for="(item,index) in branchList" :key="item.id" v-if="!item.leaf&&!item.disabled">   
 					<u-icon name="grid-fill" size="20" slot="icon" color="#ffaaa5"></u-icon>
 					<!-- 第二级 -->
 					<u-collapse accordion :border="false">
-						<u-collapse-item :title="sonItem.branchName" v-for="(sonItem, sonIndex) in item.child" v-if="!sonItem.leaf&&!sonItem.disabled"  ref="item2" >
+						<u-collapse-item :title="sonItem.branchName" v-for="(sonItem, sonIndex) in item.child" :key="sonItem.id" v-if="!sonItem.leaf&&!sonItem.disabled"  ref="item2" >
 							<u-icon name="grid-fill" size="20" slot="icon" color="#ffd3b6"></u-icon>
 								<!-- 第三级 -->
 								<u-collapse accordion :border="false">
-									<u-collapse-item :title="grandsonItem.branchName" v-for="(grandsonItem, grandsonIndex) in sonItem.grandsonBranches"
+									<u-collapse-item :title="grandsonItem.branchName" v-for="(grandsonItem, grandsonIndex) in sonItem.grandsonBranches" :key="grandsonItem.id"
 									 v-if="!grandsonItem.leaf&&!grandsonItem.disabled" >
 										<u-icon name="grid-fill" size="20" slot="icon" color="#a8e6cf"></u-icon>															
 									</u-collapse-item>
@@ -28,19 +28,19 @@
 									<u-cell @click="selectMenu(grandsonItem.branchCode,grandsonItem.grandsonBrancheChild,grandsonItem.branchName)" 
 										:title="grandsonItem.branchName"
 										icon="grid-fill" iconStyle="color:#a8e6cf" :border="false" v-if="grandsonItem.leaf&&!grandsonItem.disabled"
-										v-for="(grandsonItem, grandsonIndex) in sonItem.grandsonBranches"></u-cell>
+										v-for="(grandsonItem, grandsonIndex) in sonItem.grandsonBranches" :key="grandsonItem.id"></u-cell>
 								</u-collapse>
 						</u-collapse-item>
 						<!-- 第二级同级无子级 -->
-						<u-cell @click="selectMenu(sonItem.branchCode,sonItem.grandsonBranches,sonItem.branchName)" :title="sonItem.branchName" 
-						 v-for="(sonItem, sonIndex) in item.child" 
+						<u-cell @click="selectMenu(sonItem.branchCode,sonItem.grandsonBranches,sonItem.branchName)" :title="sonItem.branchName"  
+						 v-for="(sonItem, sonIndex) in item.child"  :key="sonItem.id"
 						 v-if="sonItem.leaf&&!sonItem.disabled"
 						 icon="grid-fill" iconStyle="color:#ffd3b6" :border="false"></u-cell>
 					</u-collapse>
 				</u-collapse-item>
 				
 				<!-- 第一级同级无子级 -->
-				<u-cell @click="selectMenu(item.branchCode,item.child,item.branchName)" :title="item.branchName" v-for="(item,index) in branchList" 
+				<u-cell @click="selectMenu(item.branchCode,item.child,item.branchName)" :title="item.branchName" v-for="(item,index) in branchList"  :key="item.id"
 					 v-if="item.leaf&&!item.disabled"
 					 icon="grid-fill" iconStyle="color:#ffaaa5" :border="false"></u-cell>
 			</u-collapse>
@@ -149,6 +149,9 @@
 			}else{
 				next()
 			}
+		},
+		beforeDestroy() {
+			uni.clearStorageSync('user_info');
 		}
 	};
 </script>

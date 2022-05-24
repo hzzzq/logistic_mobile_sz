@@ -13,7 +13,7 @@
 					</view>
 				</view>
 			</view>
-			<view v-for="(item, index ) in commodityList">
+			<view v-for="(item, index ) in commodityList" :key="item.id">
 				<uni-data-picker style="margin-top: 10rpx;" placeholder="请选择商品" popup-title="选择商品"  @nodeclick="nodeClick($event,index)" :localdata="dataTree" ></uni-data-picker>
 				<view class="flex flexVc" style="margin-top: 10rpx;">
 					<text style="font-size: 28rpx;color:#8f9ca2;margin-left: 20rpx;">价格：<text>{{commodityList[index].price}}元</text></text>
@@ -95,7 +95,12 @@ export default {
 	methods: {
 		/* 获取商品 */
 		getCommodity(){
-			let temp = {category:that.mealCategory,pageSize:9999}
+			let temp
+			if(that.mealCategory == '早餐'){
+				temp = {category:that.mealCategory,pageSize:9999}
+			}else{
+				temp = {category:'中晚餐',pageSize:9999}
+			}
 			meal.getCommodity(temp).then((res)=>{
 				if(res.data.code != 200){
 					uni.$u.toast('数据请求失败，请重试')

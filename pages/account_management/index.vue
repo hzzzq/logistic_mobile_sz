@@ -14,16 +14,17 @@
 					<!-- 头像 -->
 					<image style="width: 18%; height: 130rpx; margin-left: 10rpx; border-radius: 30rpx;" :src="item.picture==null?defaultPicture:item.picture"></image>
 					<!-- 信息 -->
-					<view style="margin-left: 20rpx; width: 75%; height:130rpx;display: flex;flex-direction: row; justify-content: space-between; ">
+					<view style="margin-left: 20rpx; width: 80%; height:130rpx;display: flex;flex-direction: row; justify-content: space-between; ">
 						<view>
 							<text class="content" style="display: block;">{{item.name}}</text>
 							<view><text style="color: #999; font-size: 32rpx;padding: 0 6rpx;">所在窗口:</text><text>{{item.window}}</text></view>
 						</view>
 						<view class="flex" style="flex-direction: row; justify-content: center; align-items: center;"  >
-							<u-tag text="冷链" size="mini" style="margin-right: 20rpx;" v-if="item.cold"></u-tag>
-							<u-button class="ins" v-show="item.state=='在校'" type="success" plain hairline :text="item.state" size="normal" customStyle="width:120rpx; font-size:32rpx"></u-button>
-							<u-button class="ins" v-show="item.state=='离校'" type="error" plain hairline :text="item.state" size="normal" customStyle="width:120rpx;"></u-button>
-							<u-button class="ins" v-show="item.state=='请假'" type="warning" plain hairline :text="item.state" size="normal" customStyle="width:120rpx; font-size:32rpx;color:#f9ae3d"></u-button>
+							<u-tag text="离职" size="mini" style="margin-right: 10rpx;" type="error" v-if="item.disabled"></u-tag>
+							<u-tag text="冷链" size="mini" style="margin-right: 10rpx;" v-if="item.cold"></u-tag>
+							<u-button class="ins" v-show="item.state=='在校'" type="success" plain hairline :text="item.state" size="normal" customStyle="width:100rpx; font-size:32rpx"></u-button>
+							<u-button class="ins" v-show="item.state=='离校'" type="error" plain hairline :text="item.state" size="normal" customStyle="width:100rpx;"></u-button>
+							<u-button class="ins" v-show="item.state=='请假'" type="warning" plain hairline :text="item.state" size="normal" customStyle="width:100rpx; font-size:32rpx;color:#f9ae3d"></u-button>
 						</view>
 					</view>
 				</view>
@@ -87,10 +88,10 @@
 			}
 		},
 		onShow() {
-			if(that.onShowFlag){
+			if(this.onShowFlag){
 				let temp = {branchCode: that.branchCode}
-				that.getData(temp)
-				that.onShowFlag = false
+				this.getData(temp)
+				this.onShowFlag = false
 			}
 		},
 		mounted() {

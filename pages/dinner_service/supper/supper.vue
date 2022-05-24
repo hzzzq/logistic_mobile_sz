@@ -15,10 +15,10 @@
 			<!-- 商品详细 -->
 			<view style="padding: 9rpx 9rpx;">
 				<text>商品：</text>
-				<view style="margin-left: 20rpx;" v-for="(item,index) in commodityList1"><text>{{item.name}}：<text>{{item.quantity}}</text></text></view>
+				<view style="margin-left: 20rpx;" v-for="(item,index) in commodityList1" :key="item.id"><text>{{item.name}}：<text>{{item.quantity}}</text></text></view>
 			</view>
 			<view class="image_container">
-				<view v-for="(item,index) in fileList1" @click="imageClick(1,index)">
+				<view v-for="(item,index) in fileList1" @click="imageClick(1,index)" :key="item.id">
 					<image style="width: 160rpx; height: 160rpx; margin-left: 10rpx;" mode="aspectFill" :src="item"></image>
 				</view>
 				<view v-if="fileList1.length == 0">
@@ -34,10 +34,10 @@
 			</view>
 			<view style="padding: 9rpx 9rpx;">
 				<text>商品：</text>
-				<view style="margin-left: 20rpx;" v-for="(item,index) in commodityList2"><text>{{item.name}}：<text>{{item.quantity}}</text></text></view>
+				<view style="margin-left: 20rpx;" v-for="(item,index) in commodityList2" :key="item.id"><text>{{item.name}}：<text>{{item.quantity}}</text></text></view>
 			</view>
 			<view class="image_container">
-				<view v-for="(item,index) in fileList2" @click="imageClick(2,index)">
+				<view v-for="(item,index) in fileList2" :key="item.id" @click="imageClick(2,index)">
 					<image style="width: 160rpx; height: 160rpx; margin-left: 10rpx;" mode="aspectFill" :src="item"></image>
 				</view>
 				<view v-if="fileList2.length == 0">
@@ -73,7 +73,7 @@ export default {
 			flag: true,
 			branchCode: '',
 			todayDate: '',
-			text1:'晚餐台账上传时段 ：第一次: 16:30----17:00  第二次: 18:00----18:30'
+			text1:'晚餐台账上传时段 ：第一次: 16:30----17:00  第二次: 18:00----18:30',
 		};
 	},
 	mounted() {
@@ -93,7 +93,7 @@ export default {
 	methods: {
 		navTo() {
 			if(that.checkTime()){
-				this.$Router.push({ name: 'addRecord', params: { category: '中晚餐' }})
+				this.$Router.push({ name: 'addRecord', params: { category: '晚餐' }})
 			}else{
 				uni.$u.toast('请在规定时间内上传')
 			}
@@ -177,13 +177,14 @@ export default {
 			})
 		},
 		checkTime(){
-			let time = new Date()
-			let timeLowwer1 =  new Date(that.todayDate + ' 16:30') 
-			let timeUpper1 = new Date(that.todayDate + ' 17:00') 
-			let timeLowwer2 = new Date(that.todayDate + ' 18:00') 
-			let timeUpper2 = new Date(that.todayDate + ' 18:30') 
-			let flag1 = time>=timeLowwer1&&time<=timeUpper1
-			let flag2 = time>=timeLowwer2&&time<=timeUpper2
+			let date = new Date()
+			let hour = date.getHours().toString()
+			let minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
+			
+			let flag1 = Number(hour+minute) >=1630 && Number(hour+minute) <=1700
+			let flag2 = Number(hour+minute) >=1800 && Number(hour+minute) <=1830
+			
+			
 			return (flag1||flag2)
 		}
 	}
