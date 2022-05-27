@@ -78,9 +78,9 @@
 					<view class="label">入职时间</view>
 					<input class="val" disabled="true" v-model="model1.userInfo.entryTime" @click="showPicker('dateShow')"/>
 				</u-form-item>
-				<u-form-item prop="userInfo.window" class="item flex"  style="width: 50%;">
+				<u-form-item prop="userInfo.windows" class="item flex"  style="width: 50%;">
 					<view class="label">所在窗口</view>
-					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.window"/>
+					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.windows"/>
 				</u-form-item>
 			</view>
 			<!-- 4 -->
@@ -224,7 +224,7 @@
 						message: '请输入入职日期',
 						trigger: ['change']
 					},
-					'userInfo.window':{
+					'userInfo.windows':{
 						type: 'string',
 						required:true,
 						message:'请输入所在窗口',

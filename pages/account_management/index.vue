@@ -17,7 +17,7 @@
 					<view style="margin-left: 20rpx; width: 80%; height:130rpx;display: flex;flex-direction: row; justify-content: space-between; ">
 						<view>
 							<text class="content" style="display: block;">{{item.name}}</text>
-							<view><text style="color: #999; font-size: 32rpx;padding: 0 6rpx;">所在窗口:</text><text>{{item.window}}</text></view>
+							<view><text style="color: #999; font-size: 32rpx;padding: 0 6rpx;">所在窗口:</text><text>{{item.windows}}</text></view>
 						</view>
 						<view class="flex" style="flex-direction: row; justify-content: center; align-items: center;"  >
 							<u-tag text="离职" size="mini" style="margin-right: 10rpx;" type="error" v-if="item.disabled"></u-tag>

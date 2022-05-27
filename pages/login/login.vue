@@ -26,7 +26,7 @@
 			</view>
 
 			<!-- 找回密码弹窗 -->
-			<u-popup :safeAreaInsetBottom="true" :safeAreaInsetTop="true" :mode="popupData.mode"
+			<u-popup :safeAreaInsetTop="true" :mode="popupData.mode"
 				:show="findPasswordShow" :round="popupData.round" :overlay="popupData.overlay"
 				:borderRadius="popupData.borderRadius" :closeable="popupData.closeable"
 				:closeOnClickOverlay="popupData.closeOnClickOverlay" @close="close">

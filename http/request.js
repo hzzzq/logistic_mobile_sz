@@ -1,4 +1,4 @@
-let baseUrl = 'http://101.33.249.154:8089'
+let baseUrl = 'http://36.134.80.177:8089'
 
 // import store from '../store/index.js'
 let methods = {

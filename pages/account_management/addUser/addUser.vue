@@ -121,12 +121,12 @@
 								</view>
 							</view>
 						</u-form-item>
-						<u-form-item  ref="item5" style="width: 50%;" prop="userInfo.window">
+						<u-form-item  ref="item5" style="width: 50%;" prop="userInfo.windows">
 							<view class="flex flexVc item_view">
 								<text class="form_lable flex_we">所在窗口：</text>
 								<view class="flex_we"> 
 									<u--input border="none" placeholder="所在窗口" fontSize="26rpx"
-										v-model="model1.userInfo.window"></u--input>
+										v-model="model1.userInfo.windows"></u--input>
 								</view>
 							</view>
 						</u-form-item>
@@ -219,7 +219,7 @@
 				model1: {
 					userInfo: {
 						branchCode:'',
-						window:'',
+						windows:'',
 						name:'',
 						sex:'',
 						age:'',
@@ -321,7 +321,7 @@
 						message: '请输入入职日期',
 						trigger: ['change']
 					},
-					'userInfo.window':{
+					'userInfo.windows':{
 						type: 'string',
 						required:true,
 						message:'请输入所在窗口',
@@ -402,7 +402,7 @@
 			},
 			// 表单重置
 			reset() {
-				const validateList = ['userInfo.name', 'userInfo.sex', 'userInfo.age', 'userInfo.idNumber', 'userInfo.phone','userInfo.state','userInfo.entryTime','userInfo.window',
+				const validateList = ['userInfo.name', 'userInfo.sex', 'userInfo.age', 'userInfo.idNumber', 'userInfo.phone','userInfo.state','userInfo.entryTime','userInfo.windows',
 					'userInfo.idAddress', 'userInfo.currentAddress', 'userInfo.riskArea','userInfo.outSide','userInfo.outsideRiskArea'
 				]
 				this.$refs.form1.resetFields()
