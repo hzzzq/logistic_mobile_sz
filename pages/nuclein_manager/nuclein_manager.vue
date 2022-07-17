@@ -16,8 +16,8 @@
 						<text class="label">状态:</text><text class="content">{{item.state}}</text>
 					</view>
 					<view class="flex" style="float: right">
-						<u-button  hairline="true" text="体温记录" size="small" color="rgb(10, 185, 156)" customStyle="width:60rpx;" @click="temperatureClick(item.userId)"></u-button>
-						<u-button  hairline="true" text="核酸记录" size="small" color="rgb(10, 185, 156)" customStyle="width:60rpx;margin-left:10rpx;" @click="nucleinClick(item.userId)"></u-button>
+						<u-button  :hairline="true" text="体温记录" size="small" color="rgb(10, 185, 156)" customStyle="width:60rpx;" @click="temperatureClick(item.userId)"></u-button>
+						<u-button  :hairline="true" text="核酸记录" size="small" color="rgb(10, 185, 156)" customStyle="width:60rpx;margin-left:10rpx;" @click="nucleinClick(item.userId)"></u-button>
 					</view>
 				</view>
 				<!-- row2 -->
@@ -27,16 +27,16 @@
 						<u--input
 							disabled
 							style="margin-left: 10rpx;  height: 50rpx;"
-							v-model="item.nucleinTime"
+							v-model="(item.nucleinTime==''||item.nucleinTime==undefined)?'暂无':item.nucleinTime"
 							border="surround"
 						></u--input>
 					</view>
 					<view style="width: 40%; margin-left: 10rpx;" class="flex flexVc" @click="showTemperature(item.userId,index)">
 						<text class="label">今日体温：</text>
 						<!-- 三种状态  -->
-						<u-button type="success" v-show="item.todayTemperature>=35&&item.todayTemperature<=37" plain="true" hairline="true" text="合格" size="small" customStyle="width:120rpx;flex:1"></u-button>
-						<u-button type="warning" v-show="item.todayTemperature==0" plain="true" hairline="true" text="未检测" size="small" customStyle="width:120rpx;flex:1;color:#f9ae3d"></u-button>
-						<u-button type="error" v-show="item.todayTemperature>0&&item.todayTemperature<35||item.todayTemperature>37" plain="true" hairline="true" text="不合格" size="small" customStyle="width:120rpx;flex:1"></u-button>
+						<u-button type="success" v-show="item.todayTemperature>=35&&item.todayTemperature<=37" :plain="true" :hairline="true" text="合格" size="small" customStyle="width:120rpx;flex:1"></u-button>
+						<u-button type="warning" v-show="item.todayTemperature==0" :plain="true" :hairline="true" text="未检测" size="small" customStyle="width:120rpx;flex:1;color:#f9ae3d"></u-button>
+						<u-button type="error" v-show="item.todayTemperature>0&&item.todayTemperature<35||item.todayTemperature>37" :plain="true" :hairline="true" text="不合格" size="small" customStyle="width:120rpx;flex:1"></u-button>
 					</view>
 				</view>
 			</view>
