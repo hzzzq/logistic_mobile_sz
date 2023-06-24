@@ -116,6 +116,13 @@
 					<input class="val" :disabled="UnModifiable" v-model=" model1.userInfo.riskAreaIsOutsideInfo" />
 				</u-form-item>
 			</view>
+			<!-- 7 -->
+			<view class="coloum_item flex flexVc" style="width: 100%;">
+				<u-form-item prop="userInfo.remark" class="item flex">
+					<view class="label" style="width: 100%;">备注</view>
+					<input class="val" :disabled="UnModifiable" v-model="model1.userInfo.remarks" />
+				</u-form-item>
+			</view>
 		</u--form>
 		<!-- 编辑按钮 -->
 		<view>
@@ -214,9 +221,9 @@
 					'userInfo.state': {
 						type: 'enum',
 						required: true,
-						message: '请输入在校/离校/请假',
+						message: '请输入在校/离职/请假',
 						trigger: ['change'],
-						enum: ['在校','离校','请假']
+						enum: ['在校','离职','请假']
 					},
 					'userInfo.entryTime': {
 						type: 'date',
@@ -257,13 +264,13 @@
 				date: Number(new Date()),
 				stateShow:false,
 				sexShow:false,
-				stateColumns:[['在校','离校','请假']],
+				stateColumns:[['在校','离职','请假']],
 				/* 性别选择器数组 */
 				sexColumns: [
 					['男', '女']
 				],
 				pictureList:[],
-				defaultImage:'http://101.33.249.154:8080/logistic_mobile/image/upload.png'
+				defaultImage:'http://43.142.150.186/logistic/image/upload.png'
 			}
 		},
 		created() {
@@ -437,7 +444,7 @@
 			uploadFilePromise(url) {
 				return new Promise((resolve, reject) => {
 					let a = uni.uploadFile({
-						url: 'http://101.33.249.154:8089/user/uploadImgs/img', // 仅为示例，非真实的接口地址
+						url: 'http://43.142.150.186:8089/user/uploadImgs/img', // 仅为示例，非真实的接口地址
 						filePath: url,
 						name: 'uploadImgs',
 						header:{"token": uni.getStorageSync('token')},

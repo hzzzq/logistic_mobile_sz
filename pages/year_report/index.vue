@@ -161,7 +161,7 @@
 			uploadFilePromise(url) {
 				return new Promise((resolve, reject) => {
 					let a = uni.uploadFile({
-						url: 'http://101.33.249.154:8089/user/uploadImgs/img', // 仅为示例，非真实的接口地址
+						url: 'http://43.142.150.186:8089/user/uploadImgs/img', // 仅为示例，非真实的接口地址
 						filePath: url,
 						name: 'uploadImgs',
 						header:{"token": uni.getStorageSync('token')},

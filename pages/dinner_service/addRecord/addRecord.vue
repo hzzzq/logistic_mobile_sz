@@ -39,6 +39,7 @@
 <script>
 	var that 
 	import meal from '@/http/api/meal.js'
+	import { mapGetters  } from 'vuex';
 export default {
 	data() {
 		return {
@@ -58,6 +59,11 @@ export default {
 			
 		};
 	},
+	computed: {
+		...mapGetters([
+			'getMealCategory',
+		]),
+	},
 	mounted() {
 		that = this
 		// 获取日期
@@ -71,7 +77,7 @@ export default {
 		/* 子菜单branchCode */
 		const tempCode = uni.getStorageSync('menuCode')
  		/*路由传值 区别早中晚餐*/	
-		const mealCategory = uni.getStorageSync('mealCategory')
+		const mealCategory = this.getMealCategory
 		if(tempCode){
 			this.branchCode = tempCode
 		}else{
@@ -178,7 +184,7 @@ export default {
 		uploadFilePromise(url) {
 			return new Promise((resolve, reject) => {
 				let a = uni.uploadFile({
-					url: 'http://101.33.249.154:8089/user/uploadImgs/img', // 仅为示例，非真实的接口地址
+					url: 'http://43.142.150.186:8089/user/uploadImgs/img', // 仅为示例，非真实的接口地址
 					filePath: url,
 					name: 'uploadImgs',
 					header:{"token": uni.getStorageSync('token')},

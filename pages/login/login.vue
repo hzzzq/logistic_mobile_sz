@@ -121,6 +121,8 @@
 							uni.setStorageSync('token', token)
 							uni.setStorageSync('userInfo', userInfo)
 							uni.setStorageSync('branchCode', branchCode)
+							this.$store.commit("setUserInfo",userInfo)
+							this.$store.commit("setBranchCode",branchCode)
 							that.$Router.push('/')
 						}else{
 							uni.showToast({

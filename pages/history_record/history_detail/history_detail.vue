@@ -20,8 +20,9 @@
 		
 		<!-- 泔水信息 -->
 		<view class="upload_box" v-if="historyCategory=='泔水'">
-			<view class="cellbox">
-				<text class="u-cell-text">泔水记录时间：</text>
+			<text class="u-demo-block__title">泔水记录</text>
+			<view class="cellbox" style="margin-top: 20rpx;">
+				<text class="u-cell-text">上传时间：</text>
 				<text style="margin-left: 20rpx;">{{detailList.recordTime}}</text>
 			</view>
 			<view class="cellbox">
@@ -94,6 +95,7 @@
 
 <script>
 	import yearReport from '../../../http/api/yearReport.js'
+	import { mapGetters  } from 'vuex';
 	var that
 	export default {
 		data() {
@@ -116,8 +118,13 @@
 						label: '商品数量',
 						key: 'quantity',
 						width:  this.upx2px(200)
-					}],
+				}],
 			}
+		},
+		computed: {
+			...mapGetters([
+				'getHistoryCategory',
+			]),
 		},
 		methods: {
 			upx2px(value) {
@@ -181,7 +188,8 @@
 			}
 		},
 		created() {
-			this.historyCategory = uni.getStorageSync('historyCategory')
+			this.historyCategory = this.getHistoryCategory
+			console.log(this.historyCategory)
 			/* 早中晚餐传过来的list */
 			const tempList = uni.getStorageSync('detailList')
 			if(tempList){
@@ -190,6 +198,7 @@
 				this.detailList = this.$Route.query.list
 				uni.setStorageSync('detailList',this.detailList)
 			}
+			console.log(this.detailList)
 		},
 		beforeDestroy() {
 			uni.removeStorageSync('detailList')

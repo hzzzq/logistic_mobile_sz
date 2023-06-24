@@ -93,6 +93,7 @@ export default {
 	methods: {
 		navTo() {
 			if(that.checkTime()){
+				this.$store.commit("setMealCategory",'晚餐')
 				this.$Router.push({ name: 'addRecord', params: { category: '晚餐' }})
 			}else{
 				uni.$u.toast('请在规定时间内上传')
@@ -169,6 +170,7 @@ export default {
 			}
 		},
 		historyClick(){
+			this.$store.commit("setHistoryCategory",'晚餐')
 			that.$Router.push({
 				name: 'historyRecord',
 				params: {
@@ -186,6 +188,7 @@ export default {
 			
 			
 			return (flag1||flag2)
+			// return true
 		}
 	}
 };
