@@ -55,7 +55,7 @@
 									<view class="flex flexVc item_view">
 										<text class="form_lable flex_we">状态：</text>
 										<view class="flex_we" @click="showPicker('stateShow')">
-											<u--input border="none" placeholder="在校/离校/请假" fontSize="26rpx" disabled
+											<u--input border="none" placeholder="在校/离职/请假" fontSize="26rpx" disabled
 												v-model="model1.userInfo.state"></u--input>
 										</view>
 									</view>
@@ -189,6 +189,15 @@
 							</view>
 						</view>
 					</u-form-item>
+					<u-form-item borderBottom prop="userInfo.remark">
+						<view class="flex flexVc">
+							<text class="form_lable flex_we" style="width:780rpx;">备注：</text>
+							<view class="flex_we" style="margin-left: 20rpx;" @click="remarkShow=true">
+								<u--input border="none" placeholder="请选择" fontSize="26rpx" disabled
+									v-model="model1.userInfo.remarks"></u--input>
+							</view>
+						</view>
+					</u-form-item>
 				</u--form>
 				<!-- 底部栏 -->
 				<u-button type="primary" text="提交" customStyle="margin-top: 80rpx; width:320rpx;height:80rpx"
@@ -207,6 +216,8 @@
 		<u-picker :show="riskShow" :columns="riskColumns" @cancel="cancel('riskShow')" @confirm="riskConfirm"></u-picker>
 		<!-- 冷链 -->
 		<u-picker :show="coldShow" :columns="coldColumns" @cancel="cancel('coldShow')" @confirm="coldConfirm"></u-picker>
+		<!-- 备注 -->
+		<u-picker :show="remarkShow" :columns="remarkColumns" @cancel="cancel('remarkShow')" @confirm="remarkConfirm"></u-picker>
 	</view>
 </template>
 
@@ -241,7 +252,8 @@
 						outSide:'',//是否有外来人口
 						outsideRiskArea:'',//外来人口中高风险区
 					// -----------------------
-						branchName:''
+						branchName:'',
+						remarks:""
 					},
 				},
 				/* 表单验证规则 */
@@ -311,9 +323,9 @@
 					'userInfo.state': {
 						type: 'enum',
 						required: true,
-						message: '请输入在校或离校',
+						message: '请输入在校请假或离职',
 						trigger: ['change'],
-						enum: ['在校','离校' ,'请假']
+						enum: ['在校','离职' ,'请假']
 					},
 					'userInfo.entryTime': {
 						type: 'date',
@@ -358,9 +370,10 @@
 				sexColumns: [
 					['男', '女']
 				],
-				stateColumns:[['在校','离校','请假']],
+				stateColumns:[['在校','离职','请假']],
 				riskColumns:[['是','否']],
 				coldColumns:[['是','否']],
+				remarkColumns:[['务工人员','后勤职工']],
 				sexShow: false,
 				stateShow: false,
 				dateShow: false,
@@ -370,7 +383,8 @@
 				/* 当前选择的是 是否去过中高风险   家中有无外来人员等 */
 				riskSelect:'',
 				coldShow:false,
-				pictureList: []
+				pictureList: [],
+				remarkShow:false
 			}
 		},
 		onReady() {
@@ -381,9 +395,9 @@
 			// 表单提交
 			submit() {
 				this.$refs.form1.validate().then(res => {
-					if(that.pictureList.length == 0){
-						uni.$u.toast('请上传用户头像')
-					}else{
+					// if(that.pictureList.length == 0){
+					// 	uni.$u.toast('请上传用户头像')
+					// }else{
 						let params = that.dataDispose(that.model1.userInfo)
 						employee.addEmployee(params).then((res)=>{
 							if(res.data.code != 200 ){
@@ -395,7 +409,7 @@
 								that.reset()
 							}
 						})
-					}
+					// }
 				}).catch(errors => {
 					uni.$u.toast('请正确填写信息')
 				})
@@ -470,6 +484,10 @@
 				that.model1.userInfo.coldInfo = bool
 				that.coldShow = false
 			},
+			remarkConfirm(e){
+				this.model1.userInfo.remarks = e.value[0]
+				this.remarkShow = false;
+			},
 			// 删除图片
 			deletePic(event) {
 				this[`pictureList`].splice(event.index, 1)
@@ -499,10 +517,9 @@
 			},
 			//上传方法
 			uploadFilePromise(url) {
-				
 				return new Promise((resolve, reject) => {
 					let a = uni.uploadFile({
-						url: 'http://101.33.249.154:8089/user/uploadImgs/img', // 仅为示例，非真实的接口地址
+						url: 'http://43.139.85.16:8089/user/uploadImgs/img', // 仅为示例，非真实的接口地址
 						filePath: url,
 						name: 'uploadImgs',
 						header:{"token": uni.getStorageSync('token')},

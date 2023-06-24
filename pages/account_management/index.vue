@@ -23,7 +23,7 @@
 							<u-tag text="离职" size="mini" style="margin-right: 10rpx;" type="error" v-if="item.disabled"></u-tag>
 							<u-tag text="冷链" size="mini" style="margin-right: 10rpx;" v-if="item.cold"></u-tag>
 							<u-button class="ins" v-show="item.state=='在校'" type="success" plain hairline :text="item.state" size="normal" customStyle="width:100rpx; font-size:32rpx"></u-button>
-							<u-button class="ins" v-show="item.state=='离校'" type="error" plain hairline :text="item.state" size="normal" customStyle="width:100rpx;"></u-button>
+							<u-button class="ins" v-show="item.state=='离职'" type="error" plain hairline :text="item.state" size="normal" customStyle="width:100rpx;"></u-button>
 							<u-button class="ins" v-show="item.state=='请假'" type="warning" plain hairline :text="item.state" size="normal" customStyle="width:100rpx; font-size:32rpx;color:#f9ae3d"></u-button>
 						</view>
 					</view>
@@ -60,7 +60,7 @@
 				refreshFlag:true,
 				// 进入详情后退出刷新页面flag
 				onShowFlag:false,
-				defaultPicture:'http://101.33.249.154:8080/logistic_mobile/image/user.png'
+				defaultPicture:'http://nobug.love/logistic/image/user.png'
 			};
 		},
 		watch: {

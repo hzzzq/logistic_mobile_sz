@@ -53,7 +53,6 @@
 					<text style="color: #9b9b9c;">记录时间：<text style="color: #3f3356;">{{item.inspectionTime}}</text></text>
 				</view>
 			</view>
-				
 		</view>
 	</view>
 </template>
@@ -63,6 +62,7 @@
 	import meal from '@/http/api/meal.js'
 	import disinfect from '@/http/api/disinfect.js'
 	import yearReport from '@/http/api/yearReport.js'
+	import { mapGetters  } from 'vuex';
 	
 	export default {
 		data() {
@@ -77,6 +77,11 @@
 				},
 				refreshFlag: true
 			}
+		},
+		computed: {
+			...mapGetters([
+				'getHistoryCategory',
+			]),
 		},
 		methods: {
 			getMealData(){
@@ -136,6 +141,11 @@
 				})
 			},
 			detailClick(list){
+				for(let i in list){
+					if(list[i]==null){
+						list[i] = ''
+					}
+				}
 				that.$Router.push({
 					name: 'historyDetail',
 					params: {
@@ -189,7 +199,7 @@
 			/* 当前食堂单位 */
 			const tempCode = uni.getStorageSync('menuCode') 
 			this.branchCode = tempCode
-			const historyCategory = uni.getStorageSync('historyCategory')
+			const historyCategory = this.getHistoryCategory
 			//当前类别
 			if(historyCategory){
 				this.historyCategory = historyCategory

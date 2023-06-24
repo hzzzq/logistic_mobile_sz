@@ -93,6 +93,7 @@ export default {
 	methods: {
 		navTo() {
 			if(that.checkTime()){
+				this.$store.commit("setMealCategory",'中餐')
 				this.$Router.push({ name: 'addRecord', params: { category: '中餐' }})
 			}else{
 				uni.$u.toast('请在规定时间内上传')
@@ -170,6 +171,7 @@ export default {
 
 		},
 		historyClick(){
+			this.$store.commit("setHistoryCategory",'中餐')
 			that.$Router.push({
 				name: 'historyRecord',
 				params: {
@@ -185,6 +187,7 @@ export default {
 			let flag2 = Number(hour+minute) >=1200 && Number(hour+minute) <=1230
 			
 			return (flag1||flag2)
+			// return true
 		}
 	}
 };

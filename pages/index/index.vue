@@ -2,7 +2,7 @@
 	<view class="container">
 		<!-- 轮播图 -->
 		<view>
-			<u-swiper :list="swiper_list" @change="change" @click="click" height="400rpx"></u-swiper>
+			<u-swiper :list="swiper_list" height="400rpx"></u-swiper>
 		</view>
 		<!-- tip 员工提示 -->
 		<view class="user_title_container">
@@ -58,24 +58,30 @@
 
 <script>
 	import user from '@/http/api/user.js'
+	import { mapGetters  } from 'vuex';
 	var that
 	export default {
 		data() {
 			return {
 				userInfo: {},
 				swiper_list: [
-					'http://101.33.249.154:8080/logistic_mobile/image/1.png',
-					'http://101.33.249.154:8080/logistic_mobile/image/2.png',
-					'http://101.33.249.154:8080/logistic_mobile/image/3.png',
-					'http://101.33.249.154:8080/logistic_mobile/image/4.png'
+					// 'http://nobug.love/logistic/image/1.png',
+					// 'http://nobug.love/logistic/image/2.png',
+					// 'http://nobug.love/logistic/image/3.png',
+					// 'http://nobug.love/logistic/image/4.png'
+					'http://nobug.love/logistic/image/5.jpg',
+					'http://nobug.love/logistic/image/6.jpg'
 				],
 				branchList: [],
 				second_branchList: [],
 				show: true
 			};
 		},
-		computed:{
-			
+		computed: {
+			...mapGetters([
+				'getUserInfo',
+				'getBranchCode'
+			]),
 		},
 		methods: {
 			// 根据用户权限获取对应菜单
@@ -98,14 +104,6 @@
 			loginOut() {
 				this.$Router.replace({name: 'login'})
 			},
-			//轮播图改变时的回调方法
-			change(e) {
-				// console.log('change', e);
-			},
-			//轮播图点击事件
-			click(e) {
-				// console.log('click', e);
-			},
 			selectMenu(branchCode,menu,branchName) {
 				this.$Router.push({
 					name: 'menuIndex',
@@ -114,7 +112,8 @@
 						menu:menu
 					}
 				})
-				uni.setStorageSync('menuName',branchName)
+				uni.setStorageSync('menuName', branchName);
+				this.$store.commit("setMenuName", branchName);
 			},
 			/* 退出登录的弹窗方法 */
 			outLoginModal(next){
@@ -134,8 +133,8 @@
 		},
 		mounted() {
 			that = this;
-			let userInfo = uni.getStorageSync('userInfo')
-			let branchCode = uni.getStorageSync('branchCode')
+			let userInfo = this.getUserInfo;
+			let branchCode = this.getBranchCode;
 			let params = {}
 			if (branchCode != '') {
 				params.branchCode = branchCode

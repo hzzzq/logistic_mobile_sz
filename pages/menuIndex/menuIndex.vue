@@ -33,10 +33,12 @@
 			return {
 				userInfo: {},
 				swiper_list: [
-					'http://101.33.249.154:8080/logistic_mobile/image/1.png',
-					'http://101.33.249.154:8080/logistic_mobile/image/2.png',
-					'http://101.33.249.154:8080/logistic_mobile/image/3.png',
-					'http://101.33.249.154:8080/logistic_mobile/image/4.png'
+					// 'http://nobug.love/logistic/image/1.png',
+					// 'http://nobug.love/logistic/image/2.png',
+					// 'http://nobug.love/logistic/image/3.png',
+					// 'http://nobug.love/logistic/image/4.png'
+					'http://nobug.love/logistic/image/5.jpg',
+					'http://nobug.love/logistic/image/6.jpg'
 				],
 				function_list: [],
 				branchCode: "",
@@ -166,6 +168,7 @@
 			}else{
 				this.branchCode = this.$Route.query.branchCode
 				uni.setStorageSync('menuCode', this.branchCode)
+				
 			}
 			if(tempMenu){
 				this.menuList = tempMenu

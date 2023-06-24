@@ -42,6 +42,7 @@
 <script>
 	var that
 	import meal from "@/http/api/meal.js"
+	import { mapGetters  } from 'vuex';
 	export default {
 		data() {
 			return {
@@ -69,10 +70,16 @@
 				uni.setStorageSync('menuCode', this.branchCode)
 			}
 		},
+		computed: {
+			...mapGetters([
+				'getMealCategory',
+			]),
+		},
 		methods: {
 			// 跳转
 			navTo() {
 				if(this.checkTime()){
+					this.$store.commit("setMealCategory",'早餐')
 					this.$Router.push({ name: 'addRecord', params: { category: '早餐' }})
 				}else{
 					uni.$u.toast('请在规定时间内上传')
@@ -123,6 +130,7 @@
 			},
 			// 历史跳转
 			historyClick(){
+				this.$store.commit("setHistoryCategory",'早餐')
 				that.$Router.push({
 					name: 'historyRecord',
 					params: {
@@ -134,9 +142,7 @@
 				let date = new Date()
 				let hour = date.getHours().toString()
 				let minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
-				
 				let flag = Number(hour+minute) >=630 && Number(hour+minute) <=830
-				
 				return flag
 			}
 		}
