@@ -1,4 +1,5 @@
 let baseUrl = 'http://43.139.85.16:8089'
+
 // import store from '../store/index.js'
 let methods = {
 	get(url, params) {
