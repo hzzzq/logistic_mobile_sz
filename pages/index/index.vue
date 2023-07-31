@@ -65,12 +65,10 @@
 			return {
 				userInfo: {},
 				swiper_list: [
-					// 'http://nobug.love/logistic/image/1.png',
-					// 'http://nobug.love/logistic/image/2.png',
-					// 'http://nobug.love/logistic/image/3.png',
-					// 'http://nobug.love/logistic/image/4.png'
-					'http://nobug.love/logistic/image/5.jpg',
-					'http://nobug.love/logistic/image/6.jpg'
+					'http://nobug.love/logistic/image/1.png',
+					'http://nobug.love/logistic/image/2.png',
+					'http://nobug.love/logistic/image/3.png',
+					'http://nobug.love/logistic/image/4.png'
 				],
 				branchList: [],
 				second_branchList: [],
